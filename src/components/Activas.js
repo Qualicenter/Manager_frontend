@@ -3,7 +3,7 @@ import CardButton from "./Button";
 
 const Card = styled.div`
     background-color: #fff;
-    width: 185px;
+    width: 155px;
     height: 210px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     display: flex;
@@ -14,6 +14,7 @@ const Card = styled.div`
     padding: 10px;
     gap: 10px;
     margin-bottom: 20px;
+    margin-left: 10px;
 `
 
 const Attribute = styled.h3`
