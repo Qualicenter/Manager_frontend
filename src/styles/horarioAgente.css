@@ -1,0 +1,31 @@
+.horario {
+    width: 100%;
+}
+
+.timeline {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.timeline th, .timeline td {
+    /* border: 1px solid black; */
+    padding: 5px 10px;
+    text-align: center;
+    position: relative;
+}
+
+.event {
+    height: auto;
+}
+
+.horario-linea {
+    height: 10px;
+    background-color: grey;
+    position: absolute;
+}
+
+.break-linea {
+    height: 10px;
+    background-color: red;
+    position: absolute;
+}
