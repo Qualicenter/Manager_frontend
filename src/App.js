@@ -44,15 +44,7 @@ function App() {
         <Column className='side'>
             <TitleComponent text='Llamadas Activas' />
             <div className='cards-wrapper'>
-                <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-                <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-                <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-                <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-                <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-                <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-                <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-                <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-                <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
+               <LlamadaActivaCard/>
             </div>
         </Column>
         <Column className='center'>
