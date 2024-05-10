@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Card = styled.div`
     background-color: #fff;
-    width: 185px;
+    width: 165px;
     height: 210px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     display: flex;
@@ -21,7 +21,7 @@ const Title = styled.h2`
 `
 
 const Value = styled.p`
-    font-size: 60px;
+    font-size: 50px;
     font-weight: 600;
     color: #009F23;
 `

@@ -1,0 +1,89 @@
+.btnInfo{
+    background-color: #060b26;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 0 5px;
+    display: flex;
+}
+
+.imgPerfil{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.estado{
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+
+}
+
+
+.agentesW {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: calc(16%);
+    gap: 5%;
+}
+
+.column{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 35%;
+    /* overflow-y: scroll;
+    overflow-x: scroll; */
+    gap: 5%;
+
+
+}
+
+@media (max-width: 600px) or (max-height: 600px) { 
+    .column {
+      flex-direction: row; 
+    }
+
+    .cardW {
+        width: 80%;
+        height: 100%;
+    }
+
+
+  }
+
+.cardW {
+    gap: 5%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 2%;
+    margin-top: 5%;
+        
+}
+
+.btnSeleccion{
+    background-color: #060b26;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 0 5px;
+    margin-top: 5%;
+    display: flex;
+}
+
