@@ -8,6 +8,10 @@
     font-size: 1em;
     margin: 0 5px;
     display: flex;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+    justify-content: center;
 }
 
 .imgPerfil{
@@ -17,12 +21,14 @@
     border-radius: 5px;
 }
 
+
 .estado{
     position: relative;
     top: 0;
     right: 0;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     background-color: red;
 
 }
@@ -31,47 +37,75 @@
 .agentesW {
     position: absolute;
     display: flex;
-    align-items: center;
+    align-items: left;
     left: calc(16%);
     gap: 5%;
+    flex-direction: column;
+
 }
 
 .column{
-    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 35%;
-    /* overflow-y: scroll;
-    overflow-x: scroll; */
-    gap: 5%;
+    justify-content: start;
+    width: 100%;
 
+    left: calc(16%);
+    align-items: left;
+    /* gap: 5%; */
 
+    
 }
 
 @media (max-width: 600px) or (max-height: 600px) { 
     .column {
-      flex-direction: row; 
+      flex-direction: column; 
     }
 
     .cardW {
-        width: 80%;
-        height: 100%;
+        height: 30%;
+        width: auto;
+        
     }
 
+    .tiposEstado{
+        font-size: 1em;
+
+    }
 
   }
 
 .cardW {
-    gap: 5%;
+    gap: 7%;
     position: relative;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 2%;
-    margin-top: 5%;
+    flex-direction: column;
+    justify-content: start;
+    /* width: 155px;
+    height: 300px; */
+    width: auto;
+    height: 20%;
+    margin-bottom: 5%;
+    margin-top: 2%;
+    margin-right: 5%;
+    align-items: center;
+    text-align: center;
+   
+
         
+}
+
+.alinear{
+    left: 16%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 100%;
+    height: 20%;
+    gap: 5%;
+    align-items: center;
+
+    
 }
 
 .btnSeleccion{
@@ -87,3 +121,29 @@
     display: flex;
 }
 
+.tiposEstado{
+    display: flex;
+    justify-content: space-between; 
+    font-size: 1.5em;
+    position: relative;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    left: 0;
+
+}
+
+.column[data-color="blue"] .estado{
+    background-color: #334de3;
+}
+
+.column[data-color="green"] .estado{
+    background-color: #26af3f;
+}
+
+.column[data-color="yellow"] .estado{
+    background-color: #e7e74c;
+}
+
+.column[data-color="gray"] .estado{
+    background-color: #52524e;
+}
