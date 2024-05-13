@@ -1,0 +1,30 @@
+.containerbox {
+    display: flex;
+    flex-direction: row;
+    height: 40vh;
+    width: 100%;
+}
+
+p {
+    margin: 5px;
+}
+
+.izqdatos {
+    flex: 50%;
+    display: grid;
+    place-items: center;
+}
+
+.derdatos {
+    flex: 50%;
+    text-align: left;
+    display: grid;
+    place-items: left;
+    overflow: auto;
+}
+
+.foto {
+    margin: 5px;
+    max-width: 170px;
+    max-height: 170px;
+}
