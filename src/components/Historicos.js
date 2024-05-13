@@ -177,7 +177,7 @@ const Historicos = () => {
   const [infoV, setInfoV] = useState(jsonVel);
   const [infoOc, setInfoOc] = useState(jsonOc);
   const [infoTiempo, setInfoTiempo] = useState(jsonTiempo);
-  const [infoResolucion, setInfoResolucion] = useState(jsonRes);
+  // const [infoResolucion, setInfoResolucion] = useState(jsonRes);
 
 
 
@@ -216,13 +216,13 @@ const Historicos = () => {
     "rgb(75, 192, 149)",
     timeLabelsTem
   );
-  const dataResolucion = createChartData(
-    infoResolucion,
-    "Resolucion al primer contacto",
-    resolucion,
-    "rgb(230, 155, 16)",
-    timeLabelsRes
-  );
+  // const dataResolucion = createChartData(
+  //   infoResolucion,
+  //   "Resolucion al primer contacto",
+  //   resolucion,
+  //   "rgb(230, 155, 16)",
+  //   timeLabelsRes
+  // );
 
   const handlerAbandono = (value) => {
     if (value > 0 && value <= 8) {
@@ -282,18 +282,18 @@ const Historicos = () => {
 
   };
 
-  const handlerContacto = (value) => {
-    if (value > 0 && value <= 8) {
-      setTimeLabelsRes(generarTiempo());
-      setResolucion(value);
-    } else {  
-      setTimeLabelsRes(generarFechas(fechaIni, getFechaFin(value)));
-      setResolucion(getDias(fechaIni, getFechaFin(value)));
-      setInfoResolucion(mesRes);
-    }
-    // setTimeLabels(generarTiempo());
-    // setResolucion(value);
-  };
+  // const handlerContacto = (value) => {
+  //   if (value > 0 && value <= 8) {
+  //     setTimeLabelsRes(generarTiempo());
+  //     setResolucion(value);
+  //   } else {  
+  //     setTimeLabelsRes(generarFechas(fechaIni, getFechaFin(value)));
+  //     setResolucion(getDias(fechaIni, getFechaFin(value)));
+  //     setInfoResolucion(mesRes);
+  //   }
+  //   // setTimeLabels(generarTiempo());
+  //   // setResolucion(value);
+  // };
 
   return (
     <div className="historico">
@@ -349,7 +349,10 @@ const Historicos = () => {
             id="tiempoLlamada"
           />
         </div>
-        <div className="cards-wrapper">
+        <div className="cards-wrapper"> 
+
+          </div>
+        {/* <div className="cards-wrapper">
           <TitleF>Resolución al primer contacto</TitleF>
           <Line options={options} data={dataResolucion} />
           <Seleccion
@@ -357,7 +360,7 @@ const Historicos = () => {
             onInputChange={handlerContacto}
             id="Resolucion"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

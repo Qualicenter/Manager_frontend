@@ -145,6 +145,7 @@ const Agentes = () => {
 
         <div className="alinear">
           <div className="alinear">
+            <AgentesIndividual nombre="Juan" apellido="Perez" />
           {/* {arrAgDisponibles.length > 0 && ( 
                         arrAgDisponibles.map((agente) => (
                         <AgentesIndividual key={agente.id} nombre={agente.nombre} apellido={agente.apellido} />
@@ -153,12 +154,13 @@ const Agentes = () => {
             {arrAgDisponibles.length === 0 && <p>No hay agentes actualmente</p>} */}
             {arrAgDisponibles.length > 0 &&
               arrAgDisponibles
-                .slice(0, 3)
+                .slice(0, 2)
                 .map((agente) => (
                   <AgentesIndividual
                     key={agente.id}
                     nombre={agente.nombre}
                     apellido={agente.apellido}
+                    
                   />
                 ))}
             {arrAgDisponibles.length === 0 && <p>No hay agentes actualmente</p>}

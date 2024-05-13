@@ -17,6 +17,7 @@ const AgentesIndividual = ({nombre, apellido}) => {
             <img className='imgPerfil'src={require('../images/profile.png')} alt='Profile'></img>
             <Title>{nombre} {apellido}</Title>
             <button className='btnInfo'>Mas</button>
+            <button className='btnInfo'>Comentario</button>
         
                     
         </div>

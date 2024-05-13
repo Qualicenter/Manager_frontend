@@ -37,6 +37,7 @@ const KpiCard = (props) => {
             <Title>{props.title}</Title>
             <Value>{props.value}</Value>
             <Description>{props.description}</Description>
+            <div></div>
         </Card>
     )
 }

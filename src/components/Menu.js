@@ -47,15 +47,7 @@ const Menu = () => {
     <Column className='side'>
         <TitleComponent text='Llamadas Activas' />
         <div className='cards-wrapper'>
-            <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-            <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-            <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-            <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-            <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-            <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-            <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-            <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
-            <LlamadaActivaCard agente='Juan Perez' cliente='Juan Perez' tiempo='2:30' sentimiento='Feliz' />
+          <LlamadaActivaCard/>
         </div>
     </Column>
     <Column className='center'>
@@ -73,7 +65,7 @@ const Menu = () => {
             <KpiCard title='Velocidad media de Respuesta' value='11s' description='' />
             <KpiCard title='Ocupacion' value='75%' description='Total de llamadas colgadas: 1804' />
             <KpiCard title='Tiempo promedio de Llamada' value='3:20' description='Total de llamadas abandonadas: 25' />
-            <KpiCard title='Resolución al primer Contacto' value='56%' description='Consultas resueltas al primer contacto: 1245' />
+            {/* <KpiCard title='Resolución al primer Contacto' value='56%' description='Consultas resueltas al primer contacto: 1245' /> */}
         </div>
     </Column>
 </Wrapper>
