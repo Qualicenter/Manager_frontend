@@ -30,7 +30,7 @@ const Value = styled.p`
     font-weight: 400;
 `
 
-const LlamadaActivaCard = (props) => {
+const LlamadaActivaCard = () => {
        
     //Datos dummy para organizar las llamadas
     const [arrLlamadas, setArrLlamadas] = useState([
@@ -86,7 +86,7 @@ const LlamadaActivaCard = (props) => {
         const llamadasOrdenadasFinal = ordenarLlamadasAsistencia(llamadasOrdenadas);
 
         setArrLlamadas(llamadasOrdenadasFinal);
-    }, []);
+    }, [arrLlamadas]);
 
 
 
