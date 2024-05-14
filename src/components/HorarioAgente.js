@@ -7,7 +7,7 @@ const Horario = (props) => {
   const calcularPosicion = (hora) => {
     const time = new Date(`2024-01-01T${hora}:00`);
     const medianoche = new Date(`2024-01-01T00:00:00`);
-    const posicion = (((time - medianoche) / (1000 * 60 * 60)) * 100) / 24;
+    const posicion = (((time - medianoche) / (1000 * 60 * 60)) * 200) / 24;
     return posicion;
   };
 
@@ -16,9 +16,9 @@ const Horario = (props) => {
       <table className="timeline">
         <thead>
           <tr>
-            <th> </th>
-            <th>Hora Inicial</th>
-            <th>Hora Final</th>
+            <th width="20%"> </th>
+            <th width="17%">Hora Inicial</th>
+            <th width="17%">Hora Final</th>
             <th>Timeline</th>
           </tr>
         </thead>
@@ -39,7 +39,7 @@ const Horario = (props) => {
                   <div
                     className="horario-linea"
                     style={{
-                      left: `${posicionInicio}%`,
+                      left: `${posicionInicio-60}%`,
                       width: `${posicionFin - posicionInicio}%`,
                       height: "20px",
                       backgroundColor: "grey",
@@ -56,7 +56,7 @@ const Horario = (props) => {
                           key={i}
                           className="horario-linea"
                           style={{
-                            left: `${horarioInicialPos}%`,
+                            left: `${horarioInicialPos-60}%`,
                             width: `${horarioFinalPos - horarioInicialPos}%`,
                             height: "20px",
                             backgroundColor: "red",

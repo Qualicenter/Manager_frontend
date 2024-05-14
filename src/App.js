@@ -5,6 +5,7 @@ import Agentes from './components/Agentes';
 import Menu from './components/Menu';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import BarraNav from './components/BarraNav';
+import KpiAgente from './components/KpiAgente';
 
 
 
@@ -19,8 +20,8 @@ function App() {
                     <Routes>
                         <Route path='/' element={<Menu />} />
                         <Route path='/agentes' element={<Agentes />}/>
+                        <Route path='/agente/kpi' element={<KpiAgente />} />
                         <Route path='/historicos' element={<Historicos />}/>
-                        
                     </Routes>
             </Router>
         </div >
