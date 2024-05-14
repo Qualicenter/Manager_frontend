@@ -100,7 +100,6 @@ const LlamadaActivaCard = () => {
                     <Attribute>Tiempo: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
                     <Attribute>Sentimiento: <Value>{llamada.contenido.sentimiento}</Value></Attribute>
                     <Attribute>Asistencia: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.asistencia}</Value></Attribute>
-                    <CardButton txt='Monitorear' />
                     <CardButton txt='Transcripción' />
                 </Card>
             );

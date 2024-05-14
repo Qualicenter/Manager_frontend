@@ -42,7 +42,7 @@
     left: calc(16%);
     gap: 5%;
     flex-direction: column;
-
+    
 }
 
 .column{
@@ -91,9 +91,7 @@
     margin-right: 5%;
     align-items: center;
     text-align: center;
-   
-
-        
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .alinear{
