@@ -1,8 +1,12 @@
+import { useState } from "react";
 import "../styles/centro-notif.css";
 import Mensaje from "./Mensaje";
+import DetallesMensaje from "./DetallesMensaje";
 
 const CentroNotif = (props) => {
     const { cancelar, notificaciones } = props;
+    const [showDetallesMensaje,setDetallesMensaje] = useState(false)
+    const [idMensajeSeleccionado, setIdMensajeSeleccionado] = useState()
 
     const onclikHandlerdivexterno = (e) => {
         cancelar();
@@ -10,6 +14,12 @@ const CentroNotif = (props) => {
 
     const onClickHandlerdivinterno = (e) => {
         e.stopPropagation();
+    }
+
+    const handleMensajeClick = (mensajeSeleccionado) => {
+        console.log('Click en el mensaje')
+        setDetallesMensaje(!showDetallesMensaje)
+        setIdMensajeSeleccionado(mensajeSeleccionado)
     }
 
     return (
@@ -20,12 +30,13 @@ const CentroNotif = (props) => {
                     {notificaciones.map((notificacion) => {
                         const mensaje = notificacion.Message ? notificacion.Message : "Mensaje de prueba";
                         return (
-                            <li key={notificacion.id}>
+                            <li key={notificacion.id} onClick={() => handleMensajeClick(notificacion)}>
                                 <Mensaje mensaje={mensaje} sender={notificacion.Sender}></Mensaje>
                             </li>
                         )
                     })}
                 </ul>
+                {showDetallesMensaje ? <DetallesMensaje mensaje={idMensajeSeleccionado} cerrar={handleMensajeClick}/> : <div/>}
                 <button onClick={cancelar}>Cerrar</button>
             </div>
         </div>
