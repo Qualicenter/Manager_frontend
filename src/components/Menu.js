@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import "../images/profile.png";
 import TitleComponent from './Title';
@@ -7,6 +7,8 @@ import LlamadaEsperaCard from './Espera';
 import LlamadaActivaCard from './Activas';
 import {useState} from "react";
 import ListaTranscripcion from "./ListaTranscripcion";
+import CentroNotif from "./CentroNotif";
+import '../styles/button-centro-notif.css';
 
 const Menu = () => {
   const Wrapper = styled.main`
@@ -41,16 +43,40 @@ const Menu = () => {
     }
   `;
   const [showVentanaTranscripcion, setShwoVentanaTranscripcion] = useState(false);
+  const [showCentroNotificaciones, setShowCentroNotificaciones] = useState(false);
+  const [notificaciones, setNotificaciones] = useState([]);
 
   const showVentanaHandler = () => {
     setShwoVentanaTranscripcion(!showVentanaTranscripcion);
   }
 
+  const showCentroNotificacionesHandler = () => {
+    setShowCentroNotificaciones(!showCentroNotificaciones);
+  }
+
+    const descargarNotificaciones = async () => {
+        try {const res = await fetch('http://localhost:8080/messages/getMessages');
+        const data = await res.json();
+        console.log(data[0].Items);
+        setNotificaciones(data[0].Items);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+      setTimeout(() => {
+        descargarNotificaciones();
+      }, 3000);
+    })
+
   return (
     <Wrapper>
        {showVentanaTranscripcion && <ListaTranscripcion cancelar={showVentanaHandler} />}
+        {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificaciones} />}
     <Column className='side'>
         <TitleComponent text='Llamadas Activas' />
+        <button onClick={showCentroNotificacionesHandler} className="button-centro-notif">Centro de Notificaciones</button>
         <div className='cards-wrapper'>
           <LlamadaActivaCard funcVentanaTranscripcion={showVentanaHandler}/>
         </div>

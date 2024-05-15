@@ -3,7 +3,7 @@ import styled from "styled-components"
 const Title = styled.h1`
     font-size: 24px;
     font-weight: 600;
-    margin-bottom: 22px;
+    margin-bottom: 40px;
 `
 
 const TitleComponent = (props) => {
