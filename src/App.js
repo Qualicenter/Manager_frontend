@@ -3,6 +3,7 @@ import './App.css';
 import Historicos from './components/Historicos';
 import Agentes from './components/Agentes';
 import Menu from './components/Menu';
+import Encuesta from './components/Encuesta';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import BarraNav from './components/BarraNav';
 
@@ -19,6 +20,7 @@ function App() {
                     <Routes>
                         <Route path='/' element={<Menu />} />
                         <Route path='/agentes' element={<Agentes />}/>
+                        <Route path='/encuesta' element={<Encuesta />}/>
                         <Route path='/historicos' element={<Historicos />}/>
                         
                     </Routes>

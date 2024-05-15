@@ -1,9 +1,13 @@
 .historico {
-    position: absolute;
+    position: relative;
     display: flex;
+    width: 80%;
     align-items: center;
     left: calc(16%);
     gap: 5%;
+    top: 5%;
+    overflow-x: scroll;
+
 }
 
 .row{
@@ -13,10 +17,10 @@
     justify-content: space-between;
     width: 45%;
     align-items: center;
-    /* overflow-y: scroll;
-    overflow-x: scroll; */
+    overflow-y: scroll;
+    overflow-x: scroll;
     gap: 5%;
-
+    align-self: flex-start;
 
 }
 
@@ -29,23 +33,24 @@
         width: 80%;
         height: 100%;
     }
-
-
   }
 
 .cards-wrapper {
     gap: 5%;
+    max-width: 100%;
     position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    height: 100%;
+    overflow-y: scroll;
+    overflow-x: scroll;
     margin-bottom: 2%;
     align-items: center;
 }
 
+
 .btnSeleccion{
-    background-color: #060b26;
+    background-color: #33b2c0;
     color: white;
     border: none;
     border-radius: 5px;
@@ -53,11 +58,17 @@
     cursor: pointer;
     font-size: 1em;
     margin: 0 5px;
-    margin-top: 5%;
     display: flex;
+    width: 20%;
+    height: 50%;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 5%;
+
 }
 
 .btnWrapper{
+    color: white;
     display: flex;
     justify-content: space-between; 
     align-items: center; 
@@ -69,3 +80,5 @@
 .fecha{
     display: none;
 }
+
+
