@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import '../styles/encuesta.css';
+
 function Comentario({ onSubmit }) {
   const [comentario, setComentario] = useState('');
   const [comentarioValido, setComentarioValido] = useState(false);
@@ -28,7 +30,7 @@ function Comentario({ onSubmit }) {
         onChange={handleChangeComentario}
         placeholder="Comentario"
       />
-      <button onClick={handleSubmit} disabled={!comentarioValido}>Enviar comentario</button>
+      <button className='comentario' onClick={handleSubmit} disabled={!comentarioValido}>Enviar comentario</button>
     </div>
   );
 }

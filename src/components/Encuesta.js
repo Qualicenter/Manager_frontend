@@ -84,7 +84,7 @@ function Encuesta() {
 
       <div className="lado-derecho">
         {preguntas[preguntaActual].opciones.map((respuesta) => (
-          <button key={respuesta.textoRespuesta} onClick={() => handlePuntuacion(respuesta.isVerdad, respuesta.isPart, respuesta.isFalso)} style={{ display: mostrarPregunta ? 'block' : 'none' }}>
+          <button className='env' key={respuesta.textoRespuesta} onClick={() => handlePuntuacion(respuesta.isVerdad, respuesta.isPart, respuesta.isFalso)} style={{ display: mostrarPregunta ? 'block' : 'none' }}>
             {respuesta.textoRespuesta}
           </button>
         ))}

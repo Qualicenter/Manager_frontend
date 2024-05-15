@@ -19,7 +19,7 @@ const AgentesIndividual = ({nombre, apellido, im}) => {
                 <Link to="/agente/kpi">Mas</Link>
             </button>
             <button className='btnInfo'>
-                <Link className="comentario"to="/encuesta">Comentario</Link>
+                <Link to="/encuesta">Comentario</Link>
             </button>
         </div>
     )
