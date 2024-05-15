@@ -5,6 +5,8 @@ import TitleComponent from './Title';
 import KpiCard from './Kpi';
 import LlamadaEsperaCard from './Espera';
 import LlamadaActivaCard from './Activas';
+import {useState} from "react";
+import ListaTranscripcion from "./ListaTranscripcion";
 
 const Menu = () => {
   const Wrapper = styled.main`
@@ -38,15 +40,19 @@ const Menu = () => {
       overflow-y: scroll;
     }
   `;
+  const [showVentanaTranscripcion, setShwoVentanaTranscripcion] = useState(false);
 
+  const showVentanaHandler = () => {
+    setShwoVentanaTranscripcion(!showVentanaTranscripcion);
+  }
 
   return (
     <Wrapper>
-       
+       {showVentanaTranscripcion && <ListaTranscripcion cancelar={showVentanaHandler} />}
     <Column className='side'>
         <TitleComponent text='Llamadas Activas' />
         <div className='cards-wrapper'>
-          <LlamadaActivaCard/>
+          <LlamadaActivaCard funcVentanaTranscripcion={showVentanaHandler}/>
         </div>
     </Column>
     <Column className='center'>

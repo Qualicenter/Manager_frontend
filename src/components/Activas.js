@@ -30,6 +30,17 @@ const Value = styled.p`
     font-weight: 400;
 `
 
+const Button = styled.button`
+    width: 127px;
+    height: 27px;
+    background: #00A2E3;
+    color:  white;
+    font-size: 12px;
+    font-weight: 600;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+`
+
 const LlamadaActivaCard = (props) => {
 
   const arrLlamadasPrev = useRef();
@@ -94,7 +105,7 @@ const LlamadaActivaCard = (props) => {
                     <Attribute>Tiempo: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
                     <Attribute>Sentimiento: <Value>{llamada.contenido.sentimiento}</Value></Attribute>
                     <Attribute>Asistencia: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.asistencia}</Value></Attribute>
-                    <CardButton txt='Transcripción' />
+                    <Button onClick={props.funcVentanaTranscripcion}>Transcripcion</Button>
                 </Card>
             );
         })
