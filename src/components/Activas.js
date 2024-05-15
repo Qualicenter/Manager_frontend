@@ -4,8 +4,8 @@ import { useCallback, useEffect, useState, useRef } from "react";
 
 const Card = styled.div`
     background-color: #fff;
-    width: 155px;
-    height: 210px;
+    width: 200px;
+    height: 220px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     display: flex;
     flex-direction: column;
