@@ -32,9 +32,8 @@ const Menu = () => {
 
     div.cards-wrapper {
       position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
       max-width: 100%;
       overflow-y: scroll;
     }

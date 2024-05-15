@@ -3,9 +3,6 @@ import styled from "styled-components";
 // import "../images/1.png";
 import { Link } from 'react-router-dom';
 
-import React from 'react';
-import { Link } from "react-router-dom";
-
 const AgentesIndividual = ({nombre, apellido, im}) => {
     const Title = styled.h2`
     font-size: 20px;
