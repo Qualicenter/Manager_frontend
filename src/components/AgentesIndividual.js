@@ -1,11 +1,12 @@
 import "../styles/agentes.css";
 import styled from "styled-components";
-import "../images/profile.png";
+// import "../images/1.png";
+import { Link } from 'react-router-dom';
 
 import React from 'react';
 import { Link } from "react-router-dom";
 
-const AgentesIndividual = ({nombre, apellido}) => {
+const AgentesIndividual = ({nombre, apellido, im}) => {
     const Title = styled.h2`
     font-size: 20px;
     font-weight: 600;
@@ -20,7 +21,9 @@ const AgentesIndividual = ({nombre, apellido}) => {
             <button className='btnInfo'>
                 <Link to="/agente/kpi">Mas</Link>
             </button>
-            <button className='btnInfo'>Comentario</button>
+            <button className='btnInfo'>
+                <Link className="comentario"to="/encuesta">Comentario</Link>
+            </button>
         </div>
     )
 }

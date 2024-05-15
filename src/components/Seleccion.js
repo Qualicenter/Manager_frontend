@@ -1,5 +1,6 @@
 import React, { useState, useRef, forwardRef } from "react";
 import "../styles/historicos.css";
+// import "../styles/seleccion.css";
 
 
 const Seleccion = forwardRef((props, ref) => {

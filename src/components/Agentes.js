@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "../styles/agentes.css";
-import "../images/profile.png";
+import "../images/1.png";
 import AgentesIndividual from "./AgentesIndividual";
 
 
@@ -145,7 +145,9 @@ const Agentes = () => {
 
         <div className="alinear">
           <div className="alinear">
-            <AgentesIndividual nombre="Juan" apellido="Perez" />
+            <AgentesIndividual nombre="Juan" apellido="Perez" im = ""/>
+            <AgentesIndividual nombre="Ana" apellido="Rodriguez" im = ""/>
+            <AgentesIndividual nombre="María" apellido="López" im = ""/>
           {/* {arrAgDisponibles.length > 0 && ( 
                         arrAgDisponibles.map((agente) => (
                         <AgentesIndividual key={agente.id} nombre={agente.nombre} apellido={agente.apellido} />
@@ -154,7 +156,7 @@ const Agentes = () => {
             {arrAgDisponibles.length === 0 && <p>No hay agentes actualmente</p>} */}
             {arrAgDisponibles.length > 0 &&
               arrAgDisponibles
-                .slice(0, 2)
+                .slice(0, 1)
                 .map((agente) => (
                   <AgentesIndividual
                     key={agente.id}
@@ -172,13 +174,19 @@ const Agentes = () => {
         <h1 className="tiposEstado">En llamada</h1>
         <div className="alinear">
           <div className="alinear">
+            <AgentesIndividual nombre="Carlos" apellido="Sanchez" im = ""/>
+            <AgentesIndividual nombre="Sofia" apellido="Ramirez" im = ""/>
+            <AgentesIndividual nombre="Diego" apellido="Martinez" im = ""/>
+            <AgentesIndividual nombre="Laura" apellido="Gonzales" im = ""/>
+            
+
             {/* {arrAgLlamada.length > 0 && ( 
                         arrAgLlamada.map((agente) => (
                         <AgentesIndividual key={agente.id} nombre={agente.nombre} apellido={agente.apellido} />
                         ))
                     )}
             {arrAgLlamada.length === 0 && <p>No hay agentes actualmente</p>} */}
-            {arrAgDisponibles.length > 0 &&
+            {/* {arrAgDisponibles.length > 0 &&
               arrAgDisponibles
                 .slice(4, 6)
                 .map((agente) => (
@@ -188,7 +196,7 @@ const Agentes = () => {
                     apellido={agente.apellido}
                   />
                 ))}
-            {arrAgDisponibles.length === 0 && <p>No hay agentes actualmente</p>}
+            {arrAgDisponibles.length === 0 && <p>No hay agentes actualmente</p>} */}
           </div>
         </div>
       </div>
@@ -198,6 +206,7 @@ const Agentes = () => {
 
         <div className="alinear">
           <div className="alinear">
+            
                         {/* {arrAgDescanso.length > 0 && ( 
                         arrAgDescanso.map((agente) => (
                         <AgentesIndividual key={agente.id} nombre={agente.nombre} apellido={agente.apellido} />
@@ -224,6 +233,7 @@ const Agentes = () => {
 
         <div className="alinear">
           <div className="alinear">
+          
             {/* {arrAgAusente.length > 0 && ( 
                         arrAgAusente.map((agente) => (
                         <AgentesIndividual key={agente.id} nombre={agente.nombre} apellido={agente.apellido} />

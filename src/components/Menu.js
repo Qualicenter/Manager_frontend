@@ -52,10 +52,10 @@ const Menu = () => {
     </Column>
     <Column className='center'>
         <TitleComponent text='Línea de Espera' />
-        <LlamadaEsperaCard cliente='Juan Perez' tiempo='2:30' />
-        <LlamadaEsperaCard cliente='Juan Perez' tiempo='2:30' />
-        <LlamadaEsperaCard cliente='Juan Perez' tiempo='2:30' />
-        <LlamadaEsperaCard cliente='Juan Perez' tiempo='2:30' />
+        <LlamadaEsperaCard cliente='Luisa Chanvez' tiempo='2:30' />
+        <LlamadaEsperaCard cliente='José Montés' tiempo='2:30' />
+        <LlamadaEsperaCard cliente='Ian Saldovar' tiempo='2:30' />
+        <LlamadaEsperaCard cliente='Pablo Olivares' tiempo='2:30' />
     </Column>
     <Column className='side'>
         <TitleComponent text="KPI's Generales" />
