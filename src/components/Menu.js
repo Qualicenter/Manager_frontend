@@ -64,19 +64,13 @@ const Menu = () => {
         }
     };
 
-    useEffect(() => {
-      setTimeout(() => {
-        descargarNotificaciones();
-      }, 3000);
-    })
-
   return (
     <Wrapper>
        {showVentanaTranscripcion && <ListaTranscripcion cancelar={showVentanaHandler} />}
         {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificaciones} />}
     <Column className='side'>
         <TitleComponent text='Llamadas Activas' />
-        <button onClick={showCentroNotificacionesHandler} className="button-centro-notif">Centro de Notificaciones</button>
+        <button onClick={() => {showCentroNotificacionesHandler();descargarNotificaciones()}} className="button-centro-notif">Centro de Notificaciones</button>
         <div className='cards-wrapper'>
           <LlamadaActivaCard funcVentanaTranscripcion={showVentanaHandler}/>
         </div>
