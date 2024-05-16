@@ -70,7 +70,7 @@ const Menu = () => {
         {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificaciones} />}
     <Column className='side'>
         <TitleComponent text='Llamadas Activas' />
-        <button className="comentario" onClick={() => {showCentroNotificacionesHandler();descargarNotificaciones()}} className="button-centro-notif">Centro de Notificaciones</button>
+        <button className="button-centro-notif" onClick={() => {showCentroNotificacionesHandler();descargarNotificaciones()}} >Centro de Notificaciones</button>
         <div className='cards-wrapper'>
           <LlamadaActivaCard funcVentanaTranscripcion={showVentanaHandler}/>
         </div>
