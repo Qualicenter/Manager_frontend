@@ -1,29 +1,55 @@
 .historial {
     width: 100%;
+    text-align: center;
 }
 
 .historial table {
-    width: 100%;
     border-collapse: collapse;
 }
 
-.historial th, .historial td {
-    border: 1px solid black;
+.historial th, td {
     padding: 10px;
 }
 
-h3 {
+.historial th {
+    position: relative;
+    background-color: #f2f2f2;
+}
+
+.historial button{
+    background-color: #0096AE;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.filtro {
+    position: absolute;
+    transform: translateX(-50%);
+}
+
+.titulo {
     text-align: left;
+    padding: 10px 0;
 }
 
 .popup {
     position: fixed;
     top: 50%;
     left: 50%;
+    width: 400px;
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
+}
+
+.popup p {
+    text-align: left;
 }
