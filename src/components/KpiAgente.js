@@ -3,8 +3,8 @@
 import "../styles/datosAgente.css";
 import Datos from "./DatosAgente";
 import Historial from "./HistorialLlamadas";
+import Desempenio from "./DesAgente";
 import styled from "styled-components";
-import Horario from "./HorarioAgente";
 import { useNavigate } from "react-router-dom";
 import * as FaIcons from 'react-icons/fa';
 
@@ -86,160 +86,133 @@ const KpiAgente = () => {
                 llamadasRespondidas: 15,
                 llamadasAbandonadas: 5,
                 promedio: "3m 21s",
-                nivelDeServicio: "90%",
               }}
             />
           </Box>
           <Box>
-            <Horario
-              eventos={[
-                {
-                  tipo: "Horario laboral",
-                  horaInicio: "08:00",
-                  horaFin: "16:00",
-                  color: "lightblue",
-                },
-                {
-                  tipo: "Descansos",
-                  horaInicio: "10:00 12:00",
-                  horaFin: "10:15 12:30",
-                  color: "lightgreen",
-                  horarios: ["10:00-10:15", "12:00-12:30"],
-                },
-                {
-                  tipo: "Llamadas Respondidas",
-                  horaInicio: "08:30",
-                  horaFin: "09:30",
-                  color: "lightyellow",
-                },
-                {
-                  tipo: "Llamadas en Espera",
-                  horaInicio: "11:00",
-                  horaFin: "11:30",
-                  color: "lightcoral",
-                },
-              ]}
+            <Desempenio 
+              label="Nivel de Servicio"
+              porcentaje={89}
+              color=""
+              obj={80}
+            />
+            <Desempenio
+              label="Tasa de respuesta"
+              porcentaje={80}
+              color="rgb(255, 99, 132)"
+              obj={70}
+            />
+            <Desempenio
+              label="Ocupación"
+              porcentaje={20.3}
+              color="rgb(75, 192, 192)"
+              obj={''}
             />
           </Box>
         </Left>
         <Right>
-          <Historial
+        <Historial
             llamadas={[
               {
-                casoId: 1,
-                fecha: "2021-08-01",
+                hora: "09:00:00",
                 cliente: "Cliente 1",
                 duracion: "2m 30s",
                 transcripcion:
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
               },
               {
-                casoId: 2,
-                fecha: "2021-08-02",
+                hora: "09:15:00",
                 cliente: "Cliente 2",
                 duracion: "3m 45s",
                 transcripcion:
                   "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
               },
               {
-                casoId: 3,
-                fecha: "2021-08-03",
+                hora: "09:30:00",
                 cliente: "Cliente 3",
                 duracion: "1m 15s",
                 transcripcion:
                   "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
               },
               {
-                casoId: 4,
-                fecha: "2021-08-04",
+                hora: "09:34:00",
                 cliente: "Cliente 4",
                 duracion: "4m 20s",
                 transcripcion:
                   "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
               },
               {
-                casoId: 5,
-                fecha: "2021-08-05",
+                hora: "09:40:00",
                 cliente: "Cliente 5",
                 duracion: "3m 10s",
                 transcripcion:
                   "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
               },
               {
-                casoId: 6,
-                fecha: "2021-08-06",
+                hora: "09:45:00",
                 cliente: "Cliente 6",
                 duracion: "2m 50s",
                 transcripcion:
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
               },
               {
-                casoId: 7,
-                fecha: "2021-08-07",
+                hora: "09:52:00",
                 cliente: "Cliente 7",
                 duracion: "1m 30s",
                 transcripcion:
                   "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
               },
               {
-                casoId: 8,
-                fecha: "2021-08-08",
+                hora: "09:56:00",
                 cliente: "Cliente 8",
                 duracion: "4m 40s",
                 transcripcion:
                   "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
               },
               {
-                casoId: 9,
-                fecha: "2021-08-09",
+                hora: "10:03:00",
                 cliente: "Cliente 9",
                 duracion: "3m 20s",
                 transcripcion:
                   "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
               },
               {
-                casoId: 10,
-                fecha: "2021-08-10",
+                hora: "10:10:00",
                 cliente: "Cliente 10",
                 duracion: "2m 30s",
                 transcripcion:
                   "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
               },
               {
-                casoId: 11,
-                fecha: "2021-08-11",
+                hora: "10:13:00",
                 cliente: "Cliente 11",
                 duracion: "1m 40s",
                 transcripcion:
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
               },
               {
-                casoId: 12,
-                fecha: "2021-08-12",
+                hora: "10:18:00",
                 cliente: "Cliente 12",
                 duracion: "3m 30s",
                 transcripcion:
                   "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
               },
               {
-                casoId: 13,
-                fecha: "2021-08-13",
+                hora: "10:21:00",
                 cliente: "Cliente 13",
                 duracion: "2m 20s",
                 transcripcion:
                   "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
               },
               {
-                casoId: 14,
-                fecha: "2021-08-14",
+                hora: "10:25:00",
                 cliente: "Cliente 14",
                 duracion: "4m 10s",
                 transcripcion:
                   "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
               },
               {
-                casoId: 15,
-                fecha: "2021-08-15",
+                hora: "10:30:00",
                 cliente: "Cliente 15",
                 duracion: "3m 50s",
                 transcripcion:
