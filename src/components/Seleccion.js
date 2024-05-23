@@ -1,12 +1,14 @@
 import React, { useState, useRef, forwardRef } from "react";
-import "../styles/historicos.css";
-// import "../styles/seleccion.css";
+import "../styles/seleccion.css";
+
 
 
 const Seleccion = forwardRef((props, ref) => {
 
   const [btnDiario, setBtnDiario] = useState(true);
   const [btnFecha, setBtnFecha] = useState(true);
+  const [btnRgresar, setBtnRgresar] = useState(false);
+
   const [inDiario, setInDiario] = useState(false);
   const [inFecha, setInFecha] = useState(false);
   const maxDate = `${new Date().getUTCFullYear()}-${
@@ -43,6 +45,7 @@ const Seleccion = forwardRef((props, ref) => {
   const handlerVerDiario = () => {
     setBtnDiario(!btnDiario);
     setInDiario(!inDiario);
+    setBtnRgresar(true);
     setBtnFecha(false);
     setInFecha(false);
   };
@@ -50,6 +53,7 @@ const Seleccion = forwardRef((props, ref) => {
   const handlerVerFecha = () => {
     setBtnFecha(!btnFecha);
     setInFecha(!inFecha);
+    setBtnRgresar(true);
     setBtnDiario(false);
     setInDiario(false);
   };
@@ -59,16 +63,17 @@ const Seleccion = forwardRef((props, ref) => {
     setInDiario(false);
     setBtnFecha(true);
     setInFecha(false);
+    setBtnRgresar(false);
   };
 
   return (
     <div className="btnWrapper">
       <button
-        className="btnSeleccion"
+        className="btnBusqueda"
         onClick={handlerVerFecha}
         style={{ display: btnFecha ? "flex" : "none" }}
       >
-        Fecha
+        Date
       </button>
       <input
         className="fecha"
@@ -80,32 +85,33 @@ const Seleccion = forwardRef((props, ref) => {
         min={getMinDate()}
       ></input>
 
-      <button className="btnSeleccion" onClick={handlerRegresar}>
-        Regresar
+      <button className="btnBusqueda" onClick={handlerRegresar} style={{ display: btnRgresar ? "flex" : "none" }}>
+        Return
       </button>
 
       <button 
-        className="btnSeleccion"
+        className="btnBusqueda"
         onClick={handlerVerDiario}
         style={{ display: btnFecha ? "flex" : "none" }}
       >
-        Diario
+        Daily
       </button>
       <select
+      className="diario"
         name="dia"
         ref={diarioInputRef}
         onChange={handleInputChange}
         style={{ display: inDiario ? "flex" : "none" }}
       >
         <option value={2} defaultValue={2}>
-          15 minutos
+          15 minutes
         </option>
-        <option value={3}>30 minutos</option>
-        <option value={4}>1 hora</option>
-        <option value={5}>2 hora</option>
-        <option value={6}>4 hora</option>
-        <option value={7}>6 hora</option>
-        <option value={8}>8 hora</option>
+        <option value={3}>30 minutes</option>
+        <option value={4}>1 hour</option>
+        <option value={5}>2 hours</option>
+        <option value={6}>4 hours</option>
+        <option value={7}>6 hours</option>
+        <option value={8}>8 hours</option>
       </select>
     </div>
   );

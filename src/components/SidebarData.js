@@ -5,19 +5,19 @@ import * as AiIcons from 'react-icons/ai';
 
 export const SidebarData = [
   {
-    title: 'Inicio',
+    title: 'Overview',
     path: '/',
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text'
   },
   {
-    title: 'Agentes',
+    title: 'Agents',
     path: '/agentes',
     icon: <AiIcons.AiOutlineUser />,
     cName: 'nav-text'
   },
   {
-    title: 'KPIs Históricos',
+    title: 'KPI History',
     path: '/historicos',
     icon: <FaIcons.FaChartBar />,
     cName: 'nav-text'

@@ -8,13 +8,11 @@ import {
   jsonVel,
   jsonOc,
   jsonTiempo,
-  jsonRes,
   mesAbandono,
   mesNivel,
   mesVelocidad,
   mesOc,
-  mesTiempo,
-  mesRes
+  mesTiempo
 } from "./ValDef";
 
 import {
@@ -145,30 +143,18 @@ const TitleF = styled.h2`
   font-weight: 600;
 `;
 
+const TitleH = styled.h2`
+  font-size: 200%;
+  font-weight: 600;
+`;
+
 
 
 const Historicos = () => {
-  const abandonoVal = useRef(null);
-  const servicioVal = useRef(null);
-  const velocidadVal = useRef(null);
-  const ocupacionVal = useRef(null);
-  const tiempoLlamadaVal = useRef(null);
-  const resolucionVal = useRef(null);
+  const valRef = useRef(null);
 
-  const [abandono, setAbandono] = useState(2);
-  const [nivel, setNivel] = useState(2);
-  const [velocidad, setVelocidad] = useState(2);
-  const [ocupacion, setOcupacion] = useState(2);
-  const [tiempo, setTiempo] = useState(2);
-  const [resolucion, setResolucion] = useState(2);
-
-  const [timeLabelsA, setTimeLabelsA] = useState(generarTiempo());
-  const [timeLabelsN, setTimeLabelsN] = useState(generarTiempo());
-  const [timeLabelsV, setTimeLabelsV] = useState(generarTiempo());
-  // const [timeLabels, setTimeLabels] = useState(generarTiempo());
-  const [timeLabelsO, setTimeLabelsO] = useState(generarTiempo());
-  const [timeLabelsTem, setTimeLabelsTem] = useState(generarTiempo());
-  const [timeLabelsRes, setTimeLabelsRes] = useState(generarTiempo());
+  const [timeLabels, setTimeLabels] = useState(generarTiempo());
+  const [valorBus, setValorBus] = useState(2);
 
   const fechaIni = new Date();
 
@@ -177,191 +163,122 @@ const Historicos = () => {
   const [infoV, setInfoV] = useState(jsonVel);
   const [infoOc, setInfoOc] = useState(jsonOc);
   const [infoTiempo, setInfoTiempo] = useState(jsonTiempo);
-  // const [infoResolucion, setInfoResolucion] = useState(jsonRes);
 
 
 
   const dataAbandono = (createChartData(
     infoAbandono,
     "Porcentaje de abandono",
-    abandono,
+    valorBus,
     "rgb(249, 37, 37)",
-    timeLabelsA
+    timeLabels
   ));
   const dataNivel = createChartData(
     infoNivel,
     "Nivel de servicio",
-    nivel,
+    valorBus,
     "rgb(194, 226, 141)",
-    timeLabelsN
+    timeLabels
   );
   const dataVelocidad = createChartData(
     infoV,
     "Velocidad media de respuesta",
-    velocidad,
+    valorBus,
     "rgb(54, 162, 235)",
-    timeLabelsV
+    timeLabels
   );
   const dataOcupacion = createChartData(
     infoOc,
     "Porcentaje de ocupacion ",
-    ocupacion,
+    valorBus,
     "rgb(153, 102, 255)",
-    timeLabelsO
+    timeLabels
   );
   const dataTiempo = createChartData(
     infoTiempo,
     "Tiempo promedio de llamada (min)",
-    tiempo,
+    valorBus,
     "rgb(75, 192, 149)",
-    timeLabelsTem
+    timeLabels
   );
-  // const dataResolucion = createChartData(
-  //   infoResolucion,
-  //   "Resolucion al primer contacto",
-  //   resolucion,
-  //   "rgb(230, 155, 16)",
-  //   timeLabelsRes
-  // );
+ 
 
-  const handlerAbandono = (value) => {
+  const handlerCambio = (value) => {
     if (value > 0 && value <= 8) {
-      setTimeLabelsA(generarTiempo());
-      setAbandono(value);
+      setTimeLabels(generarTiempo());
+
+      setValorBus(value);
+
       setInfoAbandono(jsonAbandono);
-    } else {
-      setTimeLabelsA(generarFechas(fechaIni, getFechaFin(value)));
-      setAbandono(getDias(fechaIni, getFechaFin(value)));
-      setInfoAbandono(mesAbandono);
-    }
-  };
 
-  const handlerServicio = (value) => {
-    if (value > 0 && value <= 8) {
-      setTimeLabelsN(generarTiempo());
-      setNivel(value);
       setInfoNivel(jsonNivel);
-    } else {
-      setTimeLabelsN(generarFechas(fechaIni, getFechaFin(value)));
-      setNivel(getDias(fechaIni, getFechaFin(value)));
-      setInfoNivel(mesNivel);
-    }
-  };
 
-  const handlerRespuesta = (value) => {
-    if (value > 0 && value <= 8) {
-      setTimeLabelsV(generarTiempo());
-      setVelocidad(value);
-    }else{
-      setTimeLabelsV(generarFechas(fechaIni, getFechaFin(value)));
-      setVelocidad(getDias(fechaIni, getFechaFin(value)));
-      setInfoV(mesVelocidad);
-    }
-  };
+      setInfoV(jsonVel);
 
-  const handlerOcupacion = (value) => {
-    if (value > 0 && value <= 8) {
-      setTimeLabelsO(generarTiempo());
-      setOcupacion(value);
-    }else{
-      setTimeLabelsO(generarFechas(fechaIni, getFechaFin(value)));
-      setOcupacion(getDias(fechaIni, getFechaFin(value)));
       setInfoOc(mesOc);
-    }
-  };
 
-  const handlerTiempo = (value) => {
-    if (value > 0 && value <= 8) {
-      setTimeLabelsTem(generarTiempo());
-      setTiempo(value);
+      setInfoTiempo(jsonTiempo);
+
     }else{
-      setTimeLabelsTem(generarFechas(fechaIni, getFechaFin(value)));
-      setTiempo(getDias(fechaIni, getFechaFin(value)));
+      setTimeLabels(generarFechas(fechaIni,getFechaFin(value)));
+
+      setValorBus(getDias(fechaIni, getFechaFin(value)));
+
+      setInfoAbandono(mesAbandono);
+
+      setInfoNivel(mesNivel);
+
+      setInfoV(mesVelocidad);
+
+      setInfoOc(mesOc);
+
       setInfoTiempo(mesTiempo);
     }
-
   };
 
-  // const handlerContacto = (value) => {
-  //   if (value > 0 && value <= 8) {
-  //     setTimeLabelsRes(generarTiempo());
-  //     setResolucion(value);
-  //   } else {  
-  //     setTimeLabelsRes(generarFechas(fechaIni, getFechaFin(value)));
-  //     setResolucion(getDias(fechaIni, getFechaFin(value)));
-  //     setInfoResolucion(mesRes);
-  //   }
-  //   // setTimeLabels(generarTiempo());
-  //   // setResolucion(value);
-  // };
+
 
   return (
     <div className="historico">
-      <div className="row">
-        <div className="cards-wrapper">
-          <TitleF>Abandono</TitleF>
-          <Line options={options} data= {dataAbandono} />
-          <Seleccion
-            ref={abandonoVal}
-            onInputChange={handlerAbandono}
-            id="Abandono"
-          />
-        </div>
-
-        <div className="cards-wrapper">
-          <TitleF>Nivel de servico</TitleF>
-          <Line options={options} data={dataNivel} />
-          <Seleccion
-            ref={servicioVal}
-            onInputChange={handlerServicio}
-            id="nvlServico"
-          />
-        </div>
-
-        <div className="cards-wrapper">
-          <TitleF>Velocidad media de respuesta</TitleF>
-          <Line options={options} data={dataVelocidad} />
-          <Seleccion
-            ref={velocidadVal}
-            onInputChange={handlerRespuesta}
+      <TitleH>Historical KPI</TitleH>
+        <Seleccion
+            ref={valRef}
+            onInputChange={handlerCambio}
             id="vlRes"
-          />
+        />
+      <div className="row">
+
+        <div className="cards-wrapper">
+          <TitleF>Abandonment rate</TitleF>
+          <Line options={options} data= {dataAbandono} />
         </div>
+
+        <div className="cards-wrapper">
+          <TitleF>Service level</TitleF>
+          <Line options={options} data={dataNivel} />
+        </div>
+
+
       </div>
 
       <div className="row">
         <div className="cards-wrapper">
-          <TitleF>Ocupacion</TitleF>
+          <TitleF>Occupancy</TitleF>
           <Line options={options} data={dataOcupacion} />
-          <Seleccion
-            ref={ocupacionVal}
-            onInputChange={handlerOcupacion}
-            id="Ocupacion"
-          />
         </div>
 
         <div className="cards-wrapper">
-          <TitleF>Tiempo promedio de llamada</TitleF>
+          <TitleF>Contact duration</TitleF>
           <Line options={options} data={dataTiempo} />
-          <Seleccion
-            ref={tiempoLlamadaVal}
-            onInputChange={handlerTiempo}
-            id="tiempoLlamada"
-          />
         </div>
-        <div className="cards-wrapper"> 
-
-          </div>
-        {/* <div className="cards-wrapper">
-          <TitleF>Resolución al primer contacto</TitleF>
-          <Line options={options} data={dataResolucion} />
-          <Seleccion
-            ref={resolucionVal}
-            onInputChange={handlerContacto}
-            id="Resolucion"
-          />
-        </div> */}
       </div>
+
+      <div className="row">
+      <div className="cards-wrapper">
+          <TitleF>Customer hold time</TitleF>
+          <Line options={options} data={dataVelocidad} />
+        </div>
+        </div>
     </div>
   );
 };
