@@ -1,6 +1,6 @@
 import '../styles/lista-transcripcion.css'
 import '../styles/ventana-transcripcion.css'
-import {useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState, useRef } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import Transcripcion from './Transcripcion';
 
@@ -8,9 +8,10 @@ import Transcripcion from './Transcripcion';
 
 const ListaTranscripcion = (props) => {
   // Datos temporales
+ 
   const cancelar = props.cancelar;
   const [arrTranscripcion, setTranscripcion] = useState([]);
-  const [url] = useState("http://localhost:8080/agente/consultaTranscripcion1");
+  const [url] = useState("http://localhost:8080/agente/consultaTranscripcionPrueba");
 
   const descargar = useCallback(async () => {
     try {
@@ -39,24 +40,29 @@ const ListaTranscripcion = (props) => {
   }, [descargar]);
 
 
+
+
     return(
       <div className="ventana-transcripcion-completa" onClick={cancelar}>
         <h1 className="ventana-transcripcion2">
-          <span style={{fontWeight: 'bold', color: 'green'}}>
+        <div className="ventana">
+             
             {arrTranscripcion.length !== 0 ? (
               arrTranscripcion.map((transcripcion) => {
                 return (
                   <Transcripcion
                   transcripcion={transcripcion}
                   key={transcripcion.id}
+              
                   />
+                  
                 );
-              },
-            <button onClick={cancelar}>Cancelar</button>)
+              })
             ) : (
               <h1>...</h1>
             )}
-          </span>
+           
+        </div>
         </h1>
 
       </div>
