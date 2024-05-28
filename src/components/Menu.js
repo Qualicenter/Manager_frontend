@@ -69,21 +69,21 @@ const Menu = () => {
        {showVentanaTranscripcion && <ListaTranscripcion cancelar={showVentanaHandler} />}
         {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificaciones} />}
     <Column className='side'>
-        <TitleComponent text='Ongoing calls' />
-        <button className="button-centro-notif" onClick={() => {showCentroNotificacionesHandler();descargarNotificaciones()}}>Notificaction center</button>
+        <TitleComponent text='Llamadas Activas' />
+        <button className="button-centro-notif" onClick={() => {showCentroNotificacionesHandler();descargarNotificaciones()}} >Centro de Notificaciones</button>
         <div className='cards-wrapper'>
           <LlamadaActivaCard funcVentanaTranscripcion={showVentanaHandler}/>
         </div>
     </Column>
     <Column className='center'>
-        <TitleComponent text='Queue line' />
+        <TitleComponent text='Línea de Espera' />
         <LlamadaEsperaCard cliente='Luisa Chanvez' tiempo='2:30' />
         <LlamadaEsperaCard cliente='José Montés' tiempo='2:30' />
         <LlamadaEsperaCard cliente='Ian Saldovar' tiempo='2:30' />
         <LlamadaEsperaCard cliente='Pablo Olivares' tiempo='2:30' />
     </Column>
     <Column className='side'>
-        <TitleComponent text="General KPI"/>
+        <TitleComponent text="KPI's Generales" />
         <div className='cards-wrapper'>
             <KpiCard title='Abandono' value='2.4%' description='Total de llamadas abandonadas: 25' />
             <KpiCard title='Nivel de Servicio' value='80%' description='Total de llamadas respondidas: 2534' />

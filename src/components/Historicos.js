@@ -168,35 +168,35 @@ const Historicos = () => {
 
   const dataAbandono = (createChartData(
     infoAbandono,
-    "Porcentaje de abandono",
+    "Abandonment rate percentage",
     valorBus,
     "rgb(249, 37, 37)",
     timeLabels
   ));
   const dataNivel = createChartData(
     infoNivel,
-    "Nivel de servicio",
+    "Service level percentage",
     valorBus,
     "rgb(194, 226, 141)",
     timeLabels
   );
   const dataVelocidad = createChartData(
     infoV,
-    "Velocidad media de respuesta",
+    "Customer hold time (min)",
     valorBus,
     "rgb(54, 162, 235)",
     timeLabels
   );
   const dataOcupacion = createChartData(
     infoOc,
-    "Porcentaje de ocupacion ",
+    "Occupancy percentage",
     valorBus,
     "rgb(153, 102, 255)",
     timeLabels
   );
   const dataTiempo = createChartData(
     infoTiempo,
-    "Tiempo promedio de llamada (min)",
+    "Contact duration (min)",
     valorBus,
     "rgb(75, 192, 149)",
     timeLabels

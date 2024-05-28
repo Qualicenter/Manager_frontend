@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+//Autor: Gerardo Rios Mejía
+//Código donde se desarrolla la funcion de los comentarios
 
-import '../styles/encuesta.css';
+import React, { useState } from 'react';
 
 function Comentario({ onSubmit }) {
   const [comentario, setComentario] = useState('');
@@ -9,13 +10,12 @@ function Comentario({ onSubmit }) {
   const handleChangeComentario = (event) => {
     const comentarioText = event.target.value;
     setComentario(comentarioText);
-    setComentarioValido(comentarioText.trim() !== ''); // Verificar si el comentario no está vacío
+    setComentarioValido(comentarioText.trim() !== ''); 
   };
 
   const handleSubmit = () => {
     if (!comentarioValido) {
-      alert("El comentario no puede estar vacío.");
-      return;
+      return 
     }
 
     onSubmit(comentario);
@@ -26,11 +26,16 @@ function Comentario({ onSubmit }) {
   return (
     <div className="seccion-comentario">
       <textarea
+        className='comment'
         value={comentario}
         onChange={handleChangeComentario}
-        placeholder="Comentario"
+        placeholder="Write a comment"
       />
-      <button className='comentario' onClick={handleSubmit} disabled={!comentarioValido}>Enviar comentario</button>
+      <button
+      className='env' 
+      onClick={handleSubmit} disabled={!comentarioValido}>
+        Submit comment
+      </button>
     </div>
   );
 }

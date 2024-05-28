@@ -1,4 +1,7 @@
-import preguntas from './Preguntas';
+//Autor: Gerardo Rios Mejía
+//Código donde se desarrolla toda la funcionalidad principal para califacar a los agentes
+
+import preguntas from './Preguntas';//obtener el titulo y los estados de las opciones
 import '../styles/encuesta.css';
 import { useState } from 'react';
 import Comentario from './Comentario';
@@ -10,6 +13,7 @@ function Encuesta() {
   const [puntajesYcomentarios, setPuntajesYcomentarios] = useState([]);
   const [mostrarComentario, setMostrarComentario] = useState(false);
   const [mostrarPregunta, setMostrarPregunta] = useState(true);
+  const [puntajesAcumulados, setPuntajesAcumulados] = useState([]);
 
 
   function handlePuntuacion(isVerdad, isPart, isFalso){
@@ -17,10 +21,12 @@ function Encuesta() {
       setPuntuacion(puntuacion + 1);
       setMostrarPregunta(false);
       setMostrarComentario(true);
+
     }else if (isPart){
       setPuntuacion(puntuacion + 0.5);
       setMostrarPregunta(false);
       setMostrarComentario(true);
+
     }else if (isFalso){
       setPuntuacion(puntuacion + 0);
       setMostrarPregunta(false);
@@ -28,17 +34,15 @@ function Encuesta() {
   }
  }
 
+//Verificar porque no sale el comentario
   function handleComentarioSubmit(comentario) {
-    if (comentario.trim() === ''){
-      alert("El comentario no puede estar vacío.");
-      return;
-    }
     
     const nuevaEntrada = {
       puntaje: puntuacion,
       comentario: comentario,
     };
     setPuntajesYcomentarios([...puntajesYcomentarios, nuevaEntrada]);
+    setPuntajesAcumulados([...puntajesAcumulados, puntuacion]);
     setMostrarPregunta(true);
     setMostrarComentario(false);
     setPuntuacion(0);
@@ -51,21 +55,31 @@ function Encuesta() {
   }
 
   if (fin) {
-    console.log("Puntajes y comentarios:");
+    console.log("Question and comments:");
     puntajesYcomentarios.forEach((entrada, index) => {
-      console.log(`Pregunta ${index + 1}: Puntaje ${entrada.puntaje}`);
+      console.log(`Question ${index + 1}: Score ${entrada.puntaje}`);
       if (entrada.comentario) {
-        console.log(`Comentario: ${entrada.comentario}`);
+        console.log(`Comment: ${entrada.comentario}`);
       }
     });
+
+    const puntajeTotalAcumulado = puntajesAcumulados.reduce((total, puntaje) => total + puntaje, 0);
+    console.log(`Total score: ${puntajeTotalAcumulado}`);
+
+    const resultadosJSON = JSON.stringify(puntajesYcomentarios.map((entrada, index) =>({
+      score: puntajeTotalAcumulado,
+      comment: entrada.comentario,
+    })), null, 2 );
+
+    console.log(resultadosJSON);
 
     return (
       <div className='Encuesta'>
         <div className='finEncuesta'>
           <span className='letrero'>
-            ENCUESTA FINALIZADA
+            SURVEY COMPLETED
           </span>
-          <button className="env" onClick={() => (window.location.href="/agentes")}>Enviar</button>
+          <button className="env" onClick={() => (window.location.href="/")}>Submit</button>
         </div>
       </div>
     );
@@ -74,18 +88,19 @@ function Encuesta() {
   return (
     <div className="Encuesta">
       {mostrarPregunta && (
-        <div className="lado-izquierdo">
+        <div className="arriba">
           <div className="numero-pregunta">
-            <span>Pregunta {preguntaActual + 1} de {preguntas.length} </span>
+            <span>Question {preguntaActual + 1} of {preguntas.length} </span>
           </div>
           <div className="titulo-pregunta">{preguntas[preguntaActual].titulo}</div>
         </div>
       )}
 
-      <div className="lado-derecho">
+      <div className="abajo">
         {preguntas[preguntaActual].opciones.map((respuesta) => (
-          <button className='env' key={respuesta.textoRespuesta} onClick={() => handlePuntuacion(respuesta.isVerdad, respuesta.isPart, respuesta.isFalso)} style={{ display: mostrarPregunta ? 'block' : 'none' }}>
-            {respuesta.textoRespuesta}
+          <button key={respuesta.textoRespuesta} 
+                  onClick={() => handlePuntuacion(respuesta.isVerdad, respuesta.isPart, respuesta.isFalso)} 
+                  style={{ display: mostrarPregunta ? 'block' : 'none' }}> {respuesta.textoRespuesta}
           </button>
         ))}
       </div>
