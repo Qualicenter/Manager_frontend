@@ -70,6 +70,7 @@ function Encuesta() {
       score: puntajeTotalAcumulado,
       comment: entrada.comentario,
     })), null, 2 );
+    
 
     console.log(resultadosJSON);
 
@@ -79,7 +80,7 @@ function Encuesta() {
           <span className='letrero'>
             SURVEY COMPLETED
           </span>
-          <button className="env" onClick={() => (window.location.href="/")}>Submit</button>
+          <button className="env" onClick={() => (window.location.href="/agentes")}>Submit</button>
         </div>
       </div>
     );
@@ -98,7 +99,7 @@ function Encuesta() {
 
       <div className="abajo">
         {preguntas[preguntaActual].opciones.map((respuesta) => (
-          <button key={respuesta.textoRespuesta} 
+          <button className="btn" key={respuesta.textoRespuesta} 
                   onClick={() => handlePuntuacion(respuesta.isVerdad, respuesta.isPart, respuesta.isFalso)} 
                   style={{ display: mostrarPregunta ? 'block' : 'none' }}> {respuesta.textoRespuesta}
           </button>

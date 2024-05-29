@@ -1,0 +1,19 @@
+.correcto{
+    color: green;
+}
+
+.medio{
+    color: orange;
+}
+
+.peligro{
+    color: red;
+}
+
+.normal{
+    color: #2598ea;
+}
+
+.umbralInfo{
+    font-size: 10px;;
+}

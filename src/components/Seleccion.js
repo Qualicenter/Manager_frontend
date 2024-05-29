@@ -1,8 +1,6 @@
 import React, { useState, useRef, forwardRef } from "react";
 import "../styles/seleccion.css";
 
-
-
 const Seleccion = forwardRef((props, ref) => {
 
   const [btnDiario, setBtnDiario] = useState(true);
@@ -11,9 +9,7 @@ const Seleccion = forwardRef((props, ref) => {
 
   const [inDiario, setInDiario] = useState(false);
   const [inFecha, setInFecha] = useState(false);
-  const maxDate = `${new Date().getUTCFullYear()}-${
-    String(new Date().getUTCMonth() + 1).padStart(2, '0')
-  }-${new Date().getUTCDate().toString().padStart(2, '0')}`;
+  const hoy = new Date(new Date().getTime() - 6 * 60 * 60 * 1000).toISOString().split('T')[0];
 
   const fechaInputRef = useRef();
   const diarioInputRef = useRef();
@@ -29,10 +25,10 @@ const Seleccion = forwardRef((props, ref) => {
   };
 
   const getMinDate = () => {
-    const today = new Date();
+    const today = new Date(new Date().getTime() - 6 * 60 * 60 * 1000);
     const sixtyDaysAgo = new Date(today.getTime() - (60 * 24 * 60 * 60 * 1000));
     // return sixtyDaysAgo;
-    return sixtyDaysAgo.toISOString().split("T")[0]; // Get the date part only
+    return sixtyDaysAgo.toISOString().split("T")[0]; 
   };
 
   const handleInputChange = (event) => {
@@ -81,7 +77,7 @@ const Seleccion = forwardRef((props, ref) => {
         onChange={handleInputChange}
         style={{ display: inFecha ? "flex" : "none" }}
         type="date"
-        max={maxDate}
+        max={hoy}
         min={getMinDate()}
       ></input>
 
