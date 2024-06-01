@@ -39,6 +39,7 @@ const Button = styled.button`
     font-weight: 600;
     border: none;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
 `
 
 const LlamadaActivaCard = (props) => {

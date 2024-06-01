@@ -13,7 +13,6 @@ return (
             <p><strong>Llamadas Respondidas:</strong> {agente.llamadasRespondidas}</p>
             <p><strong>Llamadas Abandonadas:</strong> {agente.llamadasAbandonadas}</p>
             <p><strong>Duración Promedio:</strong> {agente.promedio}</p>
-            <p><strong>Nivel de Servicio:</strong> {agente.nivelDeServicio}</p>
         </div>
     </div>
 );
