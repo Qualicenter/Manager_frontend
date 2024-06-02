@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CardButton from "./Button";
+import { v4 as uuidv4 } from 'uuid';
 import { useCallback, useEffect, useState, useRef } from "react";
 
 const Card = styled.div`
@@ -44,19 +44,90 @@ const Button = styled.button`
 
 const LlamadaActivaCard = (props) => {
 
+
+  const [arrLlamadasActivas, setArrLlamadasActivas] = useState([]);
+  const [url] = useState("http://localhost:8080/agente/consultaContacts");
   const arrLlamadasPrev = useRef();
+
+  const dataPruebasActivas = [
+    {
+        "NombreCliente": "Jorge Rodriguez",
+        "NombreAgente": "AldehilSanchez",
+        "InitiationTimestamp": "2024-05-27T21:48:40.526Z",
+        "CurrentTime": "2024-06-01T06:22:42.117319",
+        "ElapsedTime": "0:32",
+        "Sentimiento": "NEUTRAL"
+    },
+    {
+        "NombreCliente": "Gustavo Tellez",
+        "NombreAgente": "AngelMarquez",
+        "InitiationTimestamp": "2024-05-27T20:10:20.352Z",
+        "CurrentTime": "2024-06-01T06:11:20.757407",
+        "ElapsedTime": "1:24",
+        "Sentimiento": "NEGATIVE"
+    },
+    {
+        "NombreCliente": "Ingrid Garcia",
+        "NombreAgente": "AbigailDonaji",
+        "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
+        "CurrentTime": "2024-06-01T06:06:47.145375",
+        "ElapsedTime": "1:12",
+        "Sentimiento": "NEUTRAL"
+    },
+    {
+      "NombreCliente": "Eduardo Lugo",
+      "NombreAgente": "AlonsoSegura",
+      "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
+      "CurrentTime": "2024-06-01T06:06:47.145375",
+      "ElapsedTime": "2:32",
+      "Sentimiento": "POSITIVE"
+  }
+];
+
+  const descargar = useCallback(async () => {
+    try {
+
+      /* eslint-disable */
+        
+        
+
+        const responseActiva = await fetch(url);
+        const dataActiva = await responseActiva.json();
        
-    //Datos dummy para organizar las llamadas
-  const [arrLlamadas, setArrLlamadas] = useState([
-      { idArr: 1, contenido: {id: 1, agente: 'Juan Perez', cliente: 'Pedro Gomez', tiempo: '2:30', sentimiento: 'POSITIVE', asistencia:'False'} },
-      { idArr: 2, contenido: {id: 2, agente: 'Ana Rodriguez', cliente: 'Juan Gomez', tiempo: '3:15', sentimiento: 'NEGATIVE', asistencia:'False'} },
-      { idArr: 3, contenido: {id: 3, agente: "María López", cliente: "Laura Martínez", tiempo: '1:45', sentimiento: "POSITIVE", asistencia:'False'} },
-      { idArr: 4, contenido: {id: 4, agente: "Carlos Sánchez", cliente: "Ana García", tiempo: "4:00", sentimiento: "NEUTRAL", asistencia:'True'} },
-      { idArr: 5, contenido: {id: 5, agente: "Sofía Ramirez", cliente: "José Hernández", tiempo: "2:10", sentimiento: "NEUTRAL", asistencia:'False'} },
-      { idArr: 6, contenido: {id: 6, agente: "Diego Martinez", cliente: "Sandra Pérez", tiempo: "3:45", sentimiento: "NEGATIVE", asistencia:'False'} },
-      { idArr: 7, contenido: {id: 7, agente: "Laura González", cliente: "Carlos Ruiz", tiempo: "2:50", sentimiento: "POSITIVE", asistencia:'False'} },
-      // { idArr: 8, contenido: {id: 8, agente: "Carlos Sánchez", cliente: "Ana García", tiempo: "4:00", sentimiento: "NEUTRAL", asistencia:'True'} },
-    ]);
+        const arrNuevo = [...dataActiva, ...dataPruebasActivas].map((llamada)  => {
+          const transcripcion = {  
+            contenido:{
+              id: uuidv4(),
+              // Nombre del agente
+              agente: llamada.NombreAgente,
+              cliente: llamada.NombreCliente,
+              tiempo: llamada.ElapsedTime,
+              sentimiento: llamada.Sentimiento,
+              // Asistencia a cambiar
+              asistencia:'False'} };
+          return transcripcion;
+        });
+       
+        setArrLlamadasActivas(arrNuevo);
+      
+      
+      
+    } catch (error) {
+      console.error('Error al descargar los datos:', error);
+    }
+  }, [url]);
+       
+    //Datos dummy para organizar las llamadasz
+  // const [arrLlamadas, setArrLlamadas] = useState([
+  //     {idArr:1,  contenido: {id: 1, agente: 'Juan Perez', cliente: 'Pedro Gomez', tiempo: '2:30', sentimiento: 'POSITIVE', asistencia:'False'} },
+  //     {idArr:2, contenido: {id: 2, agente: 'Ana Rodriguez', cliente: 'Juan Gomez', tiempo: '3:15', sentimiento: 'NEGATIVE', asistencia:'False'} },
+  //     {idArr:3,  contenido: {id: 3, agente: "María López", cliente: "Laura Martínez", tiempo: '1:45', sentimiento: "POSITIVE", asistencia:'False'} },
+  //     {idArr:4,  contenido: {id: 4, agente: "Carlos Sánchez", cliente: "Ana García", tiempo: "4:00", sentimiento: "NEUTRAL", asistencia:'True'} },
+  //     {idArr:5,  contenido: {id: 5, agente: "Sofía Ramirez", cliente: "José Hernández", tiempo: "2:10", sentimiento: "NEUTRAL", asistencia:'False'} },
+  //     {idArr:6,  contenido: {id: 6, agente: "Diego Martinez", cliente: "Sandra Pérez", tiempo: "3:45", sentimiento: "NEGATIVE", asistencia:'False'} },
+  //     {idArr:7,  contenido: {id: 7, agente: "Laura González", cliente: "Carlos Ruiz", tiempo: "2:50", sentimiento: "POSITIVE", asistencia:'False'} },
+  //     { idArr: 8, contenido: {id: 8, agente: "Carlos Sánchez", cliente: "Ana García", tiempo: "4:00", sentimiento: "NEUTRAL", asistencia:'True'} },
+  //   ]);
 
     
     const ordenarLlamadasSentimiento = (llamadas) => {
@@ -75,30 +146,34 @@ const LlamadaActivaCard = (props) => {
       });
     };
     
-    //Actualiza los cambios en el arreglo de llamadas
-    useEffect(() => {
-      arrLlamadasPrev.current = arrLlamadas
-      organizar();
-    }, []);
+
     
     const arrLlamadasPrevias = arrLlamadasPrev.current
 
     const organizar = useCallback(async () =>{
-      if (JSON.stringify(arrLlamadas) !== JSON.stringify(arrLlamadasPrevias)) {
-        console.log("Llamadas ANTES del sort:", arrLlamadas);
-        const llamadasOrdenadas = ordenarLlamadasSentimiento(arrLlamadas);
+      if (JSON.stringify(arrLlamadasActivas) !== JSON.stringify(arrLlamadasPrevias)) {
+        //console.log("Llamadas ANTES del sort:", arrLlamadasActivas);
+        const llamadasOrdenadas = ordenarLlamadasSentimiento(arrLlamadasActivas);
         const llamadasOrdenadasFinal = ordenarLlamadasAsistencia(llamadasOrdenadas);
-        setArrLlamadas(llamadasOrdenadasFinal);
-        console.log("Llamadas DESPUES del sort:", llamadasOrdenadasFinal);
+        setArrLlamadasActivas(llamadasOrdenadasFinal);
+        //console.log("Llamadas DESPUES del sort:", llamadasOrdenadasFinal);
       }
-    }, [arrLlamadas, arrLlamadasPrevias]);
+    }, [arrLlamadasActivas, arrLlamadasPrevias]);
     
+      //Actualiza los cambios en el arreglo de llamadas
+      useEffect(() => {
+    
+        const interval = setInterval(descargar, 3000); // Descargar cada 5 segundos
+        arrLlamadasPrev.current = arrLlamadasActivas;
+        organizar();
+        return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
+      }, [descargar, arrLlamadasActivas, organizar]);
 
     return (
         //Se puede cambiar por un if por si no hay llamadas activas
         
-        arrLlamadas.map((llamada) => {
-          console.log("Llamadas RENDEREANDO:", arrLlamadas)
+        arrLlamadasActivas.map((llamada) => {
+          //console.log("Llamadas RENDEREANDO:", arrLlamadas)
             return (
                 <Card key={llamada.idArr}>
                     <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
