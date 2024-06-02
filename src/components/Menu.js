@@ -3,12 +3,12 @@ import styled from "styled-components";
 import "../images/profile.png";
 import TitleComponent from './Title';
 import KpiCard from './Kpi';
-import LlamadaEsperaCard from './Espera';
 import LlamadaActivaCard from './Activas';
 import {useState} from "react";
 import ListaTranscripcion from "./ListaTranscripcion";
 import CentroNotif from "./CentroNotif";
 import '../styles/button-centro-notif.css';
+import QueueVisualizer from "./QueueVisualizer";
 
 const Menu = () => {
   const Wrapper = styled.main`
@@ -77,10 +77,7 @@ const Menu = () => {
     </Column>
     <Column className='center'>
         <TitleComponent text='Línea de Espera' />
-        <LlamadaEsperaCard cliente='Luisa Chanvez' tiempo='2:30' />
-        <LlamadaEsperaCard cliente='José Montés' tiempo='2:30' />
-        <LlamadaEsperaCard cliente='Ian Saldovar' tiempo='2:30' />
-        <LlamadaEsperaCard cliente='Pablo Olivares' tiempo='2:30' />
+        <QueueVisualizer />
     </Column>
     <Column className='side'>
         <TitleComponent text="KPI's Generales" />
