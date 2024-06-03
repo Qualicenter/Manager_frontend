@@ -296,10 +296,10 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci�
     }
   };
   /*
-Autor: Ingrid García
-El siguiente useEffect se encarga de ejecutar la función procesarYEnviarKPIs cada minuto, para que se actualicen los KPIs en la página
-y se envíen a la base de datos. Además, se ejecuta una vez al cargar la página para que inmediatamente vaya guardando la información.
-   */
+  Autor: Ingrid García
+  El siguiente useEffect se encarga de ejecutar la función procesarYEnviarKPIs cada minuto, para que se actualicen los KPIs en la página
+  y se envíen a la base de datos. Además, se ejecuta una vez al cargar la página para que inmediatamente vaya guardando la información.
+  */
   const intervalRef = useRef(null);
   const minutes = 1;
 
