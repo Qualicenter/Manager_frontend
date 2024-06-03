@@ -192,10 +192,10 @@ const LlamadaActivaCard = (props) => {
     
       //Actualiza los cambios en el arreglo de llamadas
       useEffect(() => {
-    
+        console.log("Obteniendo llamadas activas")
         const interval = setInterval(descargar, 3000); // Descargar cada 5 segundos
         arrLlamadasPrev.current = arrLlamadasActivas;
-        organizar();
+        // organizar();
         return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
       }, [descargar, arrLlamadasActivas, organizar]);
 
