@@ -57,7 +57,9 @@ const Menu = () => {
 
     const descargarNotificaciones = useCallback(async () => {
         console.log('descargando notificaciones')
-        try {const res = await fetch('http://localhost:8080/messages/getMessages');
+        const url = `http://localhost:8080/messages/getMessages?Date=${new Date().toString()}`;
+        try {
+        const res = await fetch(url);
         const data = await res.json();
         console.log(data[0].Items);
         setNotificaciones(data[0].Items);
