@@ -44,9 +44,10 @@ const Button = styled.button`
 `
 
 const IconAlert = styled(MdOutlineAddAlert)`
-    align-self: flex-end;
-    margin-right: 10px;
     font-size: 25px;
+`
+const ButtonAlert = styled.button`
+    align-self: flex-end;
 `
 
 const LlamadaActivaCard = (props) => {
@@ -205,7 +206,7 @@ const LlamadaActivaCard = (props) => {
           //console.log("Llamadas RENDEREANDO:", arrLlamadas)
             return (
                 <Card key={llamada.contenido.id}>
-                    <IconAlert/>
+                    <ButtonAlert><IconAlert/></ButtonAlert>
                     <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
                     <Attribute>Cliente: <Value>{llamada.contenido.cliente}</Value></Attribute>
                     <Attribute>Tiempo: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
