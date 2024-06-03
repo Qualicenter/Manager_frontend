@@ -85,11 +85,11 @@ const LlamadaActivaCard = (props) => {
 
     const organizar = useCallback(async () =>{
       if (JSON.stringify(arrLlamadas) !== JSON.stringify(arrLlamadasPrevias)) {
-        console.log("Llamadas ANTES del sort:", arrLlamadas);
+        // console.log("Llamadas ANTES del sort:", arrLlamadas);
         const llamadasOrdenadas = ordenarLlamadasSentimiento(arrLlamadas);
         const llamadasOrdenadasFinal = ordenarLlamadasAsistencia(llamadasOrdenadas);
         setArrLlamadas(llamadasOrdenadasFinal);
-        console.log("Llamadas DESPUES del sort:", llamadasOrdenadasFinal);
+        // console.log("Llamadas DESPUES del sort:", llamadasOrdenadasFinal);
       }
     }, [arrLlamadas, arrLlamadasPrevias]);
     
@@ -98,7 +98,7 @@ const LlamadaActivaCard = (props) => {
         //Se puede cambiar por un if por si no hay llamadas activas
         
         arrLlamadas.map((llamada) => {
-          console.log("Llamadas RENDEREANDO:", arrLlamadas)
+          // console.log("Llamadas RENDEREANDO:", arrLlamadas)
             return (
                 <Card key={llamada.idArr}>
                     <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>

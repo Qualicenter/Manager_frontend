@@ -1,7 +1,14 @@
+/*
+Autor: Ingrid Garcia 
+Componente que muestra los KPIs en la pantalla principal y les asigan el color correspondiente segun su valor
+Además, permite ajustar los valores de los umbrales de los KPIs y revisar el valor de estos
+ */
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import "../styles/kpis.css";
 import "../styles/ajustes.css";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const Card = styled.div`
   background-color: #fff;
@@ -35,15 +42,21 @@ const Description = styled.p`
 
 const KpiCard = (props) => {
   const [estiloKpi, setEstiloKpi] = useState("normal");
-
-  const [showCentroNotificaciones, setShowCentroNotificaciones] =
-    useState(false);
+  const [showModificarValores, setShowModificarValores] = useState(false);
   const [showValoresActuales, setShowValoresActuales] = useState(false);
-
+  /*
+  Los valores de los umbrales de los KPIs se guardan en los siguientes estados y 
+  empiezan todos en 0
+   */
   const [apropiadoValue, setApropiadoValue] = useState(0);
   const [tolerableValue, setTolerableValue] = useState(0);
   const [excesivoValue, setExcesivoValue] = useState(0);
 
+  /*
+  Revisa si los valores de los umbrales de los KPIs son correctos y asigna el color correspondiente,
+  de lo contrario no se realiza un cambio. Además de que revisa que tipo de métrica es el KPI
+  para asignarle la lógica correcta para el cambio de color
+  */
   useEffect(() => {
     if (props.title === "Abandonment rate") {
       if (
@@ -84,7 +97,7 @@ const KpiCard = (props) => {
           if (props.value >= tolerableValue) {
             setEstiloKpi("medio");
           } else {
-            setEstiloKpi("pelgro");
+            setEstiloKpi("peligro");
           }
         }
       }
@@ -110,21 +123,19 @@ const KpiCard = (props) => {
         setEstiloKpi("normal");
       }
     }
-
-    //CONSULTAR COMO DEBE SER EL AJUSTE DE LOS VALORES DE OCUPANCIA
     if (props.title === "Occupancy") {
       if (
-        apropiadoValue > tolerableValue &&
-        tolerableValue > excesivoValue &&
+        apropiadoValue < tolerableValue &&
+        tolerableValue < excesivoValue &&
         apropiadoValue <= 100 &&
         tolerableValue <= 100 &&
         excesivoValue <= 100
       ) {
         console.log("Valores ajustados correctamente");
-        if (props.value <= excesivoValue) {
+        if (props.value >= excesivoValue) {
           setEstiloKpi("peligro");
         } else {
-          if (props.value <= tolerableValue) {
+          if (props.value >= tolerableValue) {
             setEstiloKpi("medio");
           } else {
             setEstiloKpi("correcto");
@@ -155,25 +166,27 @@ const KpiCard = (props) => {
     }
   }, [props.title, props.value, apropiadoValue, tolerableValue, excesivoValue]);
 
+/*
+ * Función que evita que se actualice el estado al hacer click dentro de la notificación
+ */
   function handleOuterClick(event) {
-    // Prevent state update when clicking inside notification center
     event.stopPropagation();
   }
 
+/*
+ * Funciones que muestran y ocultan las notificaciones de los umbrales de los KPIs
+ */
+  
   const showCentroNotificacionesHandler = () => {
-    setShowCentroNotificaciones(!showCentroNotificaciones);
-    console.log(apropiadoValue);
-    console.log(tolerableValue);
-    console.log(excesivoValue);
+    setShowModificarValores(!showModificarValores);
   };
-
   const showValoresActualesHandler = () => {
     setShowValoresActuales(!showValoresActuales);
   };
 
   return (
     <Card>
-      {showCentroNotificaciones && (
+      {showModificarValores && (
         <div className="div-exterior-notif" onClick={handleOuterClick}>
           <div className="div-interno-notif">
             <p className="umbralTitulo">
@@ -235,7 +248,9 @@ const KpiCard = (props) => {
       )}
 
       <Title>{props.title}</Title>
-      <Value className={estiloKpi}>{props.value} {props.measure}</Value>
+      <Value className={estiloKpi}>
+        {props.value} {props.measure}
+      </Value>
       <Description>{props.description}</Description>
       <button
         className="btnAjustar"
