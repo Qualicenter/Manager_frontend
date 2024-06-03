@@ -56,7 +56,8 @@ const LlamadaActivaCard = (props) => {
         "InitiationTimestamp": "2024-05-27T21:48:40.526Z",
         "CurrentTime": "2024-06-01T06:22:42.117319",
         "ElapsedTime": "0:32",
-        "Sentimiento": "NEUTRAL"
+        "Sentimiento": "NEUTRAL",
+        "UserNameAgente": "MariaLopez"
     },
     {
         "NombreCliente": "Pedro Ramírez",
@@ -64,7 +65,8 @@ const LlamadaActivaCard = (props) => {
         "InitiationTimestamp": "2024-05-27T20:10:20.352Z",
         "CurrentTime": "2024-06-01T06:11:20.757407",
         "ElapsedTime": "1:24",
-        "Sentimiento": "NEGATIVE"
+        "Sentimiento": "NEGATIVE",
+        "UserNameAgente": "AnaGarcia"
     },
     {
         "NombreCliente": "Luisa Martínez",
@@ -72,7 +74,8 @@ const LlamadaActivaCard = (props) => {
         "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
         "CurrentTime": "2024-06-01T06:06:47.145375",
         "ElapsedTime": "1:12",
-        "Sentimiento": "NEUTRAL"
+        "Sentimiento": "NEUTRAL",
+        "UserNameAgente": "CarlosRodriguez"
     },
     {
       "NombreCliente": "Andrés Pérez",
@@ -80,7 +83,8 @@ const LlamadaActivaCard = (props) => {
       "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
       "CurrentTime": "2024-06-01T06:06:47.145375",
       "ElapsedTime": "2:32",
-      "Sentimiento": "POSITIVE"
+      "Sentimiento": "POSITIVE",
+      "UserNameAgente": "LauraSanchez"
   }
 ];
 
@@ -104,7 +108,9 @@ const LlamadaActivaCard = (props) => {
               tiempo: llamada.ElapsedTime,
               sentimiento: llamada.Sentimiento,
               // Asistencia a cambiar
-              asistencia:'False'} };
+              asistencia:'False',
+              usernameAgente: llamada.UserNameAgente
+            }};
           return transcripcion;
         });
        
@@ -124,7 +130,9 @@ const LlamadaActivaCard = (props) => {
             tiempo: llamada.ElapsedTime,
             sentimiento: llamada.Sentimiento,
             // Asistencia a cambiar
-            asistencia:'False'} };
+            asistencia:'False',
+            usernameAgente: llamada.UserNameAgente
+          }};
         return transcripcion;
       });
       setArrLlamadasActivas(arrNuevo);
