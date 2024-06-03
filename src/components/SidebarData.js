@@ -12,19 +12,19 @@ import * as AiIcons from 'react-icons/ai';
 
 export const SidebarData = [
   {
-    title: 'Menu',
+    title: 'Inicio',
     path: '/',
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text'
   },
   {
-    title: 'Agents',
+    title: 'Agentes',
     path: '/agentes',
     icon: <AiIcons.AiOutlineUser />,
     cName: 'nav-text'
   },
   {
-    title: 'Historic KPI',
+    title: 'KPIs Históricos',
     path: '/historicos',
     icon: <FaIcons.FaChartBar />,
     cName: 'nav-text'

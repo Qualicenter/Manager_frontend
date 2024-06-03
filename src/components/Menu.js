@@ -40,19 +40,17 @@ const Column = styled.section`
     max-width: 100%;
     overflow-y: scroll;
   }
+  div.cards-wrapper {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
+    overflow-y: scroll;
+  }
 `;
 
 const Menu = () => {
-  const [showVentanaTranscripcion, setShwoVentanaTranscripcion] = useState(false);
-  const [showCentroNotificaciones, setShowCentroNotificaciones] = useState(false);
-    div.cards-wrapper {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 100%;
-      overflow-y: scroll;
-    }
-  `;
+
   const [showVentanaTranscripcion, setShwoVentanaTranscripcion] =
     useState(false);
   const [showCentroNotificaciones, setShowCentroNotificaciones] =
@@ -91,16 +89,7 @@ const Menu = () => {
 
       return () => clearInterval(intervalId);
     }, [descargarNotificaciones])
-  const descargarNotificaciones = async () => {
-    try {
-      const res = await fetch("http://localhost:8080/messages/getMessages");
-      const data = await res.json();
-      // console.log(data[0].Items);
-      setNotificaciones(data[0].Items);
-    } catch (error) {
-      // console.log(error);
-    }
-  };
+
 
   /*
 Autor: Ingrid García
@@ -218,8 +207,11 @@ La función procesarYEnviarKPIs se encarga de obtener los KPIs del momento prove
         );
         return;
       }
-      const regreso = await pet.json();
-
+        /*
+          Autor: Ingrid García 
+          Para revisar si se guardaron los datos correctamente en la base de datos. 
+        */
+      // const regreso = await pet.json();
       // console.log("Respuesta del servidor:", regreso);
     } catch (error) {
       console.log(error);
@@ -316,8 +308,11 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci�
           );
           return;
         }
-        const regreso = await pet.json();
-
+        /*
+          Autor: Ingrid García 
+          Para revisar si se guardaron los datos correctamente en la base de datos. 
+        */
+        // const regreso = await pet.json();
         // console.log("Respuesta del servidor:", regreso);
       }
     } catch (error) {
