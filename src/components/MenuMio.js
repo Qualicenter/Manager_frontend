@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import "../images/profile.png";
 import TitleComponent from "./Title";
@@ -10,41 +10,30 @@ import ListaTranscripcion from "./ListaTranscripcion";
 import CentroNotif from "./CentroNotif";
 import "../styles/button-centro-notif.css";
 
-const Wrapper = styled.main`
-  position: relative;
-  padding: 10px;
-  width: 80%;
-  height: 834px;
-  display: flex;
-  gap: 2%;
-  left: 16%;
-`;
-
-const Column = styled.section`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-
-  &.side {
-    width: 35%;
-  }
-
-  &.center {
-    width: 30%;
-  }
-
-  div.cards-wrapper {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    max-width: 100%;
-    overflow-y: scroll;
-  }
-`;
-
 const Menu = () => {
-  const [showVentanaTranscripcion, setShwoVentanaTranscripcion] = useState(false);
-  const [showCentroNotificaciones, setShowCentroNotificaciones] = useState(false);
+  const Wrapper = styled.main`
+    position: relative;
+    padding: 10px;
+    width: 80%;
+    height: 834px;
+    display: flex;
+    gap: 2%;
+    left: 16%;
+  `;
+
+  const Column = styled.section`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &.side {
+      width: 35%;
+    }
+
+    &.center {
+      width: 30%;
+    }
+
     div.cards-wrapper {
       position: relative;
       display: grid;
@@ -73,24 +62,6 @@ const Menu = () => {
   const [servicio, setServicio] = useState(0);
   const [ocupacion, setOcupacion] = useState(0);
 
-    const descargarNotificaciones = useCallback(async () => {
-        console.log('descargando notificaciones')
-        try {const res = await fetch('http://localhost:8080/messages/getMessages');
-        const data = await res.json();
-        console.log(data[0].Items);
-        setNotificaciones(data[0].Items);
-        } catch (error) {
-            console.log(error);
-        }
-    }, [])
-
-    useEffect(() => {
-      const intervalId = setInterval(() => {
-        descargarNotificaciones();
-      }, 5000);
-
-      return () => clearInterval(intervalId);
-    }, [descargarNotificaciones])
   const descargarNotificaciones = async () => {
     try {
       const res = await fetch("http://localhost:8080/messages/getMessages");
@@ -426,3 +397,5 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci√
 };
 
 export default Menu;
+
+
