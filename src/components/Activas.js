@@ -114,6 +114,20 @@ const LlamadaActivaCard = (props) => {
       
     } catch (error) {
       console.error('Error al descargar los datos:', error);
+      const arrNuevo = [...dataPruebasActivas].map((llamada)  => {
+        const transcripcion = {  
+          contenido:{
+            id: uuidv4(),
+            // Nombre del agente
+            agente: llamada.NombreAgente,
+            cliente: llamada.NombreCliente,
+            tiempo: llamada.ElapsedTime,
+            sentimiento: llamada.Sentimiento,
+            // Asistencia a cambiar
+            asistencia:'False'} };
+        return transcripcion;
+      });
+      setArrLlamadasActivas(arrNuevo);
     }
   }, [url]);
        
