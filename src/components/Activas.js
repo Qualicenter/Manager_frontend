@@ -51,32 +51,32 @@ const LlamadaActivaCard = (props) => {
 
   const dataPruebasActivas = [
     {
-        "NombreCliente": "Jorge Rodriguez",
-        "NombreAgente": "AldehilSanchez",
+        "NombreCliente": "Juan Hernández",
+        "NombreAgente": "María López",
         "InitiationTimestamp": "2024-05-27T21:48:40.526Z",
         "CurrentTime": "2024-06-01T06:22:42.117319",
         "ElapsedTime": "0:32",
         "Sentimiento": "NEUTRAL"
     },
     {
-        "NombreCliente": "Gustavo Tellez",
-        "NombreAgente": "AngelMarquez",
+        "NombreCliente": "Pedro Ramírez",
+        "NombreAgente": "Ana García",
         "InitiationTimestamp": "2024-05-27T20:10:20.352Z",
         "CurrentTime": "2024-06-01T06:11:20.757407",
         "ElapsedTime": "1:24",
         "Sentimiento": "NEGATIVE"
     },
     {
-        "NombreCliente": "Ingrid Garcia",
-        "NombreAgente": "AbigailDonaji",
+        "NombreCliente": "Luisa Martínez",
+        "NombreAgente": "Carlos Rodríguez",
         "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
         "CurrentTime": "2024-06-01T06:06:47.145375",
         "ElapsedTime": "1:12",
         "Sentimiento": "NEUTRAL"
     },
     {
-      "NombreCliente": "Eduardo Lugo",
-      "NombreAgente": "AlonsoSegura",
+      "NombreCliente": "Andrés Pérez",
+      "NombreAgente": "Laura Sánchez",
       "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
       "CurrentTime": "2024-06-01T06:06:47.145375",
       "ElapsedTime": "2:32",
