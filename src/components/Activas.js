@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
 import { useCallback, useEffect, useState, useRef } from "react";
+import { MdOutlineAddAlert } from "react-icons/md";
 
 const Card = styled.div`
     background-color: #fff;
@@ -42,6 +43,12 @@ const Button = styled.button`
     border-radius: 5px;
 `
 
+const IconAlert = styled(MdOutlineAddAlert)`
+    align-self: flex-end;
+    margin-right: 10px;
+    font-size: 25px;
+`
+
 const LlamadaActivaCard = (props) => {
 
 
@@ -51,36 +58,40 @@ const LlamadaActivaCard = (props) => {
 
   const dataPruebasActivas = [
     {
-        "NombreCliente": "Jorge Rodriguez",
-        "NombreAgente": "AldehilSanchez",
+        "NombreCliente": "Juan Hernández",
+        "NombreAgente": "María López",
         "InitiationTimestamp": "2024-05-27T21:48:40.526Z",
         "CurrentTime": "2024-06-01T06:22:42.117319",
         "ElapsedTime": "0:32",
-        "Sentimiento": "NEUTRAL"
+        "Sentimiento": "NEUTRAL",
+        "UserNameAgente": "MariaLopez"
     },
     {
-        "NombreCliente": "Gustavo Tellez",
-        "NombreAgente": "AngelMarquez",
+        "NombreCliente": "Pedro Ramírez",
+        "NombreAgente": "Ana García",
         "InitiationTimestamp": "2024-05-27T20:10:20.352Z",
         "CurrentTime": "2024-06-01T06:11:20.757407",
         "ElapsedTime": "1:24",
-        "Sentimiento": "NEGATIVE"
+        "Sentimiento": "NEGATIVE",
+        "UserNameAgente": "AnaGarcia"
     },
     {
-        "NombreCliente": "Ingrid Garcia",
-        "NombreAgente": "AbigailDonaji",
+        "NombreCliente": "Luisa Martínez",
+        "NombreAgente": "Carlos Rodríguez",
         "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
         "CurrentTime": "2024-06-01T06:06:47.145375",
         "ElapsedTime": "1:12",
-        "Sentimiento": "NEUTRAL"
+        "Sentimiento": "NEUTRAL",
+        "UserNameAgente": "CarlosRodriguez"
     },
     {
-      "NombreCliente": "Eduardo Lugo",
-      "NombreAgente": "AlonsoSegura",
+      "NombreCliente": "Andrés Pérez",
+      "NombreAgente": "Laura Sánchez",
       "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
       "CurrentTime": "2024-06-01T06:06:47.145375",
       "ElapsedTime": "2:32",
-      "Sentimiento": "POSITIVE"
+      "Sentimiento": "POSITIVE",
+      "UserNameAgente": "LauraSanchez"
   }
 ];
 
@@ -104,7 +115,9 @@ const LlamadaActivaCard = (props) => {
               tiempo: llamada.ElapsedTime,
               sentimiento: llamada.Sentimiento,
               // Asistencia a cambiar
-              asistencia:'False'} };
+              asistencia:'False',
+              usernameAgente: llamada.UserNameAgente
+            }};
           return transcripcion;
         });
        
@@ -114,6 +127,22 @@ const LlamadaActivaCard = (props) => {
       
     } catch (error) {
       console.error('Error al descargar los datos:', error);
+      const arrNuevo = [...dataPruebasActivas].map((llamada)  => {
+        const transcripcion = {  
+          contenido:{
+            id: uuidv4(),
+            // Nombre del agente
+            agente: llamada.NombreAgente,
+            cliente: llamada.NombreCliente,
+            tiempo: llamada.ElapsedTime,
+            sentimiento: llamada.Sentimiento,
+            // Asistencia a cambiar
+            asistencia:'False',
+            usernameAgente: llamada.UserNameAgente
+          }};
+        return transcripcion;
+      });
+      setArrLlamadasActivas(arrNuevo);
     }
   }, [url]);
        
@@ -175,12 +204,12 @@ const LlamadaActivaCard = (props) => {
         arrLlamadasActivas.map((llamada) => {
           //console.log("Llamadas RENDEREANDO:", arrLlamadas)
             return (
-                <Card key={llamada.idArr}>
+                <Card key={llamada.contenido.id}>
+                    <IconAlert/>
                     <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
                     <Attribute>Cliente: <Value>{llamada.contenido.cliente}</Value></Attribute>
                     <Attribute>Tiempo: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
                     <Attribute>Sentimiento: <Value>{llamada.contenido.sentimiento}</Value></Attribute>
-                    <Attribute>Asistencia: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.asistencia}</Value></Attribute>
                     <Button onClick={props.funcVentanaTranscripcion}>Transcripcion</Button>
                 </Card>
             );
