@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
 import { useCallback, useEffect, useState, useRef } from "react";
+import { MdOutlineAddAlert } from "react-icons/md";
 
 const Card = styled.div`
     background-color: #fff;
@@ -40,6 +41,12 @@ const Button = styled.button`
     border: none;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 5px;
+`
+
+const IconAlert = styled(MdOutlineAddAlert)`
+    align-self: flex-end;
+    margin-right: 10px;
+    font-size: 25px;
 `
 
 const LlamadaActivaCard = (props) => {
@@ -198,11 +205,11 @@ const LlamadaActivaCard = (props) => {
           //console.log("Llamadas RENDEREANDO:", arrLlamadas)
             return (
                 <Card key={llamada.contenido.id}>
+                    <IconAlert/>
                     <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
                     <Attribute>Cliente: <Value>{llamada.contenido.cliente}</Value></Attribute>
                     <Attribute>Tiempo: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
                     <Attribute>Sentimiento: <Value>{llamada.contenido.sentimiento}</Value></Attribute>
-                    <Attribute>Asistencia: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.asistencia}</Value></Attribute>
                     <Button onClick={props.funcVentanaTranscripcion}>Transcripcion</Button>
                 </Card>
             );
