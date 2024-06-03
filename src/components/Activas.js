@@ -94,7 +94,8 @@ const LlamadaActivaCard = (props) => {
   const [arrLlamadasActivas, setArrLlamadasActivas] = useState([]);
   const [url] = useState("http://localhost:8080/agente/consultaContacts");
   const arrLlamadasPrev = useRef();
-
+  const notificaciones = props.notificaciones;
+  const setNotificaciones = props.setNotificaciones;
 
   const descargar = useCallback(async () => {
     try {
@@ -194,6 +195,14 @@ const LlamadaActivaCard = (props) => {
         return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
       }, [descargar, arrLlamadasActivas, organizar]);
 
+    const showTapIconHandler = (username) => {
+      // Cambiar el valor del atributo asistencia en el objeto notificaciones a traves del setter setNotificaciones
+      let notificacionesFiltradas = {...notificaciones};
+      notificacionesFiltradas[username].asistencia = false;
+      props.setNotificacionesAgente(notificacionesFiltradas[username].notificaciones);
+      props.showCentroNotificacionesHandler();
+    }
+
     return (
         //Se puede cambiar por un if por si no hay llamadas activas
         
@@ -201,7 +210,7 @@ const LlamadaActivaCard = (props) => {
           //console.log("Llamadas RENDEREANDO:", arrLlamadas)
             return (
                 <Card key={llamada.contenido.usernameAgente}>
-                    <ButtonAlert><IconAlert/></ButtonAlert>
+                    <ButtonAlert onClick={() => showTapIconHandler(llamada.contenido.usernameAgente)}><IconAlert/></ButtonAlert>
                     <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
                     <Attribute>Cliente: <Value>{llamada.contenido.cliente}</Value></Attribute>
                     <Attribute>Tiempo: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>

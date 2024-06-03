@@ -46,6 +46,34 @@ const Menu = () => {
   const [showVentanaTranscripcion, setShwoVentanaTranscripcion] = useState(false);
   const [showCentroNotificaciones, setShowCentroNotificaciones] = useState(false);
   const [notificaciones, setNotificaciones] = useState([]);
+  const [notificacionesFiltradasG, setNotificacionesFiltradas] = useState({});
+  const [notificacionesAgente, setNotificacionesAgente] = useState([]);
+
+  const filtrarNotificaciones = useCallback((notificaciones) => {
+    let notificacionesFiltradas = {}
+    notificaciones.map((notificacion) => {
+      if (!notificacionesFiltradas[notificacion.Sender]) {
+      notificacionesFiltradas[notificacion.Sender] = {notificaciones:[notificacion], asistencia:false};
+      } else {
+      notificacionesFiltradas[notificacion.Sender].notificaciones.push(notificacion);
+      }
+      return notificacionesFiltradas;
+    });
+    const usernames = Object.keys(notificacionesFiltradas);
+    for (let i = 0; i < usernames.length; i++) {
+      if (notificacionesFiltradasG[usernames[i]] === undefined) {
+        notificacionesFiltradasG[usernames[i]] = {notificaciones:[], asistencia:false};
+      }
+      if (notificacionesFiltradasG[usernames[i]].notificaciones.length < notificacionesFiltradas[usernames[i]].notificaciones.length) {
+        notificacionesFiltradas[usernames[i]].asistencia = true;
+      }
+
+      if (notificacionesFiltradasG[usernames[i]].asistencia === true) {
+        notificacionesFiltradas[usernames[i]].asistencia = true;
+      }
+    }
+    setNotificacionesFiltradas(notificacionesFiltradas);
+  },[notificacionesFiltradasG])
 
   const showVentanaHandler = () => {
     setShwoVentanaTranscripcion(!showVentanaTranscripcion);
@@ -61,12 +89,12 @@ const Menu = () => {
         try {
         const res = await fetch(url);
         const data = await res.json();
-        console.log(data[0].Items);
+        filtrarNotificaciones(data[0].Items);
         setNotificaciones(data[0].Items);
         } catch (error) {
             console.log(error);
         }
-    }, [])
+    }, [filtrarNotificaciones])
 
     useEffect(() => {
       const intervalId = setInterval(() => {
@@ -79,12 +107,12 @@ const Menu = () => {
   return (
     <Wrapper>
        {showVentanaTranscripcion && <ListaTranscripcion cancelar={showVentanaHandler} />}
-        {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificaciones} />}
+        {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificacionesAgente} />}
     <Column className='side'>
         <TitleComponent text='Llamadas Activas' />
         <button className="button-centro-notif" onClick={() => {showCentroNotificacionesHandler();descargarNotificaciones()}} >Centro de Notificaciones</button>
         <div className='cards-wrapper'>
-          <LlamadaActivaCard funcVentanaTranscripcion={showVentanaHandler}/>
+          <LlamadaActivaCard funcVentanaTranscripcion={showVentanaHandler} notificaciones={notificacionesFiltradasG} setNotificaciones={setNotificacionesFiltradas} setNotificacionesAgente={setNotificacionesAgente} showCentroNotificacionesHandler={showCentroNotificacionesHandler}/>
         </div>
     </Column>
     <Column className='center'>
