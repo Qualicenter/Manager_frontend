@@ -197,7 +197,7 @@ const LlamadaActivaCard = (props) => {
         arrLlamadasActivas.map((llamada) => {
           //console.log("Llamadas RENDEREANDO:", arrLlamadas)
             return (
-                <Card key={llamada.idArr}>
+                <Card key={llamada.contenido.id}>
                     <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
                     <Attribute>Cliente: <Value>{llamada.contenido.cliente}</Value></Attribute>
                     <Attribute>Tiempo: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
