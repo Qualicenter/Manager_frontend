@@ -8,8 +8,6 @@ import React, { useState, useEffect } from "react";
 import "../styles/kpis.css";
 import "../styles/ajustes.css";
 
-import "react-toastify/dist/ReactToastify.css";
-
 const Card = styled.div`
   background-color: #fff;
   width: 165px;

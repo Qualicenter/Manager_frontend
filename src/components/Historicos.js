@@ -128,7 +128,6 @@ const Historicos = () => {
   const [infoV, setInfoV] = useState();
   const [infoOc, setInfoOc] = useState();
   const [infoTiempo, setInfoTiempo] = useState();
-  const [actualizar, setActualizar] = useState(true);
 
   const dataAbandono = createChartData(
     infoAbandono,
