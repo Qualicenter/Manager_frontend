@@ -24,29 +24,6 @@ const Value = styled.p`
 
 const LlamadaEsperaCard = (props) => {
     const [elapsedTime, setElapsedTime] = useState('');
-    const [clientName, setClientName] = useState('');
-
-    // Fetch client name from contact ID
-    useEffect(() => {
-        const fetchClientName = async () => {
-            try {
-                const response = await fetch(`http://localhost:8080/agente/consultaCustomerInfo/${props.contactId}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch');
-                }
-                const data = await response.json();
-                setClientName(data.clientName);
-            } catch (error) {
-                console.error("Error fetching client name:", error);
-            }
-        };
-
-        fetchClientName();
-
-        // Cleanup function
-        return () => {
-        };
-    }, [props.contactId]);
 
     useEffect(() => {
         const calculateElapsedTime = () => {
@@ -89,7 +66,7 @@ const LlamadaEsperaCard = (props) => {
 
     return (
         <Card>
-            <Attribute>Nombre del cliente: <Value>{clientName || "Nombre no disponible"}</Value></Attribute>
+            <Attribute>Nombre del cliente: <Value>{props.clientName}</Value></Attribute>
             <Attribute>Tiempo en espera: <Value style={{color: "red"}}>{elapsedTime}</Value></Attribute>
         </Card>
     );
