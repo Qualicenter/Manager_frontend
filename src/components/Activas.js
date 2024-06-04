@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import { useCallback, useEffect, useState, useRef } from "react";
 import { MdOutlineAddAlert } from "react-icons/md";
 
@@ -49,6 +49,44 @@ const IconAlert = styled(MdOutlineAddAlert)`
 const ButtonAlert = styled.button`
     align-self: flex-end;
 `
+const dataPruebasActivas = [
+  {
+      "NombreCliente": "Juan Hernández",
+      "NombreAgente": "María López",
+      "InitiationTimestamp": "2024-05-27T21:48:40.526Z",
+      "CurrentTime": "2024-06-01T06:22:42.117319",
+      "ElapsedTime": "0:32",
+      "Sentimiento": "NEUTRAL",
+      "UserNameAgente": "MariaLopez"
+  },
+  {
+      "NombreCliente": "Pedro Ramírez",
+      "NombreAgente": "Ana García",
+      "InitiationTimestamp": "2024-05-27T20:10:20.352Z",
+      "CurrentTime": "2024-06-01T06:11:20.757407",
+      "ElapsedTime": "1:24",
+      "Sentimiento": "NEGATIVE",
+      "UserNameAgente": "AnaGarcia"
+  },
+  {
+      "NombreCliente": "Luisa Martínez",
+      "NombreAgente": "Carlos Rodríguez",
+      "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
+      "CurrentTime": "2024-06-01T06:06:47.145375",
+      "ElapsedTime": "1:12",
+      "Sentimiento": "NEUTRAL",
+      "UserNameAgente": "CarlosRodriguez"
+  },
+  {
+    "NombreCliente": "Andrés Pérez",
+    "NombreAgente": "Laura Sánchez",
+    "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
+    "CurrentTime": "2024-06-01T06:06:47.145375",
+    "ElapsedTime": "2:32",
+    "Sentimiento": "POSITIVE",
+    "UserNameAgente": "LauraSanchez"
+}
+];
 
 const LlamadaActivaCard = (props) => {
 
@@ -56,60 +94,18 @@ const LlamadaActivaCard = (props) => {
   const [arrLlamadasActivas, setArrLlamadasActivas] = useState([]);
   const [url] = useState("http://localhost:8080/agente/consultaContacts");
   const arrLlamadasPrev = useRef();
-
-  const dataPruebasActivas = [
-    {
-        "NombreCliente": "Juan Hernández",
-        "NombreAgente": "María López",
-        "InitiationTimestamp": "2024-05-27T21:48:40.526Z",
-        "CurrentTime": "2024-06-01T06:22:42.117319",
-        "ElapsedTime": "0:32",
-        "Sentimiento": "NEUTRAL",
-        "UserNameAgente": "MariaLopez"
-    },
-    {
-        "NombreCliente": "Pedro Ramírez",
-        "NombreAgente": "Ana García",
-        "InitiationTimestamp": "2024-05-27T20:10:20.352Z",
-        "CurrentTime": "2024-06-01T06:11:20.757407",
-        "ElapsedTime": "1:24",
-        "Sentimiento": "NEGATIVE",
-        "UserNameAgente": "AnaGarcia"
-    },
-    {
-        "NombreCliente": "Luisa Martínez",
-        "NombreAgente": "Carlos Rodríguez",
-        "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
-        "CurrentTime": "2024-06-01T06:06:47.145375",
-        "ElapsedTime": "1:12",
-        "Sentimiento": "NEUTRAL",
-        "UserNameAgente": "CarlosRodriguez"
-    },
-    {
-      "NombreCliente": "Andrés Pérez",
-      "NombreAgente": "Laura Sánchez",
-      "InitiationTimestamp": "2024-05-27T19:21:14.772Z",
-      "CurrentTime": "2024-06-01T06:06:47.145375",
-      "ElapsedTime": "2:32",
-      "Sentimiento": "POSITIVE",
-      "UserNameAgente": "LauraSanchez"
-  }
-];
+  const notificaciones = props.notificaciones;
+  const setNotificaciones = props.setNotificaciones;
 
   const descargar = useCallback(async () => {
     try {
-
-      /* eslint-disable */
-        
-        
-
         const responseActiva = await fetch(url);
         const dataActiva = await responseActiva.json();
        
         const arrNuevo = [...dataActiva, ...dataPruebasActivas].map((llamada)  => {
           const transcripcion = {  
             contenido:{
-              id: uuidv4(),
+              // id: uuidv4(),
               // Nombre del agente
               agente: llamada.NombreAgente,
               cliente: llamada.NombreCliente,
@@ -131,14 +127,14 @@ const LlamadaActivaCard = (props) => {
       const arrNuevo = [...dataPruebasActivas].map((llamada)  => {
         const transcripcion = {  
           contenido:{
-            id: uuidv4(),
+            // id: uuidv4(),
             // Nombre del agente
             agente: llamada.NombreAgente,
             cliente: llamada.NombreCliente,
             tiempo: llamada.ElapsedTime,
             sentimiento: llamada.Sentimiento,
             // Asistencia a cambiar
-            asistencia:'False',
+            // asistencia:'False',
             usernameAgente: llamada.UserNameAgente
           }};
         return transcripcion;
@@ -199,14 +195,22 @@ const LlamadaActivaCard = (props) => {
         return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
       }, [descargar, arrLlamadasActivas, organizar]);
 
+    const showTapIconHandler = (username) => {
+      // Cambiar el valor del atributo asistencia en el objeto notificaciones a traves del setter setNotificaciones
+      let notificacionesFiltradas = {...notificaciones};
+      notificacionesFiltradas[username].asistencia = false;
+      props.setNotificacionesAgente(notificacionesFiltradas[username].notificaciones);
+      props.showCentroNotificacionesHandler();
+    }
+
     return (
         //Se puede cambiar por un if por si no hay llamadas activas
         
         arrLlamadasActivas.map((llamada) => {
           //console.log("Llamadas RENDEREANDO:", arrLlamadas)
             return (
-                <Card key={llamada.contenido.id}>
-                    <ButtonAlert><IconAlert/></ButtonAlert>
+                <Card key={llamada.contenido.usernameAgente}>
+                    <ButtonAlert onClick={() => showTapIconHandler(llamada.contenido.usernameAgente)}><IconAlert/></ButtonAlert>
                     <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
                     <Attribute>Cliente: <Value>{llamada.contenido.cliente}</Value></Attribute>
                     <Attribute>Tiempo: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
