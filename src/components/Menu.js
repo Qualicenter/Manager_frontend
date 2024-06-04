@@ -237,41 +237,29 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci√
         if (data[1][1]) {
           abandono = data[1][1].toFixed(1);
           kpis.push(["Abandono", abandono]);
-          setAbandono(abandono);
         } else {
-          abandono = 0;
           kpis.push(["Abandono", 0]);
-          setAbandono(0);
         }
 
         if (data[2][1]) {
           duracion = data[2][1].toFixed(1);
           kpis.push(["Duracion", duracion]);
-          setDuracion(duracion);
         } else {
-          duracion = 0;
           kpis.push(["Duracion", 0]);
-          setDuracion(0);
         }
 
         if (data[3][1]) {
           tiempoEspera = data[3][1].toFixed(1);
           kpis.push(["Espera", tiempoEspera]);
-          setTiempoEspera(tiempoEspera);
         } else {
-          tiempoEspera = 0;
           kpis.push(["Espera", 0]);
-          setTiempoEspera(0);
         }
 
         if (data[4][1]) {
           servicio = data[4][1].toFixed(1);
           kpis.push(["Servicio", servicio]);
-          setServicio(servicio);
         } else {
-          servicio = 0;
           kpis.push(["Servicio", 0]);
-          setServicio(0);
         }
 
         ocupacion = 50;
@@ -301,7 +289,7 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci√
         if (!pet.ok) {
           const text = await pet.text();
           console.log(
-            "Error en la respuesta del servidor:",
+            "Respuesta del servidor:",
             pet.status,
             pet.statusText,
             text
