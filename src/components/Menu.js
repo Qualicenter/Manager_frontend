@@ -3,7 +3,6 @@ import styled from "styled-components";
 import "../images/profile.png";
 import TitleComponent from "./Title";
 import KpiCard from "./Kpi";
-import LlamadaEsperaCard from "./Espera";
 import LlamadaActivaCard from "./Activas";
 import { useState, useRef } from "react";
 import ListaTranscripcion from "./ListaTranscripcion";
@@ -37,15 +36,8 @@ const Column = styled.section`
   div.cards-wrapper {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(2,1fr);
-    max-width: 100%;
-    overflow-y: scroll;
-  }
-  div.cards-wrapper {
-    position: relative;
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
-    max-width: 100%;
+    width: 100%;
     overflow-y: scroll;
   }
 `;
