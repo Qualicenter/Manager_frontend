@@ -1,14 +1,20 @@
 import "../styles/agentes.css";
 import styled from "styled-components";
-// import "../images/1.png";
+import "../images/1.png";
 import { Link } from 'react-router-dom';
 
 const AgentesIndividual = ({nombre, apellido, im}) => {
-    const Title = styled.h2`
+
+    const Title = styled.h2`    
     font-size: 20px;
     font-weight: 600;
 
     `
+    const handlerGiveName = () => {
+        const info = `${nombre}${apellido}`;
+        console.log(info)
+        localStorage.setItem('username', info)
+    }
 
     return (
         <div className='cardW'>
@@ -18,8 +24,10 @@ const AgentesIndividual = ({nombre, apellido, im}) => {
             <button className='btnInfo'>
                 <Link to="/agente/kpi">Mas</Link>
             </button>
-            <button className='btnInfo'>
-                <Link to="/encuesta">Comentario</Link>
+            <button className='btnInfo' onClick={handlerGiveName}>
+            <Link to='/encuesta'> 
+                    Comentario
+                </Link>
             </button>
         </div>
     )

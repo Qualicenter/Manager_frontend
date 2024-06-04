@@ -48,6 +48,7 @@ const IconAlert = styled(MdOutlineAddAlert)`
 `
 const ButtonAlert = styled.button`
     align-self: flex-end;
+    border-radius: 5px;
 `
 const dataPruebasActivas = [
   {
@@ -178,11 +179,11 @@ const LlamadaActivaCard = (props) => {
 
     const organizar = useCallback(async () =>{
       if (JSON.stringify(arrLlamadasActivas) !== JSON.stringify(arrLlamadasPrevias)) {
-        //console.log("Llamadas ANTES del sort:", arrLlamadasActivas);
+        // //console.log("Llamadas ANTES del sort:", arrLlamadasActivas);
         const llamadasOrdenadas = ordenarLlamadasSentimiento(arrLlamadasActivas);
         const llamadasOrdenadasFinal = ordenarLlamadasAsistencia(llamadasOrdenadas);
         setArrLlamadasActivas(llamadasOrdenadasFinal);
-        //console.log("Llamadas DESPUES del sort:", llamadasOrdenadasFinal);
+        // //console.log("Llamadas DESPUES del sort:", llamadasOrdenadasFinal);
       }
     }, [arrLlamadasActivas, arrLlamadasPrevias]);
     
@@ -207,7 +208,7 @@ const LlamadaActivaCard = (props) => {
         //Se puede cambiar por un if por si no hay llamadas activas
         
         arrLlamadasActivas.map((llamada) => {
-          //console.log("Llamadas RENDEREANDO:", arrLlamadas)
+          // //console.log("Llamadas RENDEREANDO:", arrLlamadas)
             return (
                 <Card key={llamada.contenido.usernameAgente}>
                     <ButtonAlert onClick={() => showTapIconHandler(llamada.contenido.usernameAgente)}><IconAlert/></ButtonAlert>

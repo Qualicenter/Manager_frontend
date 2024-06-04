@@ -1,90 +1,97 @@
+//Autor: Gerardo Rios Mejía
+// Lista donde se almacenan los títulos de las preguntas
+
 const preguntas = [
     {
-        titulo: "¿El agente demuestra un conocimiento sólido de los procedimientos de atención en casos de accidentes?",
+        // se manda a llamar el dato y se muestra en las pantalla 
+        titulo: "Does the agent demonstrate a solid understanding of accident care procedures?",
+        
+        //estado donde se almacenan las opciones, Yes cambia a falso se bloque la opción de los comentarios
+        //el estado se utiliza para sumar un valor
         opciones: [
-            {textoRespuesta: "Si", isVerdad: true},
-            {textoRespuesta: "Parcialmente", isPart: true},
+            {textoRespuesta: "Yes", isVerdad: true},
+            {textoRespuesta: "Partially", isPart: true},
             {textoRespuesta: "No", isFalso: true}
         ],
     },
     
     {
-        titulo: "¿El agente se comunica de manera clara y comprensible durante la llamada?",
+        titulo: "Does the agent communicate clearly and understandably during the call?",
         opciones: [
-            {textoRespuesta: "Si", isVerdad: true},
-            {textoRespuesta: "Parcialmente", isPart: true},
+            {textoRespuesta: "Yes", isVerdad: true},
+            {textoRespuesta: "Partially", isPart: true},
             {textoRespuesta: "No", isFalso: true}
         ],
     },
 
     {
-        titulo: "¿El agente muestra empatía y sensibilidad hacia la situación del cliente afectado por el accidente?",
+        titulo: "Does the agent show empathy and sensitivity to the customer's situation affected by the accident",
         opciones: [
-            {textoRespuesta: "Si", isVerdad: true},
-            {textoRespuesta: "Parcialmente", isPart: true},
+            {textoRespuesta: "Yes", isVerdad: true},
+            {textoRespuesta: "Partially", isPart: true},
             {textoRespuesta: "No", isFalso: true}
         ],
     },
 
     {
-        titulo: "¿El agente es capaz de resolver eficientemente las preocupaciones y preguntas del cliente relacionadas con el accidente?",
+        titulo: "Is the agent able to efficiently resolve the client's concerns and questions related to the accident?",
         opciones: [
-            {textoRespuesta: "Si", isVerdad: true},
-            {textoRespuesta: "Parcialmente", isPart: true},
+            {textoRespuesta: "Yes", isVerdad: true},
+            {textoRespuesta: "Partially", isPart: true},
             {textoRespuesta: "No", isFalso: true}
         ],
     },
 
     {
-        titulo: "¿El agente sigue los procedimientos de seguridad establecidos al atender casos de accidentes?",
+        titulo: "Does the agent follow established safety procedures when handling accidents?",
         opciones: [
-            {textoRespuesta: "Si", isVerdad: true},
-            {textoRespuesta: "Parcialmente", isPart: true},
+            {textoRespuesta: "Yes", isVerdad: true},
+            {textoRespuesta: "Partially", isPart: true},
             {textoRespuesta: "No", isFalso: true}
         ],
     },
 
     {
-        titulo: "¿El agente demuestra habilidades de escucha activa al interactuar con clientes afectados por accidentes?",
+        titulo: "Does the agent demonstrate active listening skills when interacting with customers affected by accidents?",
         opciones: [
-            {textoRespuesta: "Si", isVerdad: true},
-            {textoRespuesta: "Parcialmente", isPart: true},
+            {textoRespuesta: "Yes", isVerdad: true},
+            {textoRespuesta: "Partially", isPart: true},
             {textoRespuesta: "No", isFalso: true}
         ],
     },
 
     {
-        titulo: "¿El agente ofrece soluciones efectivas y adecuadas para resolver problemas específicos relacionados con el accidente?",
+        titulo: "Does the agent offer effective and appropriate solutions to resolve specific issues related to the accident?",
         opciones: [
-            {textoRespuesta: "Si", isVerdad: true},
-            {textoRespuesta: "Parcialmente", isPart: true},
+            {textoRespuesta: "Yes", isVerdad: true},
+            {textoRespuesta: "Partially", isPart: true},
             {textoRespuesta: "No", isFalso: true}
         ],
     },
 
     {
-        titulo: "¿El agente gestiona el tiempo de manera eficiente para proporcionar una atención oportuna en situaciones de emergencia por accidentes?",
+        titulo: "Does the agent manage time efficiently to provide timely care in emergency accident situations?",
         opciones: [
-            {textoRespuesta: "Si", isVerdad: true},
-            {textoRespuesta: "Parcialmente", isPart: true},
+            {textoRespuesta: "Yes", isVerdad: true},
+            {textoRespuesta: "Partially", isPart: true},
             {textoRespuesta: "No", isFalso: true}
         ],
     },
 
     {
-        titulo: "¿El agente muestra profesionalismo y calma durante situaciones de alta presión al atender casos de accidentes?",
+        titulo: "Does the agent show professionalism and calmness during high-pressure situations when handling accident cases?",
         opciones: [
-            {textoRespuesta: "Si", isVerdad: true},
-            {textoRespuesta: "Parcialmente", isPart: true},
+            {textoRespuesta: "Yes", isVerdad: true},
+            {textoRespuesta: "Partially", isPart: true},
             {textoRespuesta: "No", isFalso: true}
         ],
     },
 
     {
-        titulo: "¿El agente sigue los protocolos establecidos para documentar adecuadamente los casos de accidentes y las acciones tomadas?",
+        titulo: "Does the agent follow established protocols to properly document accident cases and actions taken?",
         opciones: [
-            {textoRespuesta: "Si", isVerdad: true},
-            {textoRespuesta: "Parcialmente", isPart: true},
+            {textoRespuesta: "Yes", isVerdad: true},
+            {textoRespuesta: "Partially", isPart: true},
             {textoRespuesta: "No", isFalso: true}
         ],
     },
