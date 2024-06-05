@@ -359,7 +359,7 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci√
   return (
     <Wrapper>
        {showVentanaTranscripcion && <ListaTranscripcion cancelar={showVentanaHandler} />}
-        {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificacionesAgente} />}
+        {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificacionesAgente} funcShowTranscript={showVentanaHandler} />}
     <Column className='side'>
         <TitleComponent text='Llamadas Activas' />
         <div className='cards-wrapper'>

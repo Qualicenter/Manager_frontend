@@ -4,7 +4,7 @@ import Mensaje from "./Mensaje";
 import DetallesMensaje from "./DetallesMensaje";
 
 const CentroNotif = (props) => {
-    const { cancelar, notificaciones } = props;
+    const { cancelar, notificaciones, funcShowTranscript } = props;
     const [showDetallesMensaje,setDetallesMensaje] = useState(false)
     const [idMensajeSeleccionado, setIdMensajeSeleccionado] = useState()
 
@@ -36,7 +36,7 @@ const CentroNotif = (props) => {
                         )
                     })}
                 </ul>
-                {showDetallesMensaje ? <DetallesMensaje mensaje={idMensajeSeleccionado} cerrar={handleMensajeClick}/> : <div/>}
+                {showDetallesMensaje ? <DetallesMensaje mensaje={idMensajeSeleccionado} cerrar={handleMensajeClick} funcShowTranscript={funcShowTranscript} closeAll={cancelar}/> : <div/>}
                 <button onClick={cancelar}>Cerrar</button>
             </div>
         </div>
