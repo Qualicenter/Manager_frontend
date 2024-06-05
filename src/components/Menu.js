@@ -48,7 +48,6 @@ const Menu = () => {
     useState(false);
   const [showCentroNotificaciones, setShowCentroNotificaciones] =
     useState(false);
-  const [notificaciones, setNotificaciones] = useState([]);
   const [notificacionesFiltradasG, setNotificacionesFiltradas] = useState({});
   const [notificacionesAgente, setNotificacionesAgente] = useState([]);
 
@@ -99,7 +98,6 @@ const Menu = () => {
         const res = await fetch(url);
         const data = await res.json();
         filtrarNotificaciones(data[0].Items);
-        setNotificaciones(data[0].Items);
         } catch (error) {
             console.log(error);
         }
