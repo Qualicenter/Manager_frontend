@@ -49,6 +49,18 @@ const IconAlert = styled(MdOutlineAddAlert)`
 const ButtonAlert = styled.button`
     align-self: flex-end;
     border-radius: 5px;
+
+    &.button-alert-icon-disabled {
+      pointer-events: none;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &.button-alert-icon-enabled {
+      pointer-events: all;
+      opacity: 1;
+      cursor: pointer;
+    }
 `
 const dataPruebasActivas = [
   {
@@ -96,7 +108,7 @@ const LlamadaActivaCard = (props) => {
   const [url] = useState("http://localhost:8080/agente/consultaContacts");
   const arrLlamadasPrev = useRef();
   const notificaciones = props.notificaciones;
-  const setNotificaciones = props.setNotificaciones;
+  // const setNotificaciones = props.setNotificaciones;
 
   const descargar = useCallback(async () => {
     try {
@@ -211,7 +223,11 @@ const LlamadaActivaCard = (props) => {
           // //console.log("Llamadas RENDEREANDO:", arrLlamadas)
             return (
                 <Card key={llamada.contenido.usernameAgente}>
-                    <ButtonAlert onClick={() => showTapIconHandler(llamada.contenido.usernameAgente)}><IconAlert/></ButtonAlert>
+                    <ButtonAlert
+                      onClick={() => showTapIconHandler(llamada.contenido.usernameAgente)}
+                      className={notificaciones[llamada.contenido.usernameAgente] ? "button-alert-icon-enabled" : "button-alert-icon-disabled"}>
+                        <IconAlert/>
+                    </ButtonAlert>
                     <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
                     <Attribute>Cliente: <Value>{llamada.contenido.cliente}</Value></Attribute>
                     <Attribute>Tiempo: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
