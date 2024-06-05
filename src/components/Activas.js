@@ -61,6 +61,11 @@ const ButtonAlert = styled.button`
       opacity: 1;
       cursor: pointer;
     }
+    
+    &.button-alert-icon-red {
+      background-color: red;
+      border-color: red;
+    }
 `
 const dataPruebasActivas = [
   {
@@ -225,7 +230,7 @@ const LlamadaActivaCard = (props) => {
                 <Card key={llamada.contenido.usernameAgente}>
                     <ButtonAlert
                       onClick={() => showTapIconHandler(llamada.contenido.usernameAgente)}
-                      className={notificaciones[llamada.contenido.usernameAgente] ? "button-alert-icon-enabled" : "button-alert-icon-disabled"}>
+                      className={`${notificaciones[llamada.contenido.usernameAgente] ? "button-alert-icon-enabled" : "button-alert-icon-disabled"} ${notificaciones[llamada.contenido.usernameAgente]?.asistencia ? "button-alert-icon-red" : ""}`}>
                         <IconAlert/>
                     </ButtonAlert>
                     <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
