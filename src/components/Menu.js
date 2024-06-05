@@ -362,7 +362,6 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci√
         {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificacionesAgente} />}
     <Column className='side'>
         <TitleComponent text='Llamadas Activas' />
-        <button className="button-centro-notif" onClick={() => {showCentroNotificacionesHandler();descargarNotificaciones()}} >Centro de Notificaciones</button>
         <div className='cards-wrapper'>
           <LlamadaActivaCard funcVentanaTranscripcion={showVentanaHandler} notificaciones={notificacionesFiltradasG} setNotificaciones={setNotificacionesFiltradas} setNotificacionesAgente={setNotificacionesAgente} showCentroNotificacionesHandler={showCentroNotificacionesHandler}/>
         </div>
