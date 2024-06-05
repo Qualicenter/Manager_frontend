@@ -48,7 +48,6 @@ const Menu = () => {
     useState(false);
   const [showCentroNotificaciones, setShowCentroNotificaciones] =
     useState(false);
-  const [notificaciones, setNotificaciones] = useState([]);
   const [notificacionesFiltradasG, setNotificacionesFiltradas] = useState({});
   const [notificacionesAgente, setNotificacionesAgente] = useState([]);
 
@@ -99,7 +98,6 @@ const Menu = () => {
         const res = await fetch(url);
         const data = await res.json();
         filtrarNotificaciones(data[0].Items);
-        setNotificaciones(data[0].Items);
         } catch (error) {
             console.log(error);
         }
@@ -364,7 +362,6 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci√
         {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificacionesAgente} />}
     <Column className='side'>
         <TitleComponent text='Llamadas Activas' />
-        <button className="button-centro-notif" onClick={() => {showCentroNotificacionesHandler();descargarNotificaciones()}} >Centro de Notificaciones</button>
         <div className='cards-wrapper'>
           <LlamadaActivaCard funcVentanaTranscripcion={showVentanaHandler} notificaciones={notificacionesFiltradasG} setNotificaciones={setNotificacionesFiltradas} setNotificacionesAgente={setNotificacionesAgente} showCentroNotificacionesHandler={showCentroNotificacionesHandler}/>
         </div>
