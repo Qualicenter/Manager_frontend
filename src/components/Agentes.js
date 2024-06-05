@@ -1,12 +1,16 @@
+/**
+ * Componente que muestra los agentes disponibles, en llamada, en descanso y ausentes.
+ * Autor: Ingrid García Hernández
+ * Modificado por: Noh Ah Kim Kwon
+ */
+
 import React, { useState, useEffect, useCallback } from "react";
 import "../styles/agentes.css";
 import "../images/1.png";
 import AgentesIndividual from "./AgentesIndividual";
-
-
+import agente1 from "../images/gustavotellez.png";
 
 const Agentes = () => {
-
   const [arrAgDisponibles, setArrAgDisponibles] = useState([]);
 
   const fetchData = useCallback(async () => {
@@ -43,10 +47,13 @@ const Agentes = () => {
 
         <div className="alinear">
           <div className="alinear">
-            <AgentesIndividual nombre="Juan" apellido="Perez" im = ""/>
-            <AgentesIndividual nombre="Ana" apellido="Rodriguez" im = ""/>
-            <AgentesIndividual nombre="María" apellido="López" im = ""/>
-          {/* {arrAgDisponibles.length > 0 && ( 
+            <AgentesIndividual nombre="Gustavo" apellido="Tellez" im={ agente1 }
+            />
+            <AgentesIndividual nombre="Angel" apellido="Marquez" im="" />
+            <AgentesIndividual nombre="Aldehil" apellido="Sanchez" im="" />
+            <AgentesIndividual nombre="Juan" apellido="Perez" im="" />
+            <AgentesIndividual nombre="Ana" apellido="Rodriguez" im="" />
+            {/* {arrAgDisponibles.length > 0 && ( 
                         arrAgDisponibles.map((agente) => (
                         <AgentesIndividual key={agente.id} nombre={agente.nombre} apellido={agente.apellido} />
                         ))
@@ -60,7 +67,6 @@ const Agentes = () => {
                     key={agente.id}
                     nombre={agente.nombre}
                     apellido={agente.apellido}
-                    
                   />
                 ))}
             {arrAgDisponibles.length === 0 && <p>No hay agentes actualmente</p>}
@@ -72,11 +78,10 @@ const Agentes = () => {
         <h1 className="tiposEstado">En llamada</h1>
         <div className="alinear">
           <div className="alinear">
-            <AgentesIndividual nombre="Carlos" apellido="Sanchez" im = ""/>
-            <AgentesIndividual nombre="Sofia" apellido="Ramirez" im = ""/>
-            <AgentesIndividual nombre="Diego" apellido="Martinez" im = ""/>
-            <AgentesIndividual nombre="Laura" apellido="Gonzales" im = ""/>
-            
+            <AgentesIndividual nombre="Carlos" apellido="Sanchez" im="" />
+            <AgentesIndividual nombre="Sofia" apellido="Ramirez" im="" />
+            <AgentesIndividual nombre="Diego" apellido="Martinez" im="" />
+            <AgentesIndividual nombre="Laura" apellido="Gonzales" im="" />
           </div>
         </div>
       </div>

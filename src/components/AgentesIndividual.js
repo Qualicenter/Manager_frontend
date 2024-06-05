@@ -1,7 +1,13 @@
+/**
+ * Componente que muestra la información de un agente en específico
+ * Autor: Ingrid García Hernández
+ * Modificado por: Noh Ah Kim Kwon
+ */
+
 import "../styles/agentes.css";
 import styled from "styled-components";
 import "../images/1.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AgentesIndividual = ({nombre, apellido, im}) => {
 
@@ -10,6 +16,15 @@ const AgentesIndividual = ({nombre, apellido, im}) => {
     font-weight: 600;
 
     `
+
+    const navegar = useNavigate();
+    
+    const consultar = (e) => {
+      e.preventDefault();
+      navegar("/agente/kpi/" + (nombre + apellido).toLowerCase().replace(/\s/g, ""));
+      //console.log((nombre+apellido).toLowerCase().replace(/\s/g, ""));
+    };
+
     const handlerGiveName = () => {
         const info = `${nombre}${apellido}`;
         console.log(info)
@@ -19,10 +34,10 @@ const AgentesIndividual = ({nombre, apellido, im}) => {
     return (
         <div className='cardW'>
             <div className='estado'></div>
-            <img className='imgPerfil' src={require('../images/profile.png')} alt='Profile'></img>
+            <img className='imgPerfil' src={im ? im : require('../images/profile.png')} alt='Profile'></img>
             <Title>{nombre} {apellido}</Title>
-            <button className='btnInfo'>
-                <Link to="/agente/kpi">Mas</Link>
+            <button className='btnInfo' onClick={consultar}>
+                Mas
             </button>
             <button className='btnInfo' onClick={handlerGiveName}>
             <Link to='/encuesta'> 
