@@ -58,20 +58,20 @@ const KpiCard = (props) => {
   useEffect(() => {
     if (props.title === "Abandonment rate") {
       if (
-        apropiadoValue < tolerableValue &&
-        tolerableValue < excesivoValue &&
+        apropiadoValue > tolerableValue &&
+        tolerableValue > excesivoValue &&
         apropiadoValue <= 100 &&
         tolerableValue <= 100 &&
         excesivoValue <= 100
       ) {
         console.log("Valores ajustados correctamente");
-        if (props.value <= apropiadoValue) {
-          setEstiloKpi("correcto");
+        if (props.value < tolerableValue) {
+          setEstiloKpi("peligro");
         } else {
-          if (props.value <= tolerableValue) {
+          if (props.value < apropiadoValue) {
             setEstiloKpi("medio");
           } else {
-            setEstiloKpi("peligro");
+            setEstiloKpi("correcto");
           }
         }
       }
@@ -104,7 +104,7 @@ const KpiCard = (props) => {
       }
     }
 
-    if (props.title === "Customer hold time") {
+    if (props.title === "On-hold time") {
       if (apropiadoValue < tolerableValue && tolerableValue < excesivoValue) {
         console.log("Valores ajustados correctamente");
         if (props.value <= apropiadoValue) {

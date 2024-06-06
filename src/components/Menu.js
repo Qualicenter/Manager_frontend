@@ -45,6 +45,7 @@ const Column = styled.section`
 const Menu = () => {
 
   const [sentimientoInfo, setSentimiento] = useState("NEUTRAL");
+  const [contactId, setContactId] = useState(null);
   const [showVentanaTranscripcion, setShwoVentanaTranscripcion] =
     useState(false);
   const [showCentroNotificaciones, setShowCentroNotificaciones] =
@@ -359,12 +360,12 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci√
 
   return (
     <Wrapper>
-       {showVentanaTranscripcion && <ListaTranscripcion setSentimiento={setSentimiento} cancelar={showVentanaHandler} />}
+       {showVentanaTranscripcion && <ListaTranscripcion contactId={contactId} setSentimiento={setSentimiento} cancelar={showVentanaHandler} />}
         {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificacionesAgente} funcShowTranscript={showVentanaHandler} />}
     <Column className='side'>
         <TitleComponent text='Llamadas Activas' />
         <div className='cards-wrapper'>
-          <LlamadaActivaCard sentimientoInfo={sentimientoInfo} funcVentanaTranscripcion={showVentanaHandler} notificaciones={notificacionesFiltradasG} setNotificaciones={setNotificacionesFiltradas} setNotificacionesAgente={setNotificacionesAgente} showCentroNotificacionesHandler={showCentroNotificacionesHandler}/>
+          <LlamadaActivaCard sentimientoInfo={sentimientoInfo} setContactId={setContactId} funcVentanaTranscripcion={showVentanaHandler} notificaciones={notificacionesFiltradasG} setNotificaciones={setNotificacionesFiltradas} setNotificacionesAgente={setNotificacionesAgente} showCentroNotificacionesHandler={showCentroNotificacionesHandler}/>
         </div>
     </Column>
     <Column className='center'>
