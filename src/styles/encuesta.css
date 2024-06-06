@@ -1,18 +1,23 @@
-/* * {
-    font-family: "Gill Sans", "Gill Sans MT", Arial, "Trebuchet MS", sans-serif;
-  } */
-  
-  .body {
+    .body {
     margin: 0;
     color: black;
     background-color: #fcfcfc;
-    display: flex;
+    display:flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
   }
   
   .Encuesta {
+    /* margin: 0; */
+    color: black;
+    background-color: #fcfcfc;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    /* min-height: 100vh; */
+    left:16%;
+
     background-color: white;
     max-width: 80%;
     border-radius: 15px;
@@ -23,16 +28,15 @@
     align-items: center;
     border: 4px solid #941B80;
     flex-grow: 1; 
-    left: 16%;
-    position: relative;
   }
   
   /* PREGUNTAS */
-  .lado-izquierdo {
+  .arriba {
     width: 100%;
     max-width: 840px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-around;
   }
   
@@ -48,7 +52,7 @@
     margin-bottom: 12px;
   }
   
-  .lado-derecho {
+  .abajo {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -56,8 +60,8 @@
   }
   
   /* GRAL */
-  .env {
-    width: 20%;
+  .btn {
+    width: 100%;
     font-size: 16px;
     color: black;
     background-color: white;
@@ -76,9 +80,9 @@
   button:focus {
     outline: none;
   }
-
-  .comentario {
-    width: 70%;
+  
+  .env{
+    width: 100%;
     font-size: 16px;
     color: black;
     background-color: white;
@@ -88,5 +92,9 @@
     margin-bottom: 10px;
     border: 2.5px solid #0096AE;
     cursor: pointer;
+    margin-top: 25px;
+    justify-content: center;
+    align-items: center;
   }
-  
+
+

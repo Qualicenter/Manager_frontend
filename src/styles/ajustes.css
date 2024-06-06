@@ -1,6 +1,7 @@
 .div-exterior-notif {
     position: absolute;
     top: 50%;
+    bottom: 2%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(88, 88, 88, 0.699);
@@ -13,8 +14,8 @@
 }
 
 .div-interno-notif {
-    width: 800px;
-    height: 600px;
+    width: 165px;
+    height: 250px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -22,19 +23,37 @@
     align-items: center;
 }
 
-.lista-mensajes {
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+
+.umbral{
+    width: 30%;
+    height: 20%;
+    height: auto;
+    padding: 5px;
+    margin: 5px;
 }
 
-.div-interno-notif button {
+.umbralInfo{
+    font-size: 12px;
+}
+
+.umbralTitulo{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 2%;;
+}
+
+.btnAjustar{
+    width: 70%;
+    height: 30px;
     background-color: #00A2E3;
-    width: 150px;
-    border-radius: 5px;
-    padding: 10px;
     color: white;
     border: none;
-    margin: 10px;
+    border-radius: 5px;
+    margin: 2px;
+    cursor: pointer;
 }
+
+.btnAjustar:hover{
+    background-color: #007D8A;
+}
+

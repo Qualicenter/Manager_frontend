@@ -17,4 +17,4 @@ const CardButton = (props) => {
     );
 }
 
-export default CardButton
+export default CardButton;

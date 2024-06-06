@@ -12,7 +12,7 @@ function Encuesta() {
   const [mostrarPregunta, setMostrarPregunta] = useState(true);
   const [puntajesAcumulados, setPuntajesAcumulados] = useState([]);
   const lugar = "localhost";
-  const puerto = "8085";
+  const puerto = "8080";
 
   function handlePuntuacion(isVerdad, isPart, isFalso) {
     if (isVerdad) {
@@ -32,7 +32,7 @@ function Encuesta() {
 
   function handleComentarioSubmit(comentario) {
     const nuevaEntrada = {
-      username: localStorage.getItem('Username'),
+      username: localStorage.getItem('username'),
       puntaje: puntuacion,
       comentario: comentario,
     };
@@ -52,7 +52,7 @@ function Encuesta() {
   useEffect(() => {
     if (fin) {
       const puntajeTotalAcumulado = puntajesAcumulados.reduce((total, puntaje) => total + puntaje, 0);
-      const username = localStorage.getItem('Username');
+      const username = localStorage.getItem('username');
       const comentarios = puntajesYcomentarios.map(entrada => entrada.comentario);
 
       const resultadosEncuestaJSON = JSON.stringify({

@@ -1,5 +1,5 @@
-.btnSeleccion{
-    background-color: #00A2E3;
+.btnBusqueda{
+    background-color: #00A2E3;;
     color: white;
     border: none;
     border-radius: 5px;
@@ -8,11 +8,49 @@
     font-size: 1em;
     margin: 0 5px;
     display: flex;
-    width: 50%;
+    width: 40%;
     height: 50%;
     text-align: center;
     justify-content: center;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
+    margin-top: 3%;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
 
 }
 
+.btnWrapper{
+    color: white;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    width: 60%; 
+    margin: 0 auto; 
+  
+}
+
+
+.diario{
+    width: 30%;
+    border: 1px solid #00A2E3;
+    font-size: 1em;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    background-color: #00A2E3;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}
+
+.fecha{
+    width: 30%;
+    border: 1px solid #00A2E3;
+    font-size: 1.2em;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    border-radius: 0.25em;
+    padding: 0.25em 0.5em;
+    background-color: #00A2E3;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+}

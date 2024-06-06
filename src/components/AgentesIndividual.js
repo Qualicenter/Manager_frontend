@@ -13,7 +13,7 @@ const AgentesIndividual = ({nombre, apellido, im}) => {
     const handlerGiveName = () => {
         const info = `${nombre}${apellido}`;
         console.log(info)
-        localStorage.setItem('Username', info)
+        localStorage.setItem('username', info)
     }
 
     return (

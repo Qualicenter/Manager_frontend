@@ -1,35 +1,60 @@
 .detalles-mensaje {
- display: flex;
- flex-direction: column;
- align-items: center;
- justify-content: center;
- background-color: rgba(95, 95, 95, 0.377); 
-}
-
-.datos-cliente-detalles-mensaje {
     display: flex;
-    flex-wrap: nowrap;
-}
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(95, 95, 95, 0.377); 
+   }
+   
+   .datos-cliente-detalles-mensaje {
+       display: flex;
+       flex-wrap: nowrap;
+   }
+   
+   .detalles-mensaje h2 {
+       width: 100%;
+       text-align: center;
+   }
+   
+   .detalles-mensaje button {
+       width: 200px;
+       text-align: center;
+   }
+   
+   .imagen-cliente-detalles {
+       font-size: 80px;
+   }
+   
+   .botones-detalle-mensaje {
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+   }
+   
+   .botones-detalle-mensaje button {
+       width: 200px;
+   }
 
-.detalles-mensaje h2 {
-    width: 100%;
-    text-align: center;
-}
-
-.detalles-mensaje button {
-    width: 200px;
-    text-align: center;
-}
-
-.imagen-cliente-detalles {
-    font-size: 80px;
-}
-
-.botones-detalle-mensaje {
+   .form-mensaje {
     display: flex;
     flex-direction: row;
-}
+   }
 
-.botones-detalle-mensaje button {
-    width: 200px;
-}
+   .form-mensaje div {
+    display: flex;
+    flex-direction: column;
+   }
+
+   .form-mensaje textarea {
+    width: 350px;
+    height: 100px;
+    border-radius: 10px;
+   }
+
+   .form-mensaje button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 25px;
+    align-self: flex-end;
+   }
