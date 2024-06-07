@@ -1,4 +1,4 @@
-.containerbox {
+.cajacontenedor {
     display: flex;
     flex-direction: column;
     height: fit-content;

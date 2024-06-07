@@ -1,18 +1,21 @@
 /**
- * Componente que muestra el historial de transcripciones de una llamada
- * Autor: Ángel Armando Márquez Curiel 
- * Editado por: Noh Ah Kim Kwon 
+ * @author Ángel Armando Márquez Curiel
+ * @author Noh Ah Kim Kwon
+ * Component that shows the transcription history of a call
  */
+
 import "../styles/historial-transcripcion.css";
 import { useCallback, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Transcripcion from "./Transcripcion";
 
-
+/* Component that shows the transcription history of a call */
 const HistorialTranscripcion = ( { contactId }) => {
 
+  /* State that stores the transcription of a call */
   const [arrTranscripcion, setTranscripcion] = useState([]);
 
+  /* Function to download the transcription of a call */
   const descargar = useCallback(async () => {
     try {
       const response = await fetch(`http://localhost:8080/agente/consultaTranscripcion2/${contactId}`);
@@ -33,6 +36,7 @@ const HistorialTranscripcion = ( { contactId }) => {
     }
   }, [contactId]);
 
+  /* Download the transcription of a call every 3 seconds */
   useEffect(() => {
     descargar();
     const interval = setInterval(descargar, 3000);

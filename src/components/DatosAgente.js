@@ -1,7 +1,6 @@
 /**
- * Componente que muestra la información, como la foto, nombre, horario, llamadas respondidas, llamadas abandonadas y duración promedio de un agente
- * Autor: Noh Ah Kim Kwon
- * Fecha: 2024-05-10
+ * @author Noh Ah Kim Kwon
+ * Component that shows the information, such as the photo, name, schedule, answered calls, abandoned calls and average handle time of an agent
  */
 
 import { useParams } from "react-router-dom";
@@ -9,13 +8,19 @@ import "../styles/datosAgente.css";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { ColorTipografiaContexto } from "./ColorTipografia";
 
+/* Component that shows the information of a specific agent */
 const Datos = ({ info }) => {
+  /* Context that provides the colors and typography of the application */
   const { colores, tipografia } = useContext(ColorTipografiaContexto);
 
+  /* The agent's name is obtained from the URL */
   let { nombreAgente } = useParams();
+
+  /* State that stores the agent's information */
   const [agente, setAgente] = useState(null);
 
-  const fetchData = useCallback(async () => {
+  /* Function that downloads the agent's information */
+  const descargarInfoAgente = useCallback(async () => {
     if (!nombreAgente) {
       return;
     }
@@ -29,21 +34,22 @@ const Datos = ({ info }) => {
       const data = await response.json();
       setAgente(data);
     } catch (error) {
-      //console.log(error);
-      setAgente("not found");
+      console.log(error);
+      setAgente("Agente no encontrado");
     }
   }, [nombreAgente, setAgente]);
 
+  /* Download the agent's information every 10 seconds */
   useEffect(() => {
-    fetchData();
-    const interval = setInterval(fetchData, 10000);
-    return () => clearInterval(interval);
-  }, [fetchData, nombreAgente]);
+    descargarInfoAgente();
+    const intervalo = setInterval(descargarInfoAgente, 10000);
+    return () => clearInterval(intervalo);
+  }, [descargarInfoAgente, nombreAgente]);
 
-
-  if (agente === null || !nombreAgente || agente === "not found") {
+  /* If the agent does not exist, has not been found, agent has not been selected or the agent has no data, a container with default information is shown */
+  if (agente === null || !nombreAgente || agente === "Agente no encontrado" || agente[0]?.data?.MetricResults?.length === 0) {
     return (
-      <div className="containerbox">
+      <div className="cajacontenedor">
         <div className="izqdatos">
           <img src={info.imagen} alt="Foto" className="foto" />
         </div>
@@ -54,19 +60,19 @@ const Datos = ({ info }) => {
                 <th colSpan={2}>-</th>
               </tr>
               <tr>
-                <td>Horario</td>
+                <td>Schedule</td>
                 <td>-</td>
               </tr>
               <tr>
-                <td>Llamadas Respondidas</td>
+                <td>Answered Calls</td>
                 <td>0</td>
               </tr>
               <tr>
-                <td>Llamadas Abandonadas</td>
+                <td>Abandoned Calls</td>
                 <td>0</td>
               </tr>
               <tr>
-                <td>Duración Promedio</td>
+                <td>Handle Time (AVG)</td>
                 <td>-m -s</td>
               </tr>
             </tbody>
@@ -76,26 +82,29 @@ const Datos = ({ info }) => {
     );
   }
 
+  /* The average handle time is calculated */
   const duracionPromedio = Math.round(
     agente[0]?.data?.MetricResults[0]?.Collections?.find(
       (collection) => collection.Metric.Name === "AVG_HANDLE_TIME"
     )?.Value || 0
   );
+  /* The minutes and seconds are calculated */
   const minutos = duracionPromedio ? Math.floor(duracionPromedio / 60) : "-";
   const segundos = duracionPromedio ? duracionPromedio % 60 : "-";
 
-  let imgSrc;
+  /* The agent's image is obtained */
+  let img;
   try {
-    imgSrc = require(`../images/${nombreAgente}.png`);
+    img = require(`../images/${nombreAgente}.png`);
   } catch (err) {
-    imgSrc = info.imagen; // Usa info.imagen si la imagen del agente no se encuentra
+    img = info.imagen; /* It uses info.image if the agent's image is not found */
   }
 
-  /* Se regresa un contenedor con la información del agente */
+  /* Returns a container with the agent's information */
   return (
-    <div className="containerbox">
+    <div className="cajacontenedor">
       <div className="izqdatos">
-        <img src={imgSrc} alt="Foto" className="foto" />
+        <img src={img} alt="Foto" className="foto" />
       </div>
       <div className="derdatos">
         <table>
@@ -106,11 +115,11 @@ const Datos = ({ info }) => {
               </th>
             </tr>
             <tr>
-              <td>Horario</td>
+              <td>Schedule</td>
               <td>-</td>
             </tr>
             <tr>
-              <td>Llamadas Respondidas</td>
+              <td>Answered Calls</td>
               <td>
                 {agente[0]?.data?.MetricResults[0]?.Collections?.find(
                   (collection) => collection.Metric.Name === "CONTACTS_HANDLED"
@@ -118,7 +127,7 @@ const Datos = ({ info }) => {
               </td>
             </tr>
             <tr>
-              <td>Llamadas Abandonadas</td>
+              <td>Abandoned Calls</td>
               <td>
                 {agente[0]?.data?.MetricResults[0]?.Collections?.find(
                   (collection) =>
@@ -127,7 +136,7 @@ const Datos = ({ info }) => {
               </td>
             </tr>
             <tr>
-              <td>Duración Promedio</td>
+              <td>Handle Time (AVG)</td>
               <td>
                 <span
                   style={{

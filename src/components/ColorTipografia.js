@@ -1,24 +1,23 @@
 /**
- * Componente para definir la tipografía y colores de la empresa
- * Autor: Noh Ah Kim Kwon
- * Fecha: 2024-06-02
+ * @author Noh Ah Kim Kwon
+ * Component that defines the typography and colors of the company Qualitas
  */
 
 import { createContext } from 'react';
 
-// Contexto para los colores y tipografía
+/* Context for colors and typography */
 export const ColorTipografiaContexto = createContext();
 
-// Proveedor de colores y tipografía
+/* Provider of colors and typography */
 export const ColorTipografiaProveedor = ({ children }) => {
-    // Paleta de colores
+    /* Palette of colors */
     const colores = {
         primarioM: '#941B80',
         primarioA: '#0096AE',
         secundarioM: 'rgb(111,28,117)',
     };
 
-    // Tipografía
+    /* Typography */
     const tipografia = {
         tipo1: 'Arial, sans-serif',
         tipo2: 'Century Gothic, sans-serif',

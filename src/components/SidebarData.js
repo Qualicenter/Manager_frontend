@@ -15,19 +15,19 @@ export const SidebarData = [
     title: 'Menu',
     path: '/',
     icon: <AiIcons.AiFillHome />,
-    cName: 'nav-text'
+    cName: 'nav-texto'
   },
   {
     title: 'Agents',
     path: '/agentes',
     icon: <AiIcons.AiOutlineUser />,
-    cName: 'nav-text'
+    cName: 'nav-texto'
   },
   {
     title: 'Historic KPIs',
     path: '/historicos',
     icon: <FaIcons.FaChartBar />,
-    cName: 'nav-text'
+    cName: 'nav-texto'
   },
   
 ];

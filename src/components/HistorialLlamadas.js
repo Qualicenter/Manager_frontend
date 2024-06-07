@@ -1,7 +1,6 @@
-/* 
-  Componente que muestra un historial de llamadas respondidas, con la posibilidad de ordenarlas por hora o dururación
-  Autor: Noh Ah Kim Kwon
-  Fecha: 2024-05-10 
+/**
+ * @author Noh Ah Kim Kwon
+ * Component that shows the history of answered calls, with the possibility of sorting them by time or duration
  */
 
 import { useCallback, useContext, useEffect, useState } from "react";
@@ -11,31 +10,45 @@ import { useParams } from "react-router-dom";
 import HistorialTranscripcion from "./HistorialTranscripcion";
 import { ColorTipografiaContexto } from "./ColorTipografia";
 
+/* Component that shows the history of answered calls */
 const Historial = ({ llamadas }) => {
+  /* State that stores the transcription of a call */
   const [popupVisible, setPopupVisible] = useState(false);
+
+  /* State that stores the transcription of a call */
   const [transcripcionActual, setTranscripcionActual] = useState("");
 
+  /* Function to open the transcription of a call */
   const abrirTranscripcion = (transcripcion) => {
     setTranscripcionActual(transcripcion);
     setPopupVisible(true);
   };
 
+  /* Function to close the transcription of a call */
   const cerrarTranscripcion = () => {
     setPopupVisible(false);
   };
 
+  /* State that stores the sorting order */
   const [ordenarPor, setOrdenarPor] = useState(null);
+  
+  /* State that stores the sorting order */
   const [ordenarAscDesc, setOrdenarAscDesc] = useState(null);
 
+  /* The agent's name is obtained from the URL */
   let { nombreAgente } = useParams();
+
+  /* State that stores the agent's information */
   const [agente, setAgente] = useState(null);
 
+  /* Context that provides the colors and typography of the application */
   const { tipografia } = useContext(ColorTipografiaContexto);
 
-  const fetchData = useCallback(async () => {
+  /* Component that shows the information of a specific agent */
+  const descargarInfoAgente = useCallback(async () => {
     try {
       if (!nombreAgente) {
-        return; // Si nombreAgente no existe, detén la ejecución de la función
+        return;
       }
       const response = await fetch(`http://localhost:8080/agente/infoAgente/${nombreAgente}`);
       if (!response.ok) {
@@ -44,18 +57,19 @@ const Historial = ({ llamadas }) => {
       const data = await response.json();
       setAgente(data);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       setAgente("not found");
     }
   }, [nombreAgente, setAgente]);
   
-
+  /* Download the agent's information every 10 seconds */
   useEffect(() => {
-    fetchData();
-    const interval = setInterval(fetchData, 10000);
+    descargarInfoAgente();
+    const interval = setInterval(descargarInfoAgente, 10000);
     return () => clearInterval(interval);
-  }, [fetchData, nombreAgente]);
+  }, [descargarInfoAgente, nombreAgente]);
 
+  /* Function that sorts the calls by time or duration */
   const manejarOrden = (field) => {
     if (ordenarPor === field) {
       setOrdenarAscDesc(ordenarAscDesc === "asc" ? "desc" : "asc");
@@ -65,6 +79,7 @@ const Historial = ({ llamadas }) => {
     }
   };
 
+  /* If the agent does not exist, has not been found, agent has not been selected or the agent has no data, a container with default information is shown */
   if (
     agente === null ||
     !nombreAgente ||
@@ -120,6 +135,7 @@ const Historial = ({ llamadas }) => {
     );
   }
 
+  /* Return the history of answered calls if the agent has data */
   return (
     <div className="historial">
       <h3 className="titulo" style={{ fontFamily: tipografia.tipo2 }}>Llamadas Respondidas</h3>
@@ -128,6 +144,7 @@ const Historial = ({ llamadas }) => {
           <tr>
             <th style={{ width: "100px" }} onClick={() => manejarOrden("hora")}>
               Hora{" "}
+              {/* It shows an arrow up or down depending on the sorting order */}
               {ordenarPor === "hora" && (
                 <span className="filtro">
                   {ordenarAscDesc === "asc" ? <FaSortUp /> : <FaSortDown />}
@@ -140,6 +157,7 @@ const Historial = ({ llamadas }) => {
               onClick={() => manejarOrden("duracion")}
             >
               Duración{" "}
+              {/* It shows an arrow up or down depending on the sorting order */}
               {ordenarPor === "duracion" && (
                 <span className="filtro">
                   {" "}
@@ -185,7 +203,7 @@ const Historial = ({ llamadas }) => {
                     contacto.ConnectedToAgentTimestamp
                   ).toLocaleTimeString()}
                 </td>
-                <td>{contacto.CustomerName}</td> {/*client name */}
+                <td>{contacto.CustomerName}</td>
                 <td style={{ color: 
                   contacto.DisconnectTimestamp &&
                   contacto.InitiationTimestamp ? (
@@ -232,9 +250,12 @@ const Historial = ({ llamadas }) => {
             ))}
         </tbody>
       </table>
+      {/* If the popup is visible, it shows the transcription of the call */}
       {popupVisible && (
         <div className="popup">
+          {/* Button to close the transcription popup */}
           <button onClick={cerrarTranscripcion}>Cerrar</button>
+          {/* Container with the transcription */}
           <div className="cajatranscripcion">{transcripcionActual}</div>
         </div>
       )}

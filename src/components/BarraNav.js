@@ -1,7 +1,7 @@
 /**
- * Componente que muestra la barra de navegación
- * Autor: Ingrid García Hernández
- * Modificado por: Noh Ah Kim Kwon
+ * @author Ingrid García Hernández
+ * @author Noh Ah Kim Kwon
+ * Component which shows the navigation bar of the application.
  */
 
 import React, { useState } from "react";
@@ -13,19 +13,21 @@ import '../styles/barraNav.css';
 import { SidebarData } from './SidebarData';
 import logo from "../images/qualitas-logo.png";
 
-
+/* Navigation bar component */
 function BarraNav() {
+  /* State that stores the visibility of the navigation bar */
   const [verBarra, setVerBarra] = useState(true);
 
+  /* Function to show or collapse the navigation bar */
   const mostrarBarra = () => setVerBarra(!verBarra);
 
   return (
     <div className="navBarra">
       <IconContext.Provider value={{ color: "#fff" }}>
         <div className="navBarra">
-          <ul className="nav-menu-items">
-            <div className="navbar-toggle">
-              <Link to="#" className="icon">
+          <ul className="nav-menu-elementos">
+            <div className="navbar-alternar">
+              <Link to="#" className="icono">
                 <FaIcons.FaBars onClick={mostrarBarra}/>
               </Link>
             </div>
@@ -38,11 +40,11 @@ function BarraNav() {
             })}
           </ul>
         </div>
-        <nav className={verBarra ? "nav-menu active" : "nav-menu"}>
-          <ul className="nav-menu-items" >
-            <div className="navbar-toggle">
+        <nav className={verBarra ? "nav-menu activo" : "nav-menu"}>
+          <ul className="nav-menu-elementos" >
+            <div className="navbar-alternar">
               <img src={logo} alt="logo" className="logo" />
-              <Link to="#" className="menu-bars">
+              <Link to="#" className="menu-barras">
                 <Md.MdKeyboardArrowLeft onClick={mostrarBarra}/>
               </Link>
               

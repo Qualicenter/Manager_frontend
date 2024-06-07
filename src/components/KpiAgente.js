@@ -1,21 +1,21 @@
 /**
- * Componente que muestra los KPIs de un agente
- * Autor: Noh Ah Kim Kwon
- * Fecha: 2024-05-10
+ * @author Noh Ah Kim Kwon
+ * Component that shows the KPIs of an agent
  */
 
 import "../styles/datosAgente.css";
 import Datos from "./DatosAgente";
 import Historial from "./HistorialLlamadas";
 import Desempenio from "./DesAgente";
-import styled from "styled-components";
+import estilo from "styled-components";
 import { useNavigate } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import { ColorTipografiaContexto } from "./ColorTipografia";
 import { useContext } from "react";
 import fotoPerfil from "../images/profile.png";
 
-const Info = styled.div`
+/* Styled components for the KPIs of an agent */
+const Info = estilo.div`
   position: relative;
   width: 80%;
   display: flex;
@@ -24,7 +24,7 @@ const Info = styled.div`
   flex-direction: column;
 `;
 
-const Container = styled.div`
+const Contenedor = estilo.div`
   text-align: center;
   display: flex;
   flex-direction: row;
@@ -32,7 +32,7 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const Box = styled.div`
+const Caja = estilo.div`
   flex: auto;
   overflow: auto;
   margin: 15px;
@@ -43,14 +43,14 @@ const Box = styled.div`
   place-items: center;
 `;
 
-const Left = styled.div`
+const ContenedorIzq = estilo.div`
   flex: 40%;
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 
-const Right = styled.div`
+const ContenedorDer = estilo.div`
   flex: 60%;
   width: 100%;
   overflow: auto;
@@ -60,7 +60,7 @@ const Right = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 `;
-const BotonRegresar = styled.button`
+const BotonRegresar = estilo.button`
   background-color: #f5f5f5;
   border: none;
   border-radius: 5px;
@@ -70,48 +70,51 @@ const BotonRegresar = styled.button`
   color: #000;
 `;
 
+/* Function that returns the KPIs of an agent */
 const KpiAgente = () => {
+  /* Context to get the typography color */
   const { tipografia } = useContext(ColorTipografiaContexto);
-  const navigate = useNavigate();
 
-  const handleGoBack = (e) => {
+  /* Function that navigates to the agents page */
+  const navegar = useNavigate();
+
+  /* Function that returns to the agents page */
+  const regresar = (e) => {
     e.preventDefault(); //
-    navigate("/agentes");
+    navegar("/agentes");
   };
 
   return (
     <Info style={{ fontFamily: tipografia.tipo1 }}>
-      <Container>
-        <BotonRegresar onClick={handleGoBack}>
+      <Contenedor>
+        <BotonRegresar onClick={regresar}>
           <FaIcons.FaArrowLeft />
         </BotonRegresar>
-        <Left>
-          <Box>
+        <ContenedorIzq>
+          <Caja>
             <Datos
               info={{
                 imagen: fotoPerfil,
               }}
             />
-          </Box>
-          <Box>
+          </Caja>
+          <Caja>
             <Desempenio
-              label="Nivel de Servicio"
-              porcentaje={89}
+              etiqueta="Service Level"
+              porcentaje={""}
               color="#1096b8"
-              obj={""}
             />
             <Desempenio
-              label="Tasa de respuesta"
-              porcentaje={80}
+              etiqueta="Response Rate"
+              porcentaje={""}
               color="#da6075"
-              obj={""}
             />
-          </Box>
-        </Left>
-        <Right>
+          </Caja>
+        </ContenedorIzq>
+        <ContenedorDer>
           <Historial />
-        </Right>
-      </Container>
+        </ContenedorDer>
+      </Contenedor>
     </Info>
   );
 };

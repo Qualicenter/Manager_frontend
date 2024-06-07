@@ -1,17 +1,17 @@
 /**
- * Componente que muestra la información de un agente en específico
- * Autor: Ingrid García Hernández
- * Modificado por: Noh Ah Kim Kwon
+ * @author Ingrid García Hernández
+ * @author Noh Ah Kim Kwon
+ * Component that shows the information of a specific agent
  */
 
 import "../styles/agentes.css";
-import styled from "styled-components";
+import estilo from "styled-components";
 import "../images/1.png";
 import { Link, useNavigate } from 'react-router-dom';
 
 const AgentesIndividual = ({nombre, apellido, im}) => {
 
-    const Title = styled.h2`    
+    const Titulo = estilo.h2`    
     font-size: 20px;
     font-weight: 600;
 
@@ -35,13 +35,13 @@ const AgentesIndividual = ({nombre, apellido, im}) => {
         <div className='cardW'>
             <div className='estado'></div>
             <img className='imgPerfil' src={im ? im : require('../images/profile.png')} alt='Profile'></img>
-            <Title>{nombre} {apellido}</Title>
+            <Titulo>{nombre} {apellido}</Titulo>
             <button className='btnInfo' onClick={consultar}>
-                Mas
+                More
             </button>
             <button className='btnInfo' onClick={handlerGiveName}>
             <Link to='/encuesta'> 
-                    Comentario
+                    Feedback
                 </Link>
             </button>
         </div>

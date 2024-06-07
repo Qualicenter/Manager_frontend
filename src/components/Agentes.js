@@ -1,7 +1,7 @@
 /**
- * Componente que muestra los agentes disponibles, en llamada, en descanso y ausentes.
- * Autor: Ingrid García Hernández
- * Modificado por: Noh Ah Kim Kwon
+ * @author Ingrid García Hernández
+ * @author Noh Ah Kim Kwon
+ * Component that shows the available, in call, at rest and absent agents.
  */
 
 import React, { useState, useEffect, useCallback } from "react";
@@ -43,7 +43,7 @@ const Agentes = () => {
   return (
     <div className="agentesW">
       <div className="column" data-color="blue">
-        <h1 className="tiposEstado">Disponibles</h1>
+        <h1 className="tiposEstado">Available</h1>
 
         <div className="alinear">
           <div className="alinear">
@@ -75,7 +75,7 @@ const Agentes = () => {
       </div>
 
       <div className="column" data-color="green">
-        <h1 className="tiposEstado">En llamada</h1>
+        <h1 className="tiposEstado">In Call</h1>
         <div className="alinear">
           <div className="alinear">
             <AgentesIndividual nombre="Carlos" apellido="Sanchez" im="" />
@@ -87,7 +87,7 @@ const Agentes = () => {
       </div>
 
       <div className="column" data-color="yellow">
-        <h1 className="tiposEstado">En descanso</h1>
+        <h1 className="tiposEstado">At Rest</h1>
 
         <div className="alinear">
           <div className="alinear">
@@ -107,7 +107,7 @@ const Agentes = () => {
       </div>
 
       <div className="column" data-color="gray">
-        <h1 className="tiposEstado">Ausente</h1>
+        <h1 className="tiposEstado">Absent</h1>
 
         <div className="alinear">
           <div className="alinear">
