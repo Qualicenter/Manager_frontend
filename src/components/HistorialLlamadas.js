@@ -5,7 +5,7 @@
 
 import { useCallback, useContext, useEffect, useState } from "react";
 import "../styles/historialLlamadas.css";
-import { FaSortDown, FaSortUp } from "react-icons/fa";
+import { FaSortDown, FaSortUp, FaSort } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import HistorialTranscripcion from "./HistorialTranscripcion";
 import { ColorTipografiaContexto } from "./ColorTipografia";
@@ -31,7 +31,7 @@ const Historial = ({ llamadas }) => {
 
   /* State that stores the sorting order */
   const [ordenarPor, setOrdenarPor] = useState(null);
-  
+
   /* State that stores the sorting order */
   const [ordenarAscDesc, setOrdenarAscDesc] = useState(null);
 
@@ -50,7 +50,9 @@ const Historial = ({ llamadas }) => {
       if (!nombreAgente) {
         return;
       }
-      const response = await fetch(`http://localhost:8080/agente/infoAgente/${nombreAgente}`);
+      const response = await fetch(
+        `http://localhost:8080/agente/infoAgente/${nombreAgente}`
+      );
       if (!response.ok) {
         throw new Error("No se pudo conectar con el servidor");
       }
@@ -61,11 +63,11 @@ const Historial = ({ llamadas }) => {
       setAgente("not found");
     }
   }, [nombreAgente, setAgente]);
-  
+
   /* Download the agent's information every 10 seconds */
   useEffect(() => {
     descargarInfoAgente();
-    const interval = setInterval(descargarInfoAgente, 10000);
+    const interval = setInterval(descargarInfoAgente, 15000);
     return () => clearInterval(interval);
   }, [descargarInfoAgente, nombreAgente]);
 
@@ -84,11 +86,14 @@ const Historial = ({ llamadas }) => {
     agente === null ||
     !nombreAgente ||
     agente === "not found" ||
-    agente.length === 0 || agente[0]?.llamadas.length === 0
+    agente.length === 0 ||
+    agente[0]?.llamadas.length === 0
   ) {
     return (
       <div className="historial">
-        <h3 className="titulo" style={{ fontFamily: tipografia.tipo2 }}>Llamadas Respondidas</h3>
+        <h3 className="titulo" style={{ fontFamily: tipografia.tipo2 }}>
+          Answered Calls
+        </h3>
         <table>
           <thead>
             <tr>
@@ -96,41 +101,27 @@ const Historial = ({ llamadas }) => {
                 style={{ width: "100px" }}
                 onClick={() => manejarOrden("hora")}
               >
-                Hora{" "}
-                {ordenarPor === "hora" && (
-                  <span className="filtro">
-                    {ordenarAscDesc === "asc" ? <FaSortUp /> : <FaSortDown />}
-                  </span>
-                )}
+                Time
               </th>
-              <th>Cliente</th>
+              <th>Client</th>
               <th
                 style={{ width: "110px" }}
                 onClick={() => manejarOrden("duracion")}
               >
-                Duración{" "}
-                {ordenarPor === "duracion" && (
-                  <span className="filtro">
-                    {" "}
-                    {ordenarAscDesc === "asc" ? <FaSortUp /> : <FaSortDown />}
-                  </span>
-                )}
+                Duration
               </th>
-              <th>Transcripción</th>
+              <th>Transcription</th>
             </tr>
           </thead>
           <tbody>
             <tr style={{ height: "200px" }}>
-              <td style={{ borderBottom: "none" }} colSpan="4" > <h3>No hay llamadas registradas</h3></td>
+              <td style={{ borderBottom: "none" }} colSpan="4">
+                {" "}
+                <h3>No calls recorded</h3>
+              </td>
             </tr>
           </tbody>
         </table>
-        {popupVisible && (
-          <div className="popup">
-            <button onClick={cerrarTranscripcion}>Cerrar</button>
-            <p>{transcripcionActual}</p>
-          </div>
-        )}
       </div>
     );
   }
@@ -138,25 +129,32 @@ const Historial = ({ llamadas }) => {
   /* Return the history of answered calls if the agent has data */
   return (
     <div className="historial">
-      <h3 className="titulo" style={{ fontFamily: tipografia.tipo2 }}>Llamadas Respondidas</h3>
+      <h3 className="titulo" style={{ fontFamily: tipografia.tipo2 }}>
+        Answered Calls
+      </h3>
       <table>
         <thead>
           <tr>
             <th style={{ width: "100px" }} onClick={() => manejarOrden("hora")}>
-              Hora{" "}
+              Time{" "}
               {/* It shows an arrow up or down depending on the sorting order */}
               {ordenarPor === "hora" && (
                 <span className="filtro">
                   {ordenarAscDesc === "asc" ? <FaSortUp /> : <FaSortDown />}
                 </span>
               )}
+              {ordenarPor !== "hora" && (
+                <span className="filtro" style={{color: "silver"}}>
+                  <FaSort />
+                </span>
+              )}
             </th>
-            <th>Cliente</th>
+            <th>Client</th>
             <th
               style={{ width: "110px" }}
               onClick={() => manejarOrden("duracion")}
             >
-              Duración{" "}
+              Duration{" "}
               {/* It shows an arrow up or down depending on the sorting order */}
               {ordenarPor === "duracion" && (
                 <span className="filtro">
@@ -164,8 +162,13 @@ const Historial = ({ llamadas }) => {
                   {ordenarAscDesc === "asc" ? <FaSortUp /> : <FaSortDown />}
                 </span>
               )}
+              {ordenarPor !== "duracion" && (
+                <span className="filtro" style={{color: "silver"}}>
+                  <FaSort />
+                </span>
+              )}
             </th>
-            <th>Transcripción</th>
+            <th>Transcription</th>
           </tr>
         </thead>
         <tbody>
@@ -180,9 +183,8 @@ const Historial = ({ llamadas }) => {
                   : b.ConnectedToAgentTimestamp.localeCompare(
                       a.ConnectedToAgentTimestamp
                     );
-              }
+              } else if (ordenarPor === "duracion") {
               /* Ordenar por duración */
-              else if (ordenarPor === "duracion") {
                 return ordenarAscDesc === "asc"
                   ? new Date(a.DisconnectTimestamp) -
                       new Date(a.InitiationTimestamp) -
@@ -204,18 +206,31 @@ const Historial = ({ llamadas }) => {
                   ).toLocaleTimeString()}
                 </td>
                 <td>{contacto.CustomerName}</td>
-                <td style={{ color: 
-                  contacto.DisconnectTimestamp &&
-                  contacto.InitiationTimestamp ? (
-                    (new Date(contacto.DisconnectTimestamp).getTime() -
-                      new Date(contacto.InitiationTimestamp).getTime()) >= 180000 ? 'red' :
-                    (new Date(contacto.DisconnectTimestamp).getTime() -
-                      new Date(contacto.InitiationTimestamp).getTime()) >= 151000 ? 'orange' :
-                    (new Date(contacto.DisconnectTimestamp).getTime() -
-                      new Date(contacto.InitiationTimestamp).getTime()) >= 0 ? '#03C04A' :
-                    'black'
-                  ) : 'black'
-                }}>
+                <td
+                  style={{
+                    color:
+                      contacto.DisconnectTimestamp &&
+                      contacto.InitiationTimestamp
+                        ? new Date(contacto.DisconnectTimestamp).getTime() -
+                            new Date(contacto.InitiationTimestamp).getTime() >=
+                          180000
+                          ? "red"
+                          : new Date(contacto.DisconnectTimestamp).getTime() -
+                              new Date(
+                                contacto.InitiationTimestamp
+                              ).getTime() >=
+                            151000
+                          ? "orange"
+                          : new Date(contacto.DisconnectTimestamp).getTime() -
+                              new Date(
+                                contacto.InitiationTimestamp
+                              ).getTime() >=
+                            0
+                          ? "#03C04A"
+                          : "black"
+                        : "black",
+                  }}
+                >
                   {contacto.DisconnectTimestamp &&
                   contacto.InitiationTimestamp ? (
                     `${
@@ -239,11 +254,13 @@ const Historial = ({ llamadas }) => {
                   <button
                     onClick={() =>
                       abrirTranscripcion(
-                        <HistorialTranscripcion contactId={contacto.ContactId} />
+                        <HistorialTranscripcion
+                          contactId={contacto.ContactId}
+                        />
                       )
                     }
                   >
-                    Ver
+                    View
                   </button>
                 </td>
               </tr>
@@ -254,7 +271,7 @@ const Historial = ({ llamadas }) => {
       {popupVisible && (
         <div className="popup">
           {/* Button to close the transcription popup */}
-          <button onClick={cerrarTranscripcion}>Cerrar</button>
+          <button onClick={cerrarTranscripcion}>Close</button>
           {/* Container with the transcription */}
           <div className="cajatranscripcion">{transcripcionActual}</div>
         </div>

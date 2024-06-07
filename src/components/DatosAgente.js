@@ -42,7 +42,7 @@ const Datos = ({ info }) => {
   /* Download the agent's information every 10 seconds */
   useEffect(() => {
     descargarInfoAgente();
-    const intervalo = setInterval(descargarInfoAgente, 10000);
+    const intervalo = setInterval(descargarInfoAgente, 15000);
     return () => clearInterval(intervalo);
   }, [descargarInfoAgente, nombreAgente]);
 

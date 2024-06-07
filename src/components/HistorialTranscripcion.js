@@ -46,7 +46,7 @@ const HistorialTranscripcion = ( { contactId }) => {
   return (
     <div>
       <h1>
-        <div className=".ventana-transcripcion">
+        <div className=".ventana-transcripcionHistorial">
           {arrTranscripcion.length !== 0 ? (
             arrTranscripcion.map((transcripcion) => {
               return (
