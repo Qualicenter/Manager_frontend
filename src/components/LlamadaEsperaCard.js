@@ -2,6 +2,7 @@
  * @author Gustavo Tellez Mireles
  * Component to visualize an individual call in queue with the client name and the time
 */
+
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
@@ -44,7 +45,8 @@ const LlamadaEsperaCard = (props) => {
                 // Create Date objects
                 const localQueueStartTime = new Date(formattedQueueStartTime);
                 const now = new Date();
-
+                now.setSeconds(now.getSeconds() + 3); // Add 3 seconds to account for the delay
+                
                 // Calculate the time difference in milliseconds
                 const timeDifference = now - localQueueStartTime;
 
