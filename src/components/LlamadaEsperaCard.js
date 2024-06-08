@@ -1,3 +1,7 @@
+/**
+ * @author Gustavo Tellez Mireles
+ * Component to visualize an individual call in queue with the client name and the time
+*/
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
@@ -22,13 +26,15 @@ const Value = styled.p`
     font-weight: 400;
 `;
 
+// Component to visualize an individual call in queue with the client name and the time
 const LlamadaEsperaCard = (props) => {
     const [elapsedTime, setElapsedTime] = useState('');
 
+    // Effect hook to calculate elapsed time
     useEffect(() => {
         const calculateElapsedTime = () => {
             // Assuming queueStartTime is available in props
-            const queueStartTime = props.timestamp; // Assuming props.timestamp contains the start time
+            const queueStartTime = props.timestamp;
 
             // If queueStartTime is not null or undefined
             if (queueStartTime) {
@@ -66,8 +72,8 @@ const LlamadaEsperaCard = (props) => {
 
     return (
         <Card>
-            <Attribute>Nombre del cliente: <Value>{props.clientName}</Value></Attribute>
-            <Attribute>Tiempo en espera: <Value style={{color: "red"}}>{elapsedTime}</Value></Attribute>
+            <Attribute>Client Name: <Value>{props.clientName}</Value></Attribute>
+            <Attribute>Waiting time: <Value style={{color: "red"}}>{elapsedTime}</Value></Attribute>
         </Card>
     );
 };
