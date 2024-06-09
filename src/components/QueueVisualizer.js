@@ -1,5 +1,11 @@
+/**
+ * @author Gustavo Tellez Mireles
+ * Component to visualize the queue of calls in the call center in real time and
+ * handling the logic of no longer showing the disconnected calls from a queue
+ * before they got answered.
+*/
+
 import React, { useState, useEffect } from "react";
-import AWS from "aws-sdk";
 import LlamadaEsperaCard from "./LlamadaEsperaCard";
 
 const QueueVisualizer = () => {
@@ -7,33 +13,38 @@ const QueueVisualizer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [timestamp, setTimestamp] = useState(null);
 
+  // Effect hook to fetch active calls in queue and update disconnected calls
   useEffect(() => {
-    // Fetch contact information from AWS Connect
-    const fetchContactInfo = async (item) => {
-      const connect = new AWS.Connect();
-      const params = {
-        InstanceId: "e730139b-8673-445e-8307-c3a9250199a2",
-        ContactId: item.ContactID
-      };
-
+    // Fetch active calls in queue from backend
+    const fetchActiveCallsInQueue = async () => {
       try {
-        const result = await connect.describeContact(params).promise();
-        console.log(`Contact ${item.ContactID} DisconnectTimestamp:`, result.Contact.DisconnectTimestamp ? "Exists" : "Doesn't exist");
-        if (result.Contact.DisconnectTimestamp) {
-          // Update InQueue attribute to false if contact has been disconnected
-          await updateItemInQueue(item, false);
+        const response = await fetch("http://localhost:8080/queuedata/getActiveCallsInQueue");
+        if (!response.ok) {
+          throw new Error('Failed to fetch');
         }
-        // Fetch client name
-        const clientName = await fetchClientName(item.ContactID);
-        console.log(`Fetched client name for contact ${item.ContactID}: ${clientName}`);
-        return { ...item, clientName };
+        const data = await response.json();
+        
+        if (data.length > 0 && data[0].Items) {
+          const items = data[0].Items;
+          const updatedQueueItems = await Promise.all(items.map(async (item) => {
+            if (item.ContactID) {
+              const clientName = await fetchClientName(item.ContactID);
+              return { ...item, clientName };
+            } else {
+              return null; // Skip items that don't have ContactID
+            }
+          }));
+
+          setQueueItems(updatedQueueItems.filter(item => item !== null));
+        }
+        setIsLoading(false);
       } catch (err) {
-        console.error(`Error fetching contact info for ${item.ContactID}:`, err);
-        return item; // Return the original item if an error occurs
+        console.error("Error fetching active calls:", err);
+        setIsLoading(false);
       }
     };
 
-    // Fetch client name from the server
+    // Fetch client name of the active calls in queue from the server
     const fetchClientName = async (contactId) => {
       try {
         const response = await fetch(`http://localhost:8080/agente/consultaCustomerInfo/${contactId}`);
@@ -44,73 +55,28 @@ const QueueVisualizer = () => {
         return data.clientName;
       } catch (error) {
         console.error("Error fetching client name:", error);
-        return "Nombre no disponible"; // Return a default value if an error occurs
+        return "Name Unavailable"; // Return a default value if an error occurs
       }
     };
 
-    // Update InQueue attribute in DynamoDB to false
-    const updateItemInQueue = async (item, newValue) => {
-      const dynamoDB = new AWS.DynamoDB.DocumentClient();
-      const params = {
-        TableName: "CallsInQueueQualicenter",
-        Key: {
-          "ContactID": item.ContactID
-        },
-        UpdateExpression: "set InQueue = :val",
-        ExpressionAttributeValues: {
-          ":val": newValue
-        }
-      };
-
+    // Update disconnected calls in the queue
+    const updateDisconnectedCalls = async () => {
       try {
-        await dynamoDB.update(params).promise();
-        console.log(`Updated InQueue value for contact ${item.ContactID} to ${newValue}`);
+        await fetch("http://localhost:8080/queuedata/updateDisconnectedCalls", { method: 'PUT' });
       } catch (err) {
-        console.error(`Error updating InQueue value for contact ${item.ContactID}:`, err);
+        console.error("Error updating disconnected calls:", err);
       }
     };
 
-
+    // Start fetching data when the component mounts
     const interval = setInterval(() => {
-      // Initialize AWS SDK with your credentials and region
-      AWS.config.update({
-        accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
-        secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
-        region: 'us-east-1',
-      });
-
-      // Create DynamoDB service object
-      const dynamoDB = new AWS.DynamoDB.DocumentClient();
-
-      // Retrieve calls in queue from DynamoDB with InQueue attribute set to true
-      const params = {
-        TableName: "CallsInQueueQualicenter",
-        FilterExpression: "InQueue = :val",
-        ExpressionAttributeValues: {
-          ":val": true,
-        },
-      };
-      dynamoDB.scan(params, async (err, data) => {
-        if (err) {
-          console.error("Unable to scan DynamoDB table. Error:", JSON.stringify(err, null, 2));
-        } else {
-          setIsLoading(false);
-          const updatedQueueItems = [];
-          for (const item of data.Items) {
-            // Fetch contact info and update queue item with client name
-            const updatedItem = await fetchContactInfo(item);
-            updatedQueueItems.push(updatedItem);
-          }
-          // Update queueItems state with modified items
-          setQueueItems(updatedQueueItems);
-        }
-      });
-    }, 3000); // Scan DynamoDB every 3 seconds
-
-    // Clean up interval on component unmount
+      fetchActiveCallsInQueue();
+      updateDisconnectedCalls();
+    }, 3000); // Update every 3 seconds
     return () => clearInterval(interval);
   }, []);
 
+  // Effect hook to generate timestamps for dummy contacts
   useEffect(() => {
     // Generate timestamps for fake contacts once when the component mounts
     const generateTimestamp = (multiplier) => {
@@ -139,7 +105,7 @@ const QueueVisualizer = () => {
     return <div>Loading...</div>;
   }
 
-  // Combine real and fake contacts into a single array
+  // Combine real and dummy contacts into a single array
   const allContacts = [...queueItems];
   if (timestamp) {
     allContacts.push(
@@ -154,7 +120,6 @@ const QueueVisualizer = () => {
 
   // Sort all contacts by time
   allContacts.sort((a, b) => new Date(a.CurrentTime) - new Date(b.CurrentTime));
-
   return (
     <>
       <div style={{ textAlign: "center", marginTop: "20px" }}>
@@ -164,7 +129,7 @@ const QueueVisualizer = () => {
       </div>
       <>
         {allContacts.map((item) => (
-          <LlamadaEsperaCard clientName={item.clientName} timestamp={item.CurrentTime} />
+          <LlamadaEsperaCard key={item.ContactID || item.clientName} clientName={item.clientName} timestamp={item.CurrentTime} />
         ))}
       </>
     </>
@@ -172,4 +137,3 @@ const QueueVisualizer = () => {
 };
 
 export default QueueVisualizer;
-
