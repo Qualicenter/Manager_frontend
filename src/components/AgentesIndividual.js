@@ -5,13 +5,13 @@
  */
 
 import "../styles/agentes.css";
-import estilo from "styled-components";
+import styled from "styled-components";
 import "../images/1.png";
 import { Link, useNavigate } from 'react-router-dom';
 
 const AgentesIndividual = ({nombre, apellido, im}) => {
 
-    const Titulo = estilo.h2`    
+    const Titulo = styled.h2`    
     font-size: 20px;
     font-weight: 600;
 

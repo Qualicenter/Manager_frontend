@@ -1,6 +1,6 @@
 /**
  * @author Noh Ah Kim Kwon
- * Component that defines the typography and colors of the company Qualitas
+ * Component that defines the typography and colors of the company Quálitas
  */
 
 import { createContext } from 'react';
