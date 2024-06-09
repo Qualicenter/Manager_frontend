@@ -37,7 +37,7 @@ const ListaTranscripcion = (props) => {
   }, [url, setSentimiento]);
 
   useEffect(() => {
-    const interval = setInterval(descargar, 1000); // Descargar cada 5 segundos
+    const interval = setInterval(descargar, 4000); // Descargar cada 5 segundos
     return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
   }, [descargar]);
 
