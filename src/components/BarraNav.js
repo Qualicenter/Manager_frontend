@@ -1,31 +1,54 @@
+/**
+ * @author Ingrid García Hernández
+ * @author Noh Ah Kim Kwon
+ * Component which shows the navigation bar of the application.
+ */
+
 import React, { useState } from "react";
 import * as FaIcons from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import * as AiIcons from 'react-icons/ai';
+import * as Md from "react-icons/md";
 import { IconContext } from 'react-icons';
 import '../styles/barraNav.css';
 import { SidebarData } from './SidebarData';
+import logo from "../images/qualitas-logo.png";
 
+/* Navigation bar component */
 function BarraNav() {
-    const [verBarra, setVerBarra] = useState(false);
+  /* State that stores the visibility of the navigation bar */
+  const [verBarra, setVerBarra] = useState(true);
 
-    const mostrarBarra = () => setVerBarra(!verBarra);
+  /* Function to show or collapse the navigation bar */
+  const mostrarBarra = () => setVerBarra(!verBarra);
 
-    return(
+  return (
+    <div className="navBarra">
+      <IconContext.Provider value={{ color: "#fff" }}>
         <div className="navBarra">
-            <IconContext.Provider value={{ color: '#fff' }}>
-            <div className='navBarra'>
-          <Link to='#' className='menu-bars'>
-            <FaIcons.FaBars onClick={mostrarBarra} />
-          </Link>
-        </div>
-        <nav className={verBarra ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items' onClick={mostrarBarra}>
-            <li className='navbar-toggle'>
-              <Link to='#' className='menu-bars'>
-                <AiIcons.AiOutlineClose />
+          <ul className="nav-menu-elementos">
+            <div className="navbar-alternar">
+              <Link to="#" className="icono">
+                <FaIcons.FaBars onClick={mostrarBarra}/>
               </Link>
-            </li>
+            </div>
+            {SidebarData.map((item, index) => {
+              return (
+                <li key={index} className={item.cName}>
+                  <Link to={item.path}>{item.icon}</Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <nav className={verBarra ? "nav-menu activo" : "nav-menu"}>
+          <ul className="nav-menu-elementos" >
+            <div className="navbar-alternar">
+              <img src={logo} alt="logo" className="logo" />
+              <Link to="#" className="menu-barras">
+                <Md.MdKeyboardArrowLeft onClick={mostrarBarra}/>
+              </Link>
+              
+            </div>
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
@@ -38,11 +61,9 @@ function BarraNav() {
             })}
           </ul>
         </nav>
-
-            </IconContext.Provider>
-        </div>
-    )
-
+      </IconContext.Provider>
+    </div>
+  );
 }
 
 export default BarraNav;

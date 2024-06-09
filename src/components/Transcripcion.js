@@ -41,7 +41,7 @@ const Transcripcion = ({ transcripcion }) => {
   //dummy.current.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <div className="ventana-transcripcion">
+    <div className="ventana-transcripcion ventana-transcripcionHistorial">
       <div className={lugarTranscripcion}>
         <div className={estiloTranscripcion}>
           {emoji} {transcripcion.descripcion}
