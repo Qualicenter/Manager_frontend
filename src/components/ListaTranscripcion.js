@@ -11,12 +11,30 @@ const ListaTranscripcion = (props) => {
  
   const cancelar = props.cancelar;
   const {setSentimiento} = props;
+  const {contactId} = props;
   const [arrTranscripcion, setTranscripcion] = useState([]);
-  const [url] = useState("http://localhost:8080/agente/consultaTranscripcionActiva");
+  const [url] = useState("http://localhost:8080/agente/consultaTranscripcion2");
 
   const descargar = useCallback(async () => {
     try {
-      const response = await fetch(url);
+      if (!contactId) {
+        console.error("No contactId provided");
+        return;
+      }
+
+      console.log(`Fetching data from: ${url}/${contactId}`);
+      const response = await fetch(`${url}/${contactId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data  = await response.json();
       console.log("DATA:", data[0].Segments[data[0].Segments.length - 1].Transcript.Sentiment)
       setSentimiento( data[0].Segments[data[0].Segments.length - 1].Transcript.Sentiment)
@@ -32,9 +50,9 @@ const ListaTranscripcion = (props) => {
      
       setTranscripcion(arrNuevo);
     } catch (error) {
-      console.error('Error al descargar los datos:', error);
+      console.error("Error fetching data: ", error);
     }
-  }, [url, setSentimiento]);
+  }, [url, setSentimiento, contactId]);
 
   useEffect(() => {
     const interval = setInterval(descargar, 4000); // Descargar cada 5 segundos

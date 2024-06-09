@@ -112,6 +112,7 @@ const LlamadaActivaCard = (props) => {
   const [elapsedTime, setElapsedTime] = useState('00:00');
   const {sentimientoInfo} = props;
   const [arrLlamadasActivas, setArrLlamadasActivas] = useState([]);
+  const {setContactId} = props;
   const [url] = useState("http://localhost:8080/agente/consultaContacts");
   const arrLlamadasPrev = useRef();
   const notificaciones = props.notificaciones;
@@ -121,7 +122,17 @@ const LlamadaActivaCard = (props) => {
     try {
       /* eslint-disable */
         const responseActiva = await fetch(url);
+
+        
         const dataActiva = await responseActiva.json();
+        if (!dataActiva[0].contactId){
+          console.error("No hay llamadas activas")
+          return;
+        } else {
+          setContactId(dataActiva[0].contactId);
+        }
+
+        
         setInicioLlamada(dataActiva[0].EnqueueTimestamp);
         const dataTotal = [...dataActiva, ...dataPruebasActivas];
 
@@ -156,7 +167,7 @@ const LlamadaActivaCard = (props) => {
         setArrLlamadasActivas(arrNuevo);
 
     } catch (error) {
-      console.error('Error al descargar los datos:', error);
+      console.log("",error);
       setInicioLlamada('');
       const arrNuevo = [...dataPruebasActivas].map((llamada)  => {
         const transcripcion = {  
@@ -228,7 +239,7 @@ const LlamadaActivaCard = (props) => {
         arrLlamadasPrev.current = arrLlamadasActivas;
         organizar();
         return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
-      }, [descargar, arrLlamadasActivas, organizar]);
+      }, [descargar, arrLlamadasActivas, organizar, setContactId]);
 
 
       useEffect(() => { 
