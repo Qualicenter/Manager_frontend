@@ -5,9 +5,9 @@
  */
 
 import React, { useState } from "react";
-import * as FaIcons from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import * as Md from "react-icons/md";
+import { MdKeyboardArrowLeft } from "react-icons/md";
 import { IconContext } from 'react-icons';
 import '../styles/barraNav.css';
 import { SidebarData } from './SidebarData';
@@ -28,7 +28,7 @@ function BarraNav() {
           <ul className="nav-menu-elementos">
             <div className="navbar-alternar">
               <Link to="#" className="icono">
-                <FaIcons.FaBars onClick={mostrarBarra}/>
+                <FaBars onClick={mostrarBarra}/>
               </Link>
             </div>
             {SidebarData.map((item, index) => {
@@ -45,7 +45,7 @@ function BarraNav() {
             <div className="navbar-alternar">
               <img src={logo} alt="logo" className="logo" />
               <Link to="#" className="menu-barras">
-                <Md.MdKeyboardArrowLeft onClick={mostrarBarra}/>
+                <MdKeyboardArrowLeft onClick={mostrarBarra}/>
               </Link>
               
             </div>

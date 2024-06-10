@@ -7,15 +7,15 @@ import "../styles/datosAgente.css";
 import Datos from "./DatosAgente";
 import Historial from "./HistorialLlamadas";
 import Desempenio from "./DesAgente";
-import estilo from "styled-components";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import * as FaIcons from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { ColorTipografiaContexto } from "./ColorTipografia";
 import { useContext } from "react";
 import fotoPerfil from "../images/profile.png";
 
 /* Styled components for the KPIs of an agent */
-const Info = estilo.div`
+const Info = styled.div`
   position: relative;
   width: 80%;
   display: flex;
@@ -24,7 +24,7 @@ const Info = estilo.div`
   flex-direction: column;
 `;
 
-const Contenedor = estilo.div`
+const Contenedor = styled.div`
   text-align: center;
   display: flex;
   flex-direction: row;
@@ -32,7 +32,7 @@ const Contenedor = estilo.div`
   width: 100%;
 `;
 
-const Caja = estilo.div`
+const Caja = styled.div`
   flex: auto;
   overflow: auto;
   margin: 15px;
@@ -43,14 +43,14 @@ const Caja = estilo.div`
   place-items: center;
 `;
 
-const ContenedorIzq = estilo.div`
+const ContenedorIzq = styled.div`
   flex: 40%;
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 
-const ContenedorDer = estilo.div`
+const ContenedorDer = styled.div`
   flex: 60%;
   width: 100%;
   overflow: auto;
@@ -60,7 +60,7 @@ const ContenedorDer = estilo.div`
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 `;
-const BotonRegresar = estilo.button`
+const BotonRegresar = styled.button`
   background-color: #f5f5f5;
   border: none;
   border-radius: 5px;
@@ -88,7 +88,7 @@ const KpiAgente = () => {
     <Info style={{ fontFamily: tipografia.tipo1 }}>
       <Contenedor>
         <BotonRegresar onClick={regresar}>
-          <FaIcons.FaArrowLeft />
+          <FaArrowLeft />
         </BotonRegresar>
         <ContenedorIzq>
           <Caja>

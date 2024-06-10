@@ -6,27 +6,27 @@
  */
 
 import React from 'react';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
+import { FaChartBar } from 'react-icons/fa';
+import { AiFillHome, AiOutlineUser } from 'react-icons/ai';
 
 
 export const SidebarData = [
   {
     title: 'Menu',
     path: '/',
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiFillHome />,
     cName: 'nav-texto'
   },
   {
     title: 'Agents',
     path: '/agentes',
-    icon: <AiIcons.AiOutlineUser />,
+    icon: <AiOutlineUser />,
     cName: 'nav-texto'
   },
   {
     title: 'Historic KPIs',
     path: '/historicos',
-    icon: <FaIcons.FaChartBar />,
+    icon: <FaChartBar />,
     cName: 'nav-texto'
   },
   
