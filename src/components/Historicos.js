@@ -128,7 +128,6 @@ const Historicos = () => {
   const [infoV, setInfoV] = useState();
   const [infoOc, setInfoOc] = useState();
   const [infoTiempo, setInfoTiempo] = useState();
-  const [actualizar, setActualizar] = useState(true);
 
   const dataAbandono = createChartData(
     infoAbandono,
@@ -349,14 +348,12 @@ const Historicos = () => {
       console.log(error);
     }
   };
-
-
   /*
    * Se obtienen los KPI's historicos de los últimos 15 minutos en cuanto 
   se renderiza el componente
    */
   useEffect(() => {
-    kpisMinutos(16);
+    kpisMinutos(15);
   }, []);
 
   /*

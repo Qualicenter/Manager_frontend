@@ -128,7 +128,7 @@ const LlamadaActivaCard = (props) => {
       
       
     } catch (error) {
-      console.error('Error al descargar los datos:', error);
+      // console.error('Error al descargar los datos:', error);
       const arrNuevo = [...dataPruebasActivas].map((llamada)  => {
         const transcripcion = {  
           contenido:{
@@ -193,7 +193,7 @@ const LlamadaActivaCard = (props) => {
     
       //Actualiza los cambios en el arreglo de llamadas
       useEffect(() => {
-        console.log("Obteniendo llamadas activas")
+        // console.log("Obteniendo llamadas activas")
         const interval = setInterval(descargar, 3000); // Descargar cada 5 segundos
         arrLlamadasPrev.current = arrLlamadasActivas;
         // organizar();
