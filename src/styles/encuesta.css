@@ -1,4 +1,4 @@
-    .body {
+  .body {
     margin: 0;
     color: black;
     background-color: #fcfcfc;
@@ -10,6 +10,9 @@
   
   .Encuesta {
     /* margin: 0; */
+    position: relative;
+    width: 80%;
+    top: 50%;
     color: black;
     background-color: #fcfcfc;
     display:flex;
@@ -17,6 +20,8 @@
     align-items: center;
     /* min-height: 100vh; */
     left:16%;
+
+
 
     background-color: white;
     max-width: 80%;
@@ -69,12 +74,12 @@
     display: flex;
     padding: 10px;
     margin-bottom: 10px;
-    border: 2.5px solid #0096AE;
+    border: 2.5px solid rgb(0,150,173);
     cursor: pointer;
   }
   
   button:hover {
-    background-color: #0096AE;
+    background-color: rgb(0,150,173);
   }
   
   button:focus {
@@ -90,7 +95,7 @@
     display: flex;
     padding: 10px;
     margin-bottom: 10px;
-    border: 2.5px solid #0096AE;
+    border: 2.5px solid rgb(0,150,173);
     cursor: pointer;
     margin-top: 25px;
     justify-content: center;

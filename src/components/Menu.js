@@ -43,7 +43,6 @@ const Column = styled.section`
 `;
 
 const Menu = () => {
-
   const [sentimientoInfo, setSentimiento] = useState("NEUTRAL");
   const [contactId, setContactId] = useState(null);
   const [showVentanaTranscripcion, setShwoVentanaTranscripcion] =
@@ -53,31 +52,45 @@ const Menu = () => {
   const [notificacionesFiltradasG, setNotificacionesFiltradas] = useState({});
   const [notificacionesAgente, setNotificacionesAgente] = useState([]);
 
-  const filtrarNotificaciones = useCallback((notificaciones) => {
-    let notificacionesFiltradas = {}
-    notificaciones.map((notificacion) => {
-      if (!notificacionesFiltradas[notificacion.Sender]) {
-      notificacionesFiltradas[notificacion.Sender] = {notificaciones:[notificacion], asistencia:false};
-      } else {
-      notificacionesFiltradas[notificacion.Sender].notificaciones.push(notificacion);
-      }
-      return notificacionesFiltradas;
-    });
-    const usernames = Object.keys(notificacionesFiltradas);
-    for (let i = 0; i < usernames.length; i++) {
-      if (notificacionesFiltradasG[usernames[i]] === undefined) {
-        notificacionesFiltradasG[usernames[i]] = {notificaciones:[], asistencia:false};
-      }
-      if (notificacionesFiltradasG[usernames[i]].notificaciones.length < notificacionesFiltradas[usernames[i]].notificaciones.length) {
-        notificacionesFiltradas[usernames[i]].asistencia = true;
-      }
+  const filtrarNotificaciones = useCallback(
+    (notificaciones) => {
+      let notificacionesFiltradas = {};
+      notificaciones.map((notificacion) => {
+        if (!notificacionesFiltradas[notificacion.Sender]) {
+          notificacionesFiltradas[notificacion.Sender] = {
+            notificaciones: [notificacion],
+            asistencia: false,
+          };
+        } else {
+          notificacionesFiltradas[notificacion.Sender].notificaciones.push(
+            notificacion
+          );
+        }
+        return notificacionesFiltradas;
+      });
+      const usernames = Object.keys(notificacionesFiltradas);
+      for (let i = 0; i < usernames.length; i++) {
+        if (notificacionesFiltradasG[usernames[i]] === undefined) {
+          notificacionesFiltradasG[usernames[i]] = {
+            notificaciones: [],
+            asistencia: false,
+          };
+        }
+        if (
+          notificacionesFiltradasG[usernames[i]].notificaciones.length <
+          notificacionesFiltradas[usernames[i]].notificaciones.length
+        ) {
+          notificacionesFiltradas[usernames[i]].asistencia = true;
+        }
 
-      if (notificacionesFiltradasG[usernames[i]].asistencia === true) {
-        notificacionesFiltradas[usernames[i]].asistencia = true;
+        if (notificacionesFiltradasG[usernames[i]].asistencia === true) {
+          notificacionesFiltradas[usernames[i]].asistencia = true;
+        }
       }
-    }
-    setNotificacionesFiltradas(notificacionesFiltradas);
-  },[notificacionesFiltradasG])
+      setNotificacionesFiltradas(notificacionesFiltradas);
+    },
+    [notificacionesFiltradasG]
+  );
 
   const showVentanaHandler = () => {
     setShwoVentanaTranscripcion(!showVentanaTranscripcion);
@@ -93,41 +106,37 @@ const Menu = () => {
   const [servicio, setServicio] = useState(0);
   const [ocupacion, setOcupacion] = useState(0);
 
-    const descargarNotificaciones = useCallback(async () => {
-        console.log('descargando notificaciones')
-        const url = `http://localhost:8080/messages/getMessages?Date=${new Date().toString()}`;
-        try {
-        const res = await fetch(url);
-        const data = await res.json();
-        filtrarNotificaciones(data[0].Items);
-        } catch (error) {
-            console.log(error);
-        }
-    }, [filtrarNotificaciones])
+  const descargarNotificaciones = useCallback(async () => {
+    console.log("descargando notificaciones");
+    const url = `http://localhost:8080/messages/getMessages?Date=${new Date().toString()}`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      filtrarNotificaciones(data[0].Items);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [filtrarNotificaciones]);
 
-    useEffect(() => {
-      const intervalId = setInterval(() => {
-        descargarNotificaciones();
-      }, 5000);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      descargarNotificaciones();
+    }, 5000);
 
-      return () => clearInterval(intervalId);
-    }, [descargarNotificaciones])
+    return () => clearInterval(intervalId);
+  }, [descargarNotificaciones]);
 
-
-  /*
-Autor: Ingrid García
-Las siguiente variables facilitan el cambiar el nombre del lugar y puerto del servidor.
-*/
+  /* Variables to specify the location and port of the server */
   const lugar = "localhost";
   const puerto = "8080";
 
-  /*
-Autor: Ingrid García 
-La función procesarYEnviarKPIs se encarga de obtener los KPIs del momento proveniente de Amazon Connect,
- y una vez que se muestran en patalla, también se encarga de enviarlos a la base de datos en Dynamo DB.
- Está función se ejecuta cada minuto, y se ejecuta una vez al cargar la página para que inmediatamente vaya guardando la información.
- La función asíncrona permite que la página no se congele mientras se ejecuta la función.
- */
+  /**
+   * @author Ingrid Garcia Hernandez
+   * Function that processes and sends the KPIs to the database, first it gets the KPIs from Amazon Connect,
+   * then it shows them on the screen, and finally it sends them to the database in Dynamo DB.
+   * This function is executed every minute, and it is executed once when the page is loaded so that it
+   * immediately starts saving the information.
+   */
   const procesarYEnviarKPIs = async () => {
     try {
       const res = await fetch("http://" + lugar + ":" + puerto + "/kpis/dia");
@@ -136,11 +145,11 @@ La función procesarYEnviarKPIs se encarga de obtener los KPIs del momento prove
       const kpis = [];
       let abandono, duracion, tiempoEspera, servicio, ocupacion;
 
-      /*
-      Autor: Ingrid García
-      Se verifica que el valor de los KPIs no sea nulo, en caso de serlo, se asigna un valor de 0.
-      Además, se asigna el valor de los KPIs a las variables correspondientes y se agregan al arreglo kpis, para después poder 
-      crear el componente correspondiente y envia la información al base de datos con la estructura correcta. 
+      /**
+       * @author Ingrid Garcia Hernandez
+       * It checks that the value of the KPIs is not null, if it is, it assigns a value of 0.
+       * In addition, it assigns the value of the KPIs to the corresponding variables and adds them to the kpis array, so that later
+       * the corresponding component can be created and the information can be sent to the database with the correct structure.
        */
       if (data[1][1]) {
         abandono = data[1][1].toFixed(1);
@@ -188,9 +197,9 @@ La función procesarYEnviarKPIs se encarga de obtener los KPIs del momento prove
 
       console.log("KPIs descargados:", kpis);
 
-      /*
-      Autor: Ingrid García
-      Se crea un arreglo con la estructura correcta para enviar la información al servidor.
+      /**
+       * @author Ingrid Garcia Hernandez
+       * It creates an array with the correct structure to send the information to the server.
        */
       const fecha = new Date(
         new Date().getTime() - 6 * 60 * 60 * 1000
@@ -201,8 +210,6 @@ La función procesarYEnviarKPIs se encarga de obtener los KPIs del momento prove
         Fecha: fecha,
       }));
 
-      // console.log("Datos para enviar:", jsonData);
-
       const options = {
         method: "POST",
         body: JSON.stringify(jsonData),
@@ -211,10 +218,10 @@ La función procesarYEnviarKPIs se encarga de obtener los KPIs del momento prove
         },
       };
 
-      /*
-      Autor: Ingrid García
-      Se envían los KPIs al servidor para que sean guardados en la base de datos.
-      */
+      /**
+       * @author Ingrid Garcia Hernandez
+       * It makes the appropriate request to send the KPIs to the server to be saved in the database.
+       */
 
       const pet = await fetch(
         "http://" + lugar + ":" + puerto + "/kpis/crearMinKPI",
@@ -230,21 +237,16 @@ La función procesarYEnviarKPIs se encarga de obtener los KPIs del momento prove
         );
         return;
       }
-        /*
-          Autor: Ingrid García 
-          Para revisar si se guardaron los datos correctamente en la base de datos. 
-        */
-      // const regreso = await pet.json();
-      // console.log("Respuesta del servidor:", regreso);
     } catch (error) {
       console.log(error);
     }
   };
-  /*
-Autor: Ingrid García 
-La función de revisarDia se encarga de revisar si hay datos del día anterior en la base de datos, 
-en caso de no haberlos, agrega estos datos a la base de datos, con la información y fecha correcta.
- */
+
+  /**
+   * @author Ingrid Garcia Hernandez
+   * the following function is in charge of checking if there is data from the previous day in the database,
+   * if there is no data, it adds this data to the database, with the correct information and date.
+   */
   const revisarDia = async () => {
     try {
       const res = await fetch(
@@ -319,22 +321,17 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci�
           );
           return;
         }
-        /*
-          Autor: Ingrid García 
-          Para revisar si se guardaron los datos correctamente en la base de datos. 
-        */
-        // const regreso = await pet.json();
-        // console.log("Respuesta del servidor:", regreso);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  /*
-  Autor: Ingrid García
-  El siguiente useEffect se encarga de ejecutar la función procesarYEnviarKPIs cada minuto, para que se actualicen los KPIs en la página
-  y se envíen a la base de datos. Además, se ejecuta una vez al cargar la página para que inmediatamente vaya guardando la información.
-  */
+  /**
+   * @author Ingrid Garcia Hernandez
+   * The following useEffect is in charge of executing the function procesarYEnviarKPIs every minute,
+   * so that the KPIs are updated on the page and sent to the database. In addition, it is executed once
+   * when the page is loaded so that it immediately starts saving the information.
+   */
   const intervalRef = useRef(null);
   const minutes = 1;
 
@@ -342,17 +339,18 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci�
     const intervalId = setInterval(() => {
       procesarYEnviarKPIs();
       console.log("KPI's actualizados");
-    }, minutes * 60 * 1000);
+    }, minutes * 60 * 1000); /* It saves the data according to the value given in minutes */
 
     intervalRef.current = intervalId;
 
-    /*
-    Autor: Ingrid García
-    Se limpia el intervalo para que no se siga ejecutando la función después de que el componente se desmonte.
+    /**
+     * @author Ingrid Garcia Hernandez
+     * The following return is in charge of clearing the interval so that the function does not continue to be executed
      */
     return () => clearInterval(intervalRef.current);
   }, [minutes]);
 
+  /* Once the component is rendered the functions are called once */
   useEffect(() => {
     procesarYEnviarKPIs();
     revisarDia();
@@ -360,18 +358,38 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci�
 
   return (
     <Wrapper>
-       {showVentanaTranscripcion && <ListaTranscripcion contactId={contactId} setSentimiento={setSentimiento} cancelar={showVentanaHandler} />}
-        {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificacionesAgente} funcShowTranscript={showVentanaHandler} />}
-    <Column className='side'>
-        <TitleComponent text='Llamadas Activas' />
-        <div className='cards-wrapper'>
-          <LlamadaActivaCard sentimientoInfo={sentimientoInfo} setContactId={setContactId} funcVentanaTranscripcion={showVentanaHandler} notificaciones={notificacionesFiltradasG} setNotificaciones={setNotificacionesFiltradas} setNotificacionesAgente={setNotificacionesAgente} showCentroNotificacionesHandler={showCentroNotificacionesHandler}/>
+      {showVentanaTranscripcion && (
+        <ListaTranscripcion
+          contactId={contactId}
+          setSentimiento={setSentimiento}
+          cancelar={showVentanaHandler}
+        />
+      )}
+      {showCentroNotificaciones && (
+        <CentroNotif
+          cancelar={showCentroNotificacionesHandler}
+          notificaciones={notificacionesAgente}
+          funcShowTranscript={showVentanaHandler}
+        />
+      )}
+      <Column className="side">
+        <TitleComponent text="Llamadas Activas" />
+        <div className="cards-wrapper">
+          <LlamadaActivaCard
+            sentimientoInfo={sentimientoInfo}
+            setContactId={setContactId}
+            funcVentanaTranscripcion={showVentanaHandler}
+            notificaciones={notificacionesFiltradasG}
+            setNotificaciones={setNotificacionesFiltradas}
+            setNotificacionesAgente={setNotificacionesAgente}
+            showCentroNotificacionesHandler={showCentroNotificacionesHandler}
+          />
         </div>
-    </Column>
-    <Column className='center'>
-        <TitleComponent text='Línea de Espera' />
+      </Column>
+      <Column className="center">
+        <TitleComponent text="Línea de Espera" />
         <QueueVisualizer />
-    </Column>
+      </Column>
       <Column className="side">
         <TitleComponent text="General KPI" />
         <div className="cards-wrapper">

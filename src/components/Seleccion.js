@@ -1,18 +1,19 @@
 /**
- * Autor: Ingrid García 
- * Componente que permite seleccionar el tipo de busqueda que se desea realizar, ya sea por fecha o por minutos 
- * u horas del mismo día.
+ * @author Ingrid Garcia Hernandez
+ * Component that allows to select the type of search to be performed, either by date or by minutes
+ * or hours of the same day.
  */
+
 import React, { useState, useRef, forwardRef } from "react";
 import "../styles/seleccion.css";
 
 /**
- * Se indica que el componente es un forwardRef para poder acceder a los valores de los inputs
+ * Component that allows to select the type of search to be performed, either by date or by minutes.
  */
 const Seleccion = forwardRef((props, ref) => {
 
   /**
-   * Se crean los estados para controlar la visibilidad de los botones y los inputs
+   * It creates the states to control the visibility of the buttons and the inputs
    */
 
   const [btnDiario, setBtnDiario] = useState(true);
@@ -22,18 +23,19 @@ const Seleccion = forwardRef((props, ref) => {
   const [inFecha, setInFecha] = useState(false);
 
   /**
-   * Se obtiene la fecha actual y se consideran las 6 horas de diferencia para que la fecha sea la correcta
+   * It creates the state to store the current date, 
    */
+
   const hoy = new Date(new Date().getTime() - 6 * 60 * 60 * 1000).toISOString().split('T')[0];
 
   /**
-   * Se crean los ref para los inputs de fecha y diario
+   * It creates the references for the inputs
    */
   const fechaInputRef = useRef();
   const diarioInputRef = useRef();
 
   /**
-   * Obtiene el vlalor del input seleccionado
+   * Function that returns the value of the selected input
    */
   const getValor = () => {
     if (inFecha) {
@@ -47,8 +49,8 @@ const Seleccion = forwardRef((props, ref) => {
 
 
 /**
- * Obtiene la fecha minima que se puede seleccionar en el input de fecha, que 
- * debe de ser 60 días antes de la fecha actual.
+ * Function that returns the minimum date that can be selected
+ * 60 days before the current date and formats it correctly
  */
   const getMinDate = () => {
     const hoy = new Date(new Date().getTime() - 6 * 60 * 60 * 1000);
@@ -57,7 +59,7 @@ const Seleccion = forwardRef((props, ref) => {
   };
 
   /**
-   * Obtiene el valor del input seleccionado y lo envía al componente padre
+   * Function that is executed when the input changes
    */
   const handleInputChange = (event) => {
     if (props.onInputChange) {
@@ -66,7 +68,8 @@ const Seleccion = forwardRef((props, ref) => {
   };
 
   /*
-   * Funciones que controlan la visibilidad de los botones e inputs
+   * Functions that change the visibility of the buttons and inputs, 
+   * depending on the button that is pressed
    */
   const handlerVerDiario = () => {
     setBtnDiario(!btnDiario);

@@ -16,7 +16,6 @@ function App() {
         <ColorTipografiaProveedor>
           <Router>
             <BarraNav />
-
             <Routes>
               <Route path="/" element={<Menu />} />
               <Route path="/agentes" element={<Agentes />} />

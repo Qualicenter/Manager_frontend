@@ -1,16 +1,14 @@
-/*
-Autor: Ingrid Garcia 
-Componente que permite visualizar los KPI's historicos de acuerdo al periodo elegido por el usuario.
-Estos se muestran en gráficos de líneas.  
+/**
+ * @author Ingrid Garcia Hernandez
+ * Component that allows to visualize the historical KPI's according to the period chosen by the user.
+ * These are shown in line charts dependign of the selection made.
  */
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import "../styles/historicos.css";
 import Seleccion from "./Seleccion";
 
-/*
-Elementos necesarios para la creación de los gráficos de líneas
- */
+/* Imports made for the use of the chart.js library*/
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -23,16 +21,16 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-/*
-Función que genera los tiempos de acuerdo al periodo seleccionado por el usuario
-en incrementos de 15 minutos
-*/
+/**
+ * Function that generates the times according to the period selected by the user,
+ * it is formed in 15 minute increments.
+ */
+
 function generarTiempo(value) {
   const ahora = new Date();
   const metaTiempo = new Date(ahora.getTime() - value * 60 * 1000);
 
   function tiempoCadaQuinze(inicio, fin) {
-    // Convert times to minutes past midnight
     const inicioMin = inicio.getHours() * 60 + inicio.getMinutes();
     const finMin = fin.getHours() * 60 + fin.getMinutes();
 
@@ -40,9 +38,7 @@ function generarTiempo(value) {
     let minAct = inicioMin;
 
     while (minAct <= finMin) {
-      /**
-       * Se obtiene la hora y los minutos de acuerdo a los minutos actuales
-       */
+      /*Gets the hours and minutes of the current time and with the more adequate format */
       const horas = Math.floor(minAct / 60);
       const minutos = minAct % 60;
       const formattedTime = `${horas.toString().padStart(2, "0")}:${minutos
@@ -50,9 +46,7 @@ function generarTiempo(value) {
         .padStart(2, "0")}`;
       times.push(formattedTime);
 
-      /*
-      Se agregan los 15 minutos a la hora actual para obtener el siguiente tiempo
-       */
+      /* It adds the 15 minutes in each iteration*/
       minAct += 15;
     }
 
@@ -63,8 +57,8 @@ function generarTiempo(value) {
   return prueba.reverse();
 }
 
-/*
- * Componente que permite visualizar los KPI's historicos de acuerdo al periodo elegido por el usuario.
+/**
+ * Component that allows to visualize the historical KPI's according to the period chosen by the user.
  */
 ChartJS.register(
   CategoryScale,
@@ -77,7 +71,8 @@ ChartJS.register(
 );
 
 /**
- * Función que crea los datos necesarios para la creación de los gráficos de líneas
+ * Function that given the specific data of each KPI,
+ * creates line charts with the data given, as wells as the color.
  */
 function createChartData(jsonData, labelName, valor, color, labelsT) {
   const labels = labelsT.slice(0, valor);
@@ -97,7 +92,7 @@ function createChartData(jsonData, labelName, valor, color, labelsT) {
 }
 
 /*
- * Configutaciónn de los elementos de visualización de los gráficos de líneas
+ * It specifies the elements of the graph, such as the position of the legend and the responsiveness of the graph.
  */
 export const options = {
   responsive: true,
@@ -166,21 +161,20 @@ const Historicos = () => {
   );
 
   /*
-   * Variables que contienen la dirección y el puerto del servidor
+   * Variables that store the location and port of the server.
    */
   const lugar = "localhost";
   const puerto = "8080";
 
   /**
-   * Función asíncrona que permite obtener los KPI's historicos de acuerdo al periodo seleccionado por el usuario
-   * en días anteriores a la fecha actual
+   * useEffect hook that allows to update the KPI's historical data according to the period selected by the user.
    */
   const kpisHistoricos = async (value) => {
     try {
       /**
-       * Por cada KPI se realiza una petición al servidor para obtener los datos correspondientes a la fecha seleccionada.
-       * Dado que cada uno va a regresar la misma cantidad de datos, se asigna la cantidad de datos a la variable valorBus
-       * para que se pueda visualizar la misma cantidad de datos en todos los gráficos.
+       * For each KPI, a request is made to the server to obtain the data corresponding to the selected date.
+       * Since each one will return the same amount of data, the amount of data is assigned to the variable valorBus
+       * so that the same amount of data can be displayed in all the graphs.
        */
       const resAbandono = await fetch(
         "http://" +
@@ -192,23 +186,23 @@ const Historicos = () => {
       );
       const dataAbandono = await resAbandono.json();
 
-      /*
-       * Se obtienen los valores de abandono y la fecha de cada uno de los datos obtenidos.
+      /**
+       * It gets the abandonment values and the date of each of the data obtained.
        */
       const valAbandono = dataAbandono.map((el) => el[0]);
       const fecha = dataAbandono.map((el) => el[2]);
 
       const cantidadDatos = valAbandono.length;
       /**
-       * Al hacer uso de estados, una vez que se obtienen los datos, se asignan a las variables correspondientes
-       * y la visualización de los gráficos se actualiza.
+       * With each set of data obtained, the data is reversed so that the most recent data is displayed first.
+       * The data is assigned to the corresponding state.
        */
       setInfoAbandono(valAbandono.reverse());
       setValorBus(cantidadDatos);
       setTimeLabels(fecha.reverse());
 
       /**
-       * Información del nivel de servicio
+       * Data obtained from the service level
        */
       const resNivel = await fetch(
         "http://" +
@@ -223,7 +217,7 @@ const Historicos = () => {
       setInfoNivel(valNivel.reverse());
 
       /**
-       * Información de la ocupación
+       * Data obtained from the occupancy
        */
       const resOc = await fetch(
         "http://" +
@@ -238,7 +232,7 @@ const Historicos = () => {
       setInfoOc(valOc.reverse());
 
       /**
-       * Información de la duración del contacto en promedio
+       * Data obtained from the contact duration
        */
       const resTiempo = await fetch(
         "http://" +
@@ -253,7 +247,7 @@ const Historicos = () => {
       setInfoTiempo(valTiempo.reverse());
 
       /**
-       * Información del tiempo de espera promedio
+       * Data obtained from the customer hold time
        */
       const res = await fetch(
         "http://" +
@@ -272,14 +266,14 @@ const Historicos = () => {
   };
 
   /**
-   * Función asíncrona que permite obtener los KPI's historicos de acuerdo al periodo seleccionado por el usuario
-   * en los minutos seleccionados por el usuario
+   * useEffect hook that allows to update the KPI's historical data according to the period, of minutes, selected by the user,
+   * the default value is 15 minutes.
    */
   const kpisMinutos = async (value) => {
     try {
       /*
-       * Se asignan los tiempos de acuerdo al periodo seleccionado por el usuario
-       * con el formato HH:MM, más adecuado para la visualización de los gráficos.
+       * The lavels are assigned according to the period selected by the user
+       * using the HH:MM format, more suitable for the visualization of the graphs.
        */
       setTimeLabels(generarTiempo(value));
 
@@ -348,23 +342,22 @@ const Historicos = () => {
       console.log(error);
     }
   };
-  /*
-   * Se obtienen los KPI's historicos de los últimos 15 minutos en cuanto 
-  se renderiza el componente
+  /**
+   * The useEffect hook is used to call the function that obtains the historical KPI's of the last 15 minutes from
+   * the moment the component is rendered.
    */
   useEffect(() => {
     kpisMinutos(15);
   }, []);
 
   /*
-   * Recibe el valor seleccionado por el usuario y llama a la función correspondiente
+   * It is a function that is executed when the user selects a period of time,
    */
   const handlerCambio = (value) => {
     if (value > 0 && value <= 480) {
       kpisMinutos(value);
     } else {
       kpisHistoricos(value);
-      // setActualizar(false);
     }
   };
 

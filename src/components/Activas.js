@@ -34,7 +34,7 @@ const Value = styled.p`
 const Button = styled.button`
     width: 127px;
     height: 27px;
-    background: #00A2E3;
+    background: rgb(0,150,173);
     color:  white;
     font-size: 12px;
     font-weight: 600;
@@ -167,12 +167,8 @@ const LlamadaActivaCard = (props) => {
         setArrLlamadasActivas(arrNuevo);
 
     } catch (error) {
-<<<<<<< HEAD
-      // console.error('Error al descargar los datos:', error);
-=======
       console.log("",error);
       setInicioLlamada('');
->>>>>>> d8ff5cc8dc0a2989f74db15394c78a858cd0b85f
       const arrNuevo = [...dataPruebasActivas].map((llamada)  => {
         const transcripcion = {  
           contenido:{
@@ -238,13 +234,8 @@ const LlamadaActivaCard = (props) => {
     }
       //Actualiza los cambios en el arreglo de llamadas
       useEffect(() => {
-<<<<<<< HEAD
-        // console.log("Obteniendo llamadas activas")
-        const interval = setInterval(descargar, 3000); // Descargar cada 5 segundos
-=======
         console.log("Obteniendo llamadas activas")
         const interval = setInterval(descargar, 4000); // Descargar cada 5 segundos
->>>>>>> d8ff5cc8dc0a2989f74db15394c78a858cd0b85f
         arrLlamadasPrev.current = arrLlamadasActivas;
         organizar();
         return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
