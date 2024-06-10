@@ -3,12 +3,12 @@ import styled from "styled-components";
 import "../images/profile.png";
 import TitleComponent from "./Title";
 import KpiCard from "./Kpi";
-import LlamadaEsperaCard from "./Espera";
 import LlamadaActivaCard from "./Activas";
 import { useState, useRef } from "react";
 import ListaTranscripcion from "./ListaTranscripcion";
 import CentroNotif from "./CentroNotif";
 import "../styles/button-centro-notif.css";
+import QueueVisualizer from "./QueueVisualizer";
 
 const Wrapper = styled.main`
   position: relative;
@@ -36,26 +36,48 @@ const Column = styled.section`
   div.cards-wrapper {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(2,1fr);
-    max-width: 100%;
-    overflow-y: scroll;
-  }
-  div.cards-wrapper {
-    position: relative;
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
-    max-width: 100%;
+    width: 100%;
     overflow-y: scroll;
   }
 `;
 
 const Menu = () => {
 
+  const [sentimientoInfo, setSentimiento] = useState("NEUTRAL");
+  const [contactId, setContactId] = useState(null);
   const [showVentanaTranscripcion, setShwoVentanaTranscripcion] =
     useState(false);
   const [showCentroNotificaciones, setShowCentroNotificaciones] =
     useState(false);
-  const [notificaciones, setNotificaciones] = useState([]);
+  const [notificacionesFiltradasG, setNotificacionesFiltradas] = useState({});
+  const [notificacionesAgente, setNotificacionesAgente] = useState([]);
+
+  const filtrarNotificaciones = useCallback((notificaciones) => {
+    let notificacionesFiltradas = {}
+    notificaciones.map((notificacion) => {
+      if (!notificacionesFiltradas[notificacion.Sender]) {
+      notificacionesFiltradas[notificacion.Sender] = {notificaciones:[notificacion], asistencia:false};
+      } else {
+      notificacionesFiltradas[notificacion.Sender].notificaciones.push(notificacion);
+      }
+      return notificacionesFiltradas;
+    });
+    const usernames = Object.keys(notificacionesFiltradas);
+    for (let i = 0; i < usernames.length; i++) {
+      if (notificacionesFiltradasG[usernames[i]] === undefined) {
+        notificacionesFiltradasG[usernames[i]] = {notificaciones:[], asistencia:false};
+      }
+      if (notificacionesFiltradasG[usernames[i]].notificaciones.length < notificacionesFiltradas[usernames[i]].notificaciones.length) {
+        notificacionesFiltradas[usernames[i]].asistencia = true;
+      }
+
+      if (notificacionesFiltradasG[usernames[i]].asistencia === true) {
+        notificacionesFiltradas[usernames[i]].asistencia = true;
+      }
+    }
+    setNotificacionesFiltradas(notificacionesFiltradas);
+  },[notificacionesFiltradasG])
 
   const showVentanaHandler = () => {
     setShwoVentanaTranscripcion(!showVentanaTranscripcion);
@@ -73,14 +95,15 @@ const Menu = () => {
 
     const descargarNotificaciones = useCallback(async () => {
         console.log('descargando notificaciones')
-        try {const res = await fetch('http://localhost:8080/messages/getMessages');
+        const url = `http://localhost:8080/messages/getMessages?Date=${new Date().toString()}`;
+        try {
+        const res = await fetch(url);
         const data = await res.json();
-        console.log(data[0].Items);
-        setNotificaciones(data[0].Items);
+        filtrarNotificaciones(data[0].Items);
         } catch (error) {
             console.log(error);
         }
-    }, [])
+    }, [filtrarNotificaciones])
 
     useEffect(() => {
       const intervalId = setInterval(() => {
@@ -337,37 +360,18 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci�
 
   return (
     <Wrapper>
-      {showVentanaTranscripcion && (
-        <ListaTranscripcion cancelar={showVentanaHandler} />
-      )}
-      {showCentroNotificaciones && (
-        <CentroNotif
-          cancelar={showCentroNotificacionesHandler}
-          notificaciones={notificaciones}
-        />
-      )}
-      <Column className="side">
-        <TitleComponent text="Llamadas Activas" />
-        <button
-          className="button-centro-notif"
-          onClick={() => {
-            showCentroNotificacionesHandler();
-            descargarNotificaciones();
-          }}
-        >
-          Centro de Notificaciones
-        </button>
-        <div className="cards-wrapper">
-          <LlamadaActivaCard funcVentanaTranscripcion={showVentanaHandler} />
+       {showVentanaTranscripcion && <ListaTranscripcion contactId={contactId} setSentimiento={setSentimiento} cancelar={showVentanaHandler} />}
+        {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificacionesAgente} funcShowTranscript={showVentanaHandler} />}
+    <Column className='side'>
+        <TitleComponent text='Llamadas Activas' />
+        <div className='cards-wrapper'>
+          <LlamadaActivaCard sentimientoInfo={sentimientoInfo} setContactId={setContactId} funcVentanaTranscripcion={showVentanaHandler} notificaciones={notificacionesFiltradasG} setNotificaciones={setNotificacionesFiltradas} setNotificacionesAgente={setNotificacionesAgente} showCentroNotificacionesHandler={showCentroNotificacionesHandler}/>
         </div>
-      </Column>
-      <Column className="center">
-        <TitleComponent text="Línea de Espera" />
-        <LlamadaEsperaCard cliente="Luisa Chavez" tiempo="2:30" />
-        <LlamadaEsperaCard cliente="José Montés" tiempo="2:30" />
-        <LlamadaEsperaCard cliente="Ian Saldovar" tiempo="2:30" />
-        <LlamadaEsperaCard cliente="Pablo Olivares" tiempo="2:30" />
-      </Column>
+    </Column>
+    <Column className='center'>
+        <TitleComponent text='Línea de Espera' />
+        <QueueVisualizer />
+    </Column>
       <Column className="side">
         <TitleComponent text="General KPI" />
         <div className="cards-wrapper">

@@ -1,39 +1,54 @@
 .navBarra {
   display: flex;
+  flex-direction: column;
   background-color: #060b26;
-  height: 10%;
+  height: 100%;
   font-size: 1.4em;
-  width: calc(15%); 
   align-items: center;
-  position: absolute;
+  position: fixed;
   left: 0;
 }
 
-.menu-bars {
-  margin-left: 1.8rem;
-  font-size: calc(0.8 * min(5vw, 5vh)); 
-  background: none;
+.logo {
+  max-width: 90%;
+  max-height: 100%;
+  margin-left: 3px;
+}
+
+.menu-barras {
+  font-size: calc(0.8 * min(5vw, 5vh));
+  background: #060b26;
+  border-radius: 20%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.icono {
+  margin: 16px;
+  font-size: calc(0.8 * min(5vw, 5vh));
+  display: flex;
+  align-items: center;
 }
 
 .nav-menu {
   background-color: #060b26;
-  width: calc(15%); 
-  height: calc(100%); 
+  width: calc(15%);
+  height: calc(100%);
   justify-content: center;
   position: fixed;
   top: 0;
   left: -100%;
-  transition: 100ms;
+  transition: all 500ms;
 }
 
 
-
-.nav-menu.active {
+.nav-menu.activo {
   left: 0;
   transition: 350ms;
 }
 
-.nav-text {
+.nav-texto {
   display: flex;
   justify-content: start;
   align-items: left;
@@ -41,7 +56,7 @@
   list-style: none;
   height: 60px;
 }
-.nav-text a {
+.nav-texto a {
   text-decoration: none;
   color: #f5f5f5;
   font-size:calc(0.8 * min(1.8vw, 3vh));
@@ -53,15 +68,15 @@
   border-radius: 4px;
 }
 
-.nav-text a:hover {
-  background-color: #1a83ff;
+.nav-texto a:hover {
+  background-color: #0096AE;
 }
 
-.nav-menu-items {
+.nav-menu-elementos {
   width: 100%;
 }
 
-.navbar-toggle {
+.navbar-alternar {
   background-color: #060b26;
   width: 100%;
   height: 80px;
