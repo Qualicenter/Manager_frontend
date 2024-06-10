@@ -38,6 +38,7 @@ const Column = styled.section`
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
     overflow-y: scroll;
+    justify-items: center;
   }
 `;
 

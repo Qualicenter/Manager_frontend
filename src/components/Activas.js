@@ -6,7 +6,7 @@ import { MdOutlineAddAlert } from "react-icons/md";
 const Card = styled.div`
     background-color: #fff;
     width: 100%;
-    max-width: 250px;
+    max-width: 200px;
     height: 220px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     display: flex;
