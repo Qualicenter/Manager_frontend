@@ -1,19 +1,24 @@
+//Autor: Gerardo Rios Mejía
+//Código donde se maneja el componente de comentarios
+
 import preguntas from './Preguntas'; // obtener el titulo y los estados de las opciones
 import '../styles/encuesta.css';
 import { useState, useEffect } from 'react';
-import Comentario from './Comentario';
+import Comentario from './Comentario';// obtener el componente para su funcionalidad
 
 function Encuesta() {
-  const [preguntaActual, setPreguntaActual] = useState(0);
-  const [puntuacion, setPuntuacion] = useState(0);
-  const [fin, setFin] = useState(false);
-  const [puntajesYcomentarios, setPuntajesYcomentarios] = useState([]);
-  const [mostrarComentario, setMostrarComentario] = useState(false);
-  const [mostrarPregunta, setMostrarPregunta] = useState(true);
-  const [puntajesAcumulados, setPuntajesAcumulados] = useState([]);
+  const [preguntaActual, setPreguntaActual] = useState(0);//Seguir la pregunta en la que se encuentra
+  const [puntuacion, setPuntuacion] = useState(0);//manteenr la puntuación hasta que acabe la encuesta
+  const [fin, setFin] = useState(false);// se indica cuando la encuesta termino
+  const [puntajesYcomentarios, setPuntajesYcomentarios] = useState([]);//almacenar la puntuación
+  const [mostrarComentario, setMostrarComentario] = useState(false);//mostrar el comentario del formulario
+  const [mostrarPregunta, setMostrarPregunta] = useState(true);//mostrar la pregunta del formulario
+  const [puntajesAcumulados, setPuntajesAcumulados] = useState([]);//guaradar el total del putaje
+  // variables para cambiar el entorno del servidor
   const lugar = "localhost";
   const puerto = "8080";
 
+  //función para manejar la puntuación basada en las respuestas
   function handlePuntuacion(isVerdad, isPart, isFalso) {
     if (isVerdad) {
       setPuntuacion(puntuacion + 1);
@@ -30,6 +35,7 @@ function Encuesta() {
     }
   }
 
+  //función para manejar el envio de comentarios, puntuación y control de las preguntas
   function handleComentarioSubmit(comentario) {
     const nuevaEntrada = {
       username: localStorage.getItem('username'),
@@ -49,6 +55,7 @@ function Encuesta() {
     }
   }
 
+  //al terminar la encuesta se calcula el puntaje, se acumulan los comentarios y se envian a la base de datos
   useEffect(() => {
     if (fin) {
       const puntajeTotalAcumulado = puntajesAcumulados.reduce((total, puntaje) => total + puntaje, 0);
@@ -71,7 +78,7 @@ function Encuesta() {
         };
 
         try {
-          const enviarC = await fetch("http://" + lugar + ":" + puerto + "/EncuestaModel/postEncuestaPipeline", enviar);
+          const enviarC = await fetch("http://" + lugar + ":" + puerto + "/EncuestaModel/postEncuesta", enviar);
           if (!enviarC.ok) {
             const text = await enviarC.text();
             console.log("Error en la respuesta del servidor", enviarC.status, enviarC.statusText, text);
@@ -83,7 +90,7 @@ function Encuesta() {
       };
       enviardatos(resultadosEncuestaJSON);
     }
-  }, [fin]);
+  }, [fin, puntajesAcumulados, puntajesYcomentarios]);
 
   if (fin) {
     return (
