@@ -48,7 +48,7 @@ const Transcripcion = ({ transcripcion }) => {
   
   /*Returns all the messages with the style and place assigned*/
   return (
-    <div className="ventana-transcripcion">
+    <div className="ventana-transcripcion ventana-transcripcionHistorial">
       <div className={lugarTranscripcion}>
         <div className={estiloTranscripcion}>
           {emoji} {transcripcion.descripcion}

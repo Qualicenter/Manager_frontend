@@ -48,13 +48,10 @@
     display: flex;
     align-items: left;
     left: 16%;
-
     max-width: 84%;
     overflow-y: scroll;
     height: auto;
     flex-direction: column;
-    overflow-y: scroll;
-    overflow-x: scroll;
     justify-content: left;
 }
 
@@ -72,8 +69,6 @@
     align-items: start;
     align-content:space-evenly;
     /* gap: 5%; */
-    overflow-y: scroll;
-    overflow-x: scroll;
 }
 
 @media (max-width: 600px) or (max-height: 600px) { 
@@ -107,9 +102,8 @@
     margin-right: 2%;
     align-items: center;
     text-align: center;
-   
-
-        
+    min-width: 200px;
+    max-width: 300px;        
 }
 
 .alinear{
@@ -118,9 +112,11 @@
     flex-direction: row;
     justify-content: left;
     height: 30%;
-    width: 100%;
+    max-width: 100%;
     gap: 5%;
     align-items: start;
+    min-width: 200px;
+    overflow-x: auto;
 }
 
 .btnSeleccion{
