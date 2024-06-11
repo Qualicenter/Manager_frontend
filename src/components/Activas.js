@@ -1,8 +1,17 @@
+/**
+ * @author Angel Armando Marquez Curiel
+ * @author
+ * @author
+ * 
+ * Component that shows the information of all the active calls
+*/
+
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
 import { useCallback, useEffect, useState, useRef } from "react";
 import { MdOutlineAddAlert } from "react-icons/md";
 
+/*Style characteristics for the components used in the active calls*/
 const Card = styled.div`
     background-color: #fff;
     width: 200px;
@@ -108,54 +117,49 @@ const dataPruebasActivas = [
 
 const LlamadaActivaCard = (props) => {
 
+  /*State variables and props from parent component*/
   const [inicioLlamada, setInicioLlamada] = useState('');
   const [elapsedTime, setElapsedTime] = useState('00:00');
+  const [newColor, setNewColor] = useState('green');
   const {sentimientoInfo} = props;
   const [arrLlamadasActivas, setArrLlamadasActivas] = useState([]);
   const {setContactId} = props;
   const [url] = useState("http://localhost:8080/agente/consultaContacts");
   const arrLlamadasPrev = useRef();
   const notificaciones = props.notificaciones;
-  // const setNotificaciones = props.setNotificaciones;
 
+  /*Function to fetch the active calls*/
   const descargar = useCallback(async () => {
     try {
-      /* eslint-disable */
+        /* eslint-disable */
         const responseActiva = await fetch(url);
-
-        
         const dataActiva = await responseActiva.json();
+
         if (!dataActiva[0].contactId){
-          console.error("No hay llamadas activas")
           return;
         } else {
           setContactId(dataActiva[0].contactId);
         }
-
         
         setInicioLlamada(dataActiva[0].EnqueueTimestamp);
         const dataTotal = [...dataActiva, ...dataPruebasActivas];
 
         const arrNuevo = dataTotal.map((llamada, index) => {
             let sentimiento;
-
             if (index < dataActiva.length) {
-                // Este elemento es de dataActiva
                 sentimiento = sentimientoInfo;
             } else {
-                // Este elemento es de dataPruebasActivas
                 sentimiento = llamada.Sentimiento;
             }
 
+            /*Stores the information of each call */
             const transcripcion = {  
                 contenido:{
                     id: uuidv4(),
-                    // Nombre del agente
                     agente: llamada.NombreAgente,
                     cliente: llamada.NombreCliente,
                     tiempo: elapsedTime,
                     sentimiento: sentimiento,
-                    // Asistencia a cambiar
                     asistencia:'False',
                     usernameAgente: llamada.UserNameAgente
                 }
@@ -163,22 +167,20 @@ const LlamadaActivaCard = (props) => {
             
             return transcripcion;
         });
-       
+       /*Updates the call's array with the downloaded information */
         setArrLlamadasActivas(arrNuevo);
 
     } catch (error) {
-      console.log("",error);
       setInicioLlamada('');
       const arrNuevo = [...dataPruebasActivas].map((llamada)  => {
+        /*Stores the test active calls*/
         const transcripcion = {  
           contenido:{
             id: uuidv4(),
-            // Nombre del agente
             agente: llamada.NombreAgente,
             cliente: llamada.NombreCliente,
             tiempo: elapsedTime,
             sentimiento: llamada.Sentimiento,
-            // Asistencia a cambiar
             asistencia:'False',
             usernameAgente: llamada.UserNameAgente
           }};
@@ -188,7 +190,7 @@ const LlamadaActivaCard = (props) => {
     }
   }, [url, elapsedTime, setInicioLlamada]);
        
-    
+  /*Order the array of calls*/
   const ordenarLlamadasSentimiento = (llamadas) => {
     return [...llamadas].sort((a, b) => {
         const sentimientoOrder = {
@@ -202,84 +204,101 @@ const LlamadaActivaCard = (props) => {
         return aSentimiento - bSentimiento;
     });
   };
-    
-    const ordenarLlamadasAsistencia = (llamadas) => {
-      return [...llamadas].sort((a, b) => {
-        if (a.contenido.asistencia === "True") return -1;
-        if (b.contenido.asistencia === "True") return 1;
-        return 0;
-      });
-    };
-    
 
-    
-    const arrLlamadasPrevias = arrLlamadasPrev.current
-
-    const organizar = useCallback(async () =>{
-      if (JSON.stringify(arrLlamadasActivas) !== JSON.stringify(arrLlamadasPrevias)) {
-        const llamadasOrdenadas = ordenarLlamadasSentimiento(arrLlamadasActivas);
-        const llamadasOrdenadasFinal = ordenarLlamadasAsistencia(llamadasOrdenadas);
-        setArrLlamadasActivas(llamadasOrdenadasFinal);
-      }
-    }, [arrLlamadasActivas, arrLlamadasPrevias]);
-    
-    const calculateElapsedTime = (inicioLlamada) => {
-      const EnqueueTimestamp = new Date(inicioLlamada);
-      const currentTimestamp = new Date();
-      const elapsedTimeInMilliseconds = currentTimestamp.getTime() - EnqueueTimestamp.getTime();
-      const elapsedTimeInSeconds = Math.floor(elapsedTimeInMilliseconds / 1000);
-      const minutes = Math.floor(elapsedTimeInSeconds / 60);
-      const seconds = elapsedTimeInSeconds % 60;
-      return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  /*Order the array of calls by need of assistance*/
+  const ordenarLlamadasAsistencia = (llamadas) => {
+    return [...llamadas].sort((a, b) => {
+      if (a.contenido.asistencia === "True") return -1;
+      if (b.contenido.asistencia === "True") return 1;
+      return 0;
+    });
+  };
+  
+  /*Function to organize the calls by sentiment*/
+  const arrLlamadasPrevias = arrLlamadasPrev.current
+  const organizar = useCallback(async () =>{
+    if (JSON.stringify(arrLlamadasActivas) !== JSON.stringify(arrLlamadasPrevias)) {
+      const llamadasOrdenadas = ordenarLlamadasSentimiento(arrLlamadasActivas);
+      const llamadasOrdenadasFinal = ordenarLlamadasAsistencia(llamadasOrdenadas);
+      setArrLlamadasActivas(llamadasOrdenadasFinal);
     }
-      //Actualiza los cambios en el arreglo de llamadas
-      useEffect(() => {
-        console.log("Obteniendo llamadas activas")
-        const interval = setInterval(descargar, 4000); // Descargar cada 5 segundos
-        arrLlamadasPrev.current = arrLlamadasActivas;
-        organizar();
-        return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
-      }, [descargar, arrLlamadasActivas, organizar, setContactId]);
+  }, [arrLlamadasActivas, arrLlamadasPrevias]);
+    
+  /*Function to calculate the elapsed time of a call*/
+  const calculateElapsedTime = (inicioLlamada) => {
+    const EnqueueTimestamp = new Date(inicioLlamada);
+    const currentTimestamp = new Date();
+    const elapsedTimeInMilliseconds = currentTimestamp.getTime() - EnqueueTimestamp.getTime();
+    const elapsedTimeInSeconds = Math.floor(elapsedTimeInMilliseconds / 1000);
+    const minutes = Math.floor(elapsedTimeInSeconds / 60);
+    const seconds = elapsedTimeInSeconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
 
+  /*Function to change the color of the elapsed time of a call*/
+  const changeColor = (duracion) => {
+    const [minutes, seconds] = duracion.split(':').map(Number);
+    const timeInSeconds = minutes * 60 + seconds;
 
-      useEffect(() => { 
-        if (inicioLlamada === '') {
-            setElapsedTime('00:00');
-        } else {
-            const duracion = calculateElapsedTime(inicioLlamada);
-            setElapsedTime(duracion);
-        }
-      }, [inicioLlamada, setElapsedTime, calculateElapsedTime]);
-
-    const showTapIconHandler = (username) => {
-      // Cambiar el valor del atributo asistencia en el objeto notificaciones a traves del setter setNotificaciones
-      let notificacionesFiltradas = {...notificaciones};
-      notificacionesFiltradas[username].asistencia = false;
-      props.setNotificacionesAgente(notificacionesFiltradas[username].notificaciones);
-      props.showCentroNotificacionesHandler();
+    if (timeInSeconds < 150) {
+      return 'green'; // Less than 2:30
+    } else if (timeInSeconds < 180) {
+      return 'orange'; // Between 2:30 and 3:00
+    } else {
+      return 'red'; // Greaer than 3:00
     }
+  };
+  
+  /* Fetch active calls when component mounts*/
+  useEffect(() => {
+    const interval = setInterval(descargar, 4000); 
+    arrLlamadasPrev.current = arrLlamadasActivas;
+    organizar();
+    return () => clearInterval(interval);
+  }, [descargar, arrLlamadasActivas, organizar, setContactId]);
 
-    return (
-        //Se puede cambiar por un if por si no hay llamadas activas
-        arrLlamadasActivas.map((llamada) => {
-          // //console.log("Llamadas RENDEREANDO:", arrLlamadas)
-            return (
-                <Card key={llamada.contenido.usernameAgente}>
-                    <ButtonAlert
-                      onClick={() => showTapIconHandler(llamada.contenido.usernameAgente)}
-                      className={`${notificaciones[llamada.contenido.usernameAgente] ? "button-alert-icon-enabled" : "button-alert-icon-disabled"} ${notificaciones[llamada.contenido.usernameAgente]?.asistencia ? "button-alert-icon-red" : ""}`}>
-                        <IconAlert/>
-                    </ButtonAlert>
-                    <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
-                    <Attribute>Cliente: <Value>{llamada.contenido.cliente}</Value></Attribute>
-                    <Attribute>Tiempo: <Value style={{color: "red", fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
-                    <Attribute>Sentimiento: <Value>{llamada.contenido.sentimiento}</Value></Attribute>
-                    <Button onClick={props.funcVentanaTranscripcion}>Transcripcion</Button>
-                </Card>
-            );
-        })
 
-    )
+  /*Update the elapsed time of a call*/
+  useEffect(() => { 
+    if (inicioLlamada === '') {
+        setElapsedTime('00:00');
+    } else {
+        const duracion = calculateElapsedTime(inicioLlamada);
+        setElapsedTime(duracion);
+        setNewColor(changeColor(elapsedTime));
+    }
+  }, [inicioLlamada, setElapsedTime, calculateElapsedTime, elapsedTime]);
+
+  /*Function to show the alert icon*/
+  const showTapIconHandler = (username) => {
+    // Cambiar el valor del atributo asistencia en el objeto notificaciones a traves del setter setNotificaciones
+    let notificacionesFiltradas = {...notificaciones};
+    notificacionesFiltradas[username].asistencia = false;
+    props.setNotificacionesAgente(notificacionesFiltradas[username].notificaciones);
+    props.showCentroNotificacionesHandler();
+  }
+
+  /* Return the active calls*/
+  return (
+      //Se puede cambiar por un if por si no hay llamadas activas
+      arrLlamadasActivas.map((llamada) => {
+          return (
+              <Card key={llamada.contenido.usernameAgente}>
+                  <ButtonAlert
+                    onClick={() => showTapIconHandler(llamada.contenido.usernameAgente)}
+                    className={`${notificaciones[llamada.contenido.usernameAgente] ? "button-alert-icon-enabled" : "button-alert-icon-disabled"} ${notificaciones[llamada.contenido.usernameAgente]?.asistencia ? "button-alert-icon-red" : ""}`}>
+                      <IconAlert/>
+                  </ButtonAlert>
+                  <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
+                  <Attribute>Cliente: <Value>{llamada.contenido.cliente}</Value></Attribute>
+                  <Attribute>Tiempo: <Value style={{color: newColor, fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
+                  <Attribute>Sentimiento: <Value>{llamada.contenido.sentimiento}</Value></Attribute>
+                  <Button onClick={props.funcVentanaTranscripcion}>Transcripcion</Button>
+              </Card>
+          );
+      })
+
+  )
 }
 
 export default LlamadaActivaCard;

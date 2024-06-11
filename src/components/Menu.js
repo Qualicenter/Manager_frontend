@@ -1,3 +1,13 @@
+/**
+ * @author 
+ * @author
+ * @author
+ * @author 
+ * @author Angel Armando Marquez Curiel
+ * 
+ * Component that displays the main menu of the application, it contains the KPIs, the active calls, the queue and the notifications center
+*/
+
 import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
 import "../images/profile.png";
@@ -44,9 +54,10 @@ const Column = styled.section`
 
 const Menu = () => {
 
+  /*Sets and updates the sentiment analysis*/
   const [sentimientoInfo, setSentimiento] = useState("NEUTRAL");
   const [contactId, setContactId] = useState(null);
-  const [showVentanaTranscripcion, setShwoVentanaTranscripcion] =
+  const [showVentanaTranscripcion, setShowVentanaTranscripcion] =
     useState(false);
   const [showCentroNotificaciones, setShowCentroNotificaciones] =
     useState(false);
@@ -80,7 +91,7 @@ const Menu = () => {
   },[notificacionesFiltradasG])
 
   const showVentanaHandler = () => {
-    setShwoVentanaTranscripcion(!showVentanaTranscripcion);
+    setShowVentanaTranscripcion(!showVentanaTranscripcion);
   };
 
   const showCentroNotificacionesHandler = () => {
@@ -360,11 +371,13 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci√
 
   return (
     <Wrapper>
+       {/*If the transcription button is clicked, a little window with the transcription will appear*/}
        {showVentanaTranscripcion && <ListaTranscripcion contactId={contactId} setSentimiento={setSentimiento} cancelar={showVentanaHandler} />}
         {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificacionesAgente} funcShowTranscript={showVentanaHandler} />}
     <Column className='side'>
         <TitleComponent text='Llamadas Activas' />
         <div className='cards-wrapper'>
+          {/*Displays all the active calls in the screen*/}
           <LlamadaActivaCard sentimientoInfo={sentimientoInfo} setContactId={setContactId} funcVentanaTranscripcion={showVentanaHandler} notificaciones={notificacionesFiltradasG} setNotificaciones={setNotificacionesFiltradas} setNotificacionesAgente={setNotificacionesAgente} showCentroNotificacionesHandler={showCentroNotificacionesHandler}/>
         </div>
     </Column>
