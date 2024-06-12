@@ -50,22 +50,22 @@ const DetallesMensaje = ({ mensaje, cerrar, funcShowTranscript, closeAll }) => {
 
   return (
     <div className="detalles-mensaje">
-      <h1>Detalles del mensaje:{mensaje.Sender}</h1>
+      <h1>Message details:{mensaje.Sender}</h1>
       <p>{mensaje.Message ? mensaje.Message : "Mensaje de prueba"}</p>
-      <h2>Datos del cliente</h2>
+      <h2>Client information</h2>
       <div className="datos-cliente-detalles-mensaje">
         <IoPersonSharp className="imagen-cliente-detalles" />
         <ul>
-          <li>Nombre: {mensaje.nombreCliente ? mensaje.nombreCliente : "No especificado"}</li>
-          <li>Género: {mensaje.generoCliente ? mensaje.generoCliente : "No especificado"}</li>
-          <li>Póliza: {mensaje.polizaCliente ? mensaje.polizaCliente : "00000"}</li>
-          <li>Tipo cliente: {mensaje.tipoCliente ? mensaje.tipoCliente : "No especificado"}</li>
+          <li>Name: {mensaje.nombreCliente ? mensaje.nombreCliente : "No especificado"}</li>
+          <li>Gender: {mensaje.generoCliente ? mensaje.generoCliente : "No especificado"}</li>
+          <li>Policy number: {mensaje.polizaCliente ? mensaje.polizaCliente : "00000"}</li>
+          <li>Client type: {mensaje.tipoCliente ? mensaje.tipoCliente : "No especificado"}</li>
         </ul>
       </div>
       <div className="botones-detalle-mensaje">
         <div className="form-mensaje">
           <div>
-            <label htmlFor="message">Responder mensaje:</label>
+            <label htmlFor="message">Reply message:</label>
             <textarea
               type="text"
               id="message"
@@ -76,10 +76,10 @@ const DetallesMensaje = ({ mensaje, cerrar, funcShowTranscript, closeAll }) => {
             <IoMdSend />
           </button>
         </div>
-        <button onClick={buttonTranscriptHandler}>Transcripción</button>
+        <button onClick={buttonTranscriptHandler}>Transcript</button>
       </div>
       <div>
-        <button onClick={cerrar}>Cerrar Detalles</button>
+        <button onClick={cerrar}>Close Details</button>
       </div>
     </div>
   );
