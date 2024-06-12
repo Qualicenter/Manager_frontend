@@ -8,6 +8,10 @@ import React, { useState, useEffect } from "react";
 import "../styles/kpis.css";
 import "../styles/ajustes.css";
 
+/*
+Autor: Eduardo Lugo
+Estilos del componente KpiCard
+*/
 const Card = styled.div`
   background-color: #fff;
   width: 165px;

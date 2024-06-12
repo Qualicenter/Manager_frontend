@@ -1,5 +1,11 @@
+/**
+ * @author Eduardo Francisco Lugo Quintana
+ * Button component used throughout the application.
+ */
+
 import styled from "styled-components";
 
+/* Styles for the button */
 const Button = styled.button`
     width: 127px;
     height: 27px;

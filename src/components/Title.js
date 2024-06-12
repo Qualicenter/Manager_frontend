@@ -1,3 +1,8 @@
+/**
+ * @author Eduardo Francisco Lugo Quintana
+ * Title component used throughout the application.
+ */
+
 import styled from "styled-components"
 
 const Title = styled.h1`
