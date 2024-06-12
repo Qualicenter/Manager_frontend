@@ -16,7 +16,7 @@ import logo from "../images/qualitas-logo.png";
 /* Navigation bar component */
 function BarraNav() {
   /* State that stores the visibility of the navigation bar */
-  const [verBarra, setVerBarra] = useState(true);
+  const [verBarra, setVerBarra] = useState(false);
 
   /* Function to show or collapse the navigation bar */
   const mostrarBarra = () => setVerBarra(!verBarra);
