@@ -1,8 +1,8 @@
 /**
- * @author 
- * @author
- * @author
- * @author 
+ * @author Eduardo Lugo
+ * @author Gustavo Téllez
+ * @author Ingrid García
+ * @author Aldehil Sánchez
  * @author Angel Armando Marquez Curiel
  * 
  * Component that displays the main menu of the application, it contains the KPIs, the active calls, the queue and the notifications center
@@ -64,6 +64,7 @@ const Menu = () => {
   const [notificacionesFiltradasG, setNotificacionesFiltradas] = useState({});
   const [notificacionesAgente, setNotificacionesAgente] = useState([]);
 
+  // Function to filter the notifications received by agent
   const filtrarNotificaciones = useCallback((notificaciones) => {
     let notificacionesFiltradas = {}
     notificaciones.map((notificacion) => {
@@ -94,6 +95,7 @@ const Menu = () => {
     setShowVentanaTranscripcion(!showVentanaTranscripcion);
   };
 
+  // Function to show the notification center
   const showCentroNotificacionesHandler = () => {
     setShowCentroNotificaciones(!showCentroNotificaciones);
   };
@@ -110,7 +112,7 @@ const Menu = () => {
         try {
         const res = await fetch(url);
         const data = await res.json();
-        filtrarNotificaciones(data[0].Items);
+        filtrarNotificaciones(data[0].Items); // Filter notifications after downloading them
         } catch (error) {
             console.log(error);
         }
