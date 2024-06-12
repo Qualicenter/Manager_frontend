@@ -133,7 +133,6 @@ const Menu = () => {
   const puerto = "8080";
 
   /**
-   * @author Ingrid Garcia Hernandez
    * Function that processes and sends the KPIs to the database, first it gets the KPIs from Amazon Connect,
    * then it shows them on the screen, and finally it sends them to the database in Dynamo DB.
    * This function is executed every minute, and it is executed once when the page is loaded so that it
@@ -148,7 +147,6 @@ const Menu = () => {
       let abandono, duracion, tiempoEspera, servicio, ocupacion;
 
       /**
-       * @author Ingrid Garcia Hernandez
        * It checks that the value of the KPIs is not null, if it is, it assigns a value of 0.
        * In addition, it assigns the value of the KPIs to the corresponding variables and adds them to the kpis array, so that later
        * the corresponding component can be created and the information can be sent to the database with the correct structure.
@@ -200,7 +198,6 @@ const Menu = () => {
       console.log("KPIs descargados:", kpis);
 
       /**
-       * @author Ingrid Garcia Hernandez
        * It creates an array with the correct structure to send the information to the server.
        */
       const fecha = new Date(
@@ -221,7 +218,6 @@ const Menu = () => {
       };
 
       /**
-       * @author Ingrid Garcia Hernandez
        * It makes the appropriate request to send the KPIs to the server to be saved in the database.
        */
 
@@ -245,7 +241,6 @@ const Menu = () => {
   };
 
   /**
-   * @author Ingrid Garcia Hernandez
    * the following function is in charge of checking if there is data from the previous day in the database,
    * if there is no data, it adds this data to the database, with the correct information and date.
    */
@@ -329,7 +324,6 @@ const Menu = () => {
     }
   };
   /**
-   * @author Ingrid Garcia Hernandez
    * The following useEffect is in charge of executing the function procesarYEnviarKPIs every minute,
    * so that the KPIs are updated on the page and sent to the database. In addition, it is executed once
    * when the page is loaded so that it immediately starts saving the information.
@@ -346,7 +340,6 @@ const Menu = () => {
     intervalRef.current = intervalId;
 
     /**
-     * @author Ingrid Garcia Hernandez
      * The following return is in charge of clearing the interval so that the function does not continue to be executed
      */
     return () => clearInterval(intervalRef.current);
