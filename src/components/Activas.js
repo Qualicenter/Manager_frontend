@@ -269,11 +269,10 @@ const LlamadaActivaCard = (props) => {
     }
   }, [inicioLlamada, setElapsedTime, calculateElapsedTime, elapsedTime]);
 
-  /*Function to show the alert icon*/
+  /*Function to show the notification center with the filtered notifications*/
   const showTapIconHandler = (username) => {
-    // Cambiar el valor del atributo asistencia en el objeto notificaciones a traves del setter setNotificaciones
     let notificacionesFiltradas = {...notificaciones};
-    notificacionesFiltradas[username].asistencia = false;
+    notificacionesFiltradas[username].asistencia = false; // Change the assistance value to false when the notification is clicked
     props.setNotificacionesAgente(notificacionesFiltradas[username].notificaciones);
     props.showCentroNotificacionesHandler();
   }
