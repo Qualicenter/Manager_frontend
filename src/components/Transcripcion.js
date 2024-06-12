@@ -1,10 +1,17 @@
+/**
+ * @author Ángel Armando Márquez Curiel
+ * @author 
+ * @author
+ * 
+ * Component to display the transcription of the conversation
+ */
+
 import "../styles/transcripcion.css";
 import '../styles/lista-transcripcion.css'
 
-
 const Transcripcion = ({ transcripcion }) => {
   
-
+  /*Assigns the sentiment style of a messaage*/
   const estiloTranscripcion =
     "mensaje " +
     (transcripcion.sentiment === "POSITIVE"
@@ -15,6 +22,7 @@ const Transcripcion = ({ transcripcion }) => {
       ? "neutral"
       : "");
 
+  /*Assigns the place of a message*/
   const lugarTranscripcion =
     transcripcion.rol === "AGENT"
       ? "agente"
@@ -22,6 +30,7 @@ const Transcripcion = ({ transcripcion }) => {
       ? "cliente"
       : "";
 
+  /*Assigns an emoji to a message depending on its sentiment*/
   let emoji;
   switch (transcripcion.sentiment) {
     case "POSITIVE":
@@ -36,10 +45,8 @@ const Transcripcion = ({ transcripcion }) => {
     default:
       emoji = "";
   }
-
   
-  //dummy.current.scrollIntoView({ behavior: 'smooth' });
-
+  /*Returns all the messages with the style and place assigned*/
   return (
     <div className="ventana-transcripcion ventana-transcripcionHistorial">
       <div className={lugarTranscripcion}>
