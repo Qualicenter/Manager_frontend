@@ -95,6 +95,8 @@ const KpiAgente = () => {
             <Datos
               info={{
                 imagen: fotoPerfil,
+                dias: "Monday to Friday",
+                horas: "9:00 - 18:00",
               }}
             />
           </Caja>

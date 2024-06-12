@@ -116,7 +116,11 @@ const Datos = ({ info }) => {
             </tr>
             <tr>
               <td>Schedule</td>
-              <td>-</td>
+              <td>
+                {info.dias}
+                <br />
+                {info.horas}
+              </td>
             </tr>
             <tr>
               <td>Answered Calls</td>
