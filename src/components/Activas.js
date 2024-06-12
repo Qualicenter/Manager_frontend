@@ -289,11 +289,11 @@ const LlamadaActivaCard = (props) => {
                     className={`${notificaciones[llamada.contenido.usernameAgente] ? "button-alert-icon-enabled" : "button-alert-icon-disabled"} ${notificaciones[llamada.contenido.usernameAgente]?.asistencia ? "button-alert-icon-red" : ""}`}>
                       <IconAlert/>
                   </ButtonAlert>
-                  <Attribute>Agente: <Value>{llamada.contenido.agente}</Value></Attribute>
-                  <Attribute>Cliente: <Value>{llamada.contenido.cliente}</Value></Attribute>
-                  <Attribute>Tiempo: <Value style={{color: newColor, fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
-                  <Attribute>Sentimiento: <Value>{llamada.contenido.sentimiento}</Value></Attribute>
-                  <Button onClick={props.funcVentanaTranscripcion}>Transcripcion</Button>
+                  <Attribute>Agent: <Value>{llamada.contenido.agente}</Value></Attribute>
+                  <Attribute>Client: <Value>{llamada.contenido.cliente}</Value></Attribute>
+                  <Attribute>Time: <Value style={{color: newColor, fontWeight: 600}}>{llamada.contenido.tiempo}</Value></Attribute>
+                  <Attribute>Sentiment: <Value>{llamada.contenido.sentimiento}</Value></Attribute>
+                  <Button onClick={props.funcVentanaTranscripcion}>Transcription</Button>
               </Card>
           );
       })
