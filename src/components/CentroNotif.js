@@ -33,12 +33,12 @@ const CentroNotif = (props) => {
   return (
     <div className="div-exterior-notif" onClick={onclikHandlerdivexterno}>
       <div className="div-interno-notif" onClick={onClickHandlerdivinterno}>
-        <h1>Centro de notificaciones</h1>
+        <h1>Notification center</h1>
         <ul className="lista-mensajes">
           {notificaciones.map((notificacion) => {
             const mensaje = notificacion.Message
               ? notificacion.Message
-              : "Mensaje de prueba";
+              : "Test message";
             return (
               <li
                 key={notificacion.id}
@@ -62,7 +62,7 @@ const CentroNotif = (props) => {
         ) : (
           <div />
         )}
-        <button onClick={cancelar}>Cerrar</button>
+        <button onClick={cancelar}>Close</button>
       </div>
     </div>
   );
