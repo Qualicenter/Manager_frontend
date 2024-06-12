@@ -21,13 +21,12 @@ import "../styles/button-centro-notif.css";
 import QueueVisualizer from "./QueueVisualizer";
 
 const Wrapper = styled.main`
-  position: relative;
   padding: 10px;
-  width: 80%;
-  height: 834px;
+  width: 95%;
+  height: 100vh;
   display: flex;
   gap: 2%;
-  left: 16%;
+  margin-left: 70px;
 `;
 
 const Column = styled.section`
@@ -49,6 +48,7 @@ const Column = styled.section`
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
     overflow-y: scroll;
+    justify-items: center;
   }
 `;
 

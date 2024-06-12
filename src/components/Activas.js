@@ -14,7 +14,8 @@ import { MdOutlineAddAlert } from "react-icons/md";
 /*Style characteristics for the components used in the active calls*/
 const Card = styled.div`
     background-color: #fff;
-    width: 200px;
+    width: 100%;
+    max-width: 200px;
     height: 220px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     display: flex;
@@ -24,8 +25,7 @@ const Card = styled.div`
     text-align: center;
     padding: 10px;
     gap: 10px;
-    margin-bottom: 20px;
-    margin-left: 10px;
+    padding: 5px 5px;
 `
 
 const Attribute = styled.h3`
