@@ -1,3 +1,9 @@
+/**
+ * @author Aldehil Sánchez
+ * Component that shows the notification center, with messages received,
+ * of the application.
+ */
+
 import { useState } from "react";
 import "../styles/centro-notif.css";
 import Mensaje from "./Mensaje";
@@ -8,16 +14,18 @@ const CentroNotif = (props) => {
   const [showDetallesMensaje, setDetallesMensaje] = useState(false);
   const [idMensajeSeleccionado, setIdMensajeSeleccionado] = useState();
 
+  // Function to close the notification center
   const onclikHandlerdivexterno = (e) => {
     cancelar();
   };
 
+  // Function to avoid closing the notification center when clicking on the internal div
   const onClickHandlerdivinterno = (e) => {
     e.stopPropagation();
   };
 
+  // Function to show the details of a message
   const handleMensajeClick = (mensajeSeleccionado) => {
-    console.log("Click en el mensaje");
     setDetallesMensaje(!showDetallesMensaje);
     setIdMensajeSeleccionado(mensajeSeleccionado);
   };
