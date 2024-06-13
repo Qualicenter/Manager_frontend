@@ -1,20 +1,22 @@
-//Autor: Gerardo Rios Mejía
-//Código donde se desarrolla la funcion de los comentarios
+/**
+* @autor: Gerardo Rios Mejía
+* Code where the "Comentario" component is handled
+ */
 
 import React, { useState } from 'react';
 
 function Comentario({ onSubmit }) {
-  const [comentario, setComentario] = useState('');//Se almacena el texto del comentario
-  const [comentarioValido, setComentarioValido] = useState(false); // indica si el comentario es válido
+  const [comentario, setComentario] = useState('');
+  const [comentarioValido, setComentarioValido] = useState(false);
 
-  //función que actualiza el estado de comentario e indica si el comentario no esta vacío
+  /**function that updates the comment status and indicates if the comment is not empty*/
   const handleChangeComentario = (event) => {
     const comentarioText = event.target.value;
     setComentario(comentarioText);
     setComentarioValido(comentarioText.trim() !== ''); 
   };
 
-  //función que verifica si el comentario es valído y reinicia el estado del comentario y su validación
+  /**function that checks if the comment is valid and resets the comment state and its validation*/
   const handleSubmit = () => {
     if (!comentarioValido) {
       return 
@@ -25,6 +27,7 @@ function Comentario({ onSubmit }) {
     setComentarioValido(false);
   };
 
+  /**Return of the layout where the manager will write the comments*/
   return (
     <div className="seccion-comentario">
       <textarea

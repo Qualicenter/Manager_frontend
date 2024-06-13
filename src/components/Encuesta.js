@@ -1,24 +1,26 @@
-//Autor: Gerardo Rios Mejía
-//Código donde se maneja el componente de comentarios
+/**
+* @autor: Gerardo Rios Mejía
+* Code where the "Encuesta" component is handled
+ */
 
-import preguntas from './Preguntas'; // obtener el titulo y los estados de las opciones
+import preguntas from './Preguntas'; 
 import '../styles/encuesta.css';
 import { useState, useEffect } from 'react';
-import Comentario from './Comentario';// obtener el componente para su funcionalidad
+import Comentario from './Comentario';
 
 function Encuesta() {
-  const [preguntaActual, setPreguntaActual] = useState(0);//Seguir la pregunta en la que se encuentra
-  const [puntuacion, setPuntuacion] = useState(0);//manteenr la puntuación hasta que acabe la encuesta
-  const [fin, setFin] = useState(false);// se indica cuando la encuesta termino
-  const [puntajesYcomentarios, setPuntajesYcomentarios] = useState([]);//almacenar la puntuación
-  const [mostrarComentario, setMostrarComentario] = useState(false);//mostrar el comentario del formulario
-  const [mostrarPregunta, setMostrarPregunta] = useState(true);//mostrar la pregunta del formulario
-  const [puntajesAcumulados, setPuntajesAcumulados] = useState([]);//guaradar el total del putaje
-  // variables para cambiar el entorno del servidor
+  const [preguntaActual, setPreguntaActual] = useState(0);
+  const [puntuacion, setPuntuacion] = useState(0);
+  const [fin, setFin] = useState(false);
+  const [puntajesYcomentarios, setPuntajesYcomentarios] = useState([]);
+  const [mostrarComentario, setMostrarComentario] = useState(false);
+  const [mostrarPregunta, setMostrarPregunta] = useState(true);
+  const [puntajesAcumulados, setPuntajesAcumulados] = useState([]);
+
   const lugar = "localhost";
   const puerto = "8080";
 
-  //función para manejar la puntuación basada en las respuestas
+  /**Function to handle scoring based on answers*/
   function handlePuntuacion(isVerdad, isPart, isFalso) {
     if (isVerdad) {
       setPuntuacion(puntuacion + 1);
@@ -35,7 +37,7 @@ function Encuesta() {
     }
   }
 
-  //función para manejar el envio de comentarios, puntuación y control de las preguntas
+  /**Function to manage how to send comments, scoring and control of questions*/
   function handleComentarioSubmit(comentario) {
     const nuevaEntrada = {
       username: localStorage.getItem('username'),
@@ -55,7 +57,7 @@ function Encuesta() {
     }
   }
 
-  //al terminar la encuesta se calcula el puntaje, se acumulan los comentarios y se envian a la base de datos
+  /**At the end of the survey, the score is calculated, the comments are accumumulated and sen to the database*/
   useEffect(() => {
     if (fin) {
       const puntajeTotalAcumulado = puntajesAcumulados.reduce((total, puntaje) => total + puntaje, 0);
@@ -92,6 +94,7 @@ function Encuesta() {
     }
   }, [fin, puntajesAcumulados, puntajesYcomentarios]);
 
+  /**Return of the component "Encuesta" at the end of the survey */
   if (fin) {
     return (
       <div className='Encuesta'>
@@ -105,6 +108,7 @@ function Encuesta() {
     );
   }
 
+  /**Return of the layout where the manager will write the survey*/
   return (
     <div className="Encuesta">
       {mostrarPregunta && (

@@ -1,13 +1,15 @@
-//Autor: Gerardo Rios Mejía
-// Lista donde se almacenan los títulos de las preguntas
+/**
+* @autor: Gerardo Rios Mejía
+* List where the titles are stored
+ */
+
 
 const preguntas = [
-    {
-        // se manda a llamar el dato y se muestra en las pantalla 
+    { 
+        /**The data is called and displayed on the screen*/
         titulo: "Does the agent demonstrate a solid understanding of accident care procedures?",
         
-        //estado donde se almacenan las opciones, Yes cambia a falso se bloque la opción de los comentarios
-        //el estado se utiliza para sumar un valor
+        /** state where the options are stored, used to add a value*/
         opciones: [
             {textoRespuesta: "Yes", isVerdad: true},
             {textoRespuesta: "Partially", isPart: true},
