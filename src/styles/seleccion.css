@@ -1,5 +1,5 @@
 .btnBusqueda{
-    background-color: #00A2E3;;
+    background-color: rgb(0,150,173);
     color: white;
     border: none;
     border-radius: 5px;
@@ -31,26 +31,26 @@
 
 .diario{
     width: 30%;
-    border: 1px solid #00A2E3;
+    border: 1px solid rgb(0,150,173);
     font-size: 1em;
     color: white;
     text-align: center;
     justify-content: center;
     border-radius: 0.25em;
     padding: 0.25em 0.5em;
-    background-color: #00A2E3;
+    background-color: rgb(0,150,173);
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
 }
 
 .fecha{
     width: 30%;
-    border: 1px solid #00A2E3;
+    border: 1px solid rgb(0,150,173);
     font-size: 1.2em;
     color: white;
     text-align: center;
     justify-content: center;
     border-radius: 0.25em;
     padding: 0.25em 0.5em;
-    background-color: #00A2E3;
+    background-color: rgb(0,150,173);
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
 }

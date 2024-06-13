@@ -1,8 +1,8 @@
-/*
-Autor: Ingrid Garcia 
-Componente que muestra los KPIs en la pantalla principal y les asigan el color correspondiente segun su valor
-Además, permite ajustar los valores de los umbrales de los KPIs y revisar el valor de estos
- */
+/** 
+* @author Ingrid Garcia Hernandez
+* Component that shows the KPIs on the main screen and assigns the corresponding color according to their value
+* It also allows to adjust the values of the KPIs thresholds and review the value of these thresholds.
+*/
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import "../styles/kpis.css";
@@ -47,17 +47,17 @@ const KpiCard = (props) => {
   const [showModificarValores, setShowModificarValores] = useState(false);
   const [showValoresActuales, setShowValoresActuales] = useState(false);
   /*
-  Los valores de los umbrales de los KPIs se guardan en los siguientes estados y 
-  empiezan todos en 0
-   */
+  The values of each threshold of the KPIs are stored in the following states and
+  are initialized with a value of 0
+  */
   const [apropiadoValue, setApropiadoValue] = useState(0);
   const [tolerableValue, setTolerableValue] = useState(0);
   const [excesivoValue, setExcesivoValue] = useState(0);
 
   /*
-  Revisa si los valores de los umbrales de los KPIs son correctos y asigna el color correspondiente,
-  de lo contrario no se realiza un cambio. Además de que revisa que tipo de métrica es el KPI
-  para asignarle la lógica correcta para el cambio de color
+  * useEffect hook that checks if the values of the KPI thresholds are correct and assigns 
+  * the corresponding color, otherwise no change is made. In addition to checking what type 
+  * of metric the KPI is to assign the correct logic for the color change.
   */
   useEffect(() => {
     if (props.title === "Abandonment rate") {
@@ -169,14 +169,16 @@ const KpiCard = (props) => {
   }, [props.title, props.value, apropiadoValue, tolerableValue, excesivoValue]);
 
 /*
- * Función que evita que se actualice el estado al hacer click dentro de la notificación
+ * This avoids updating the state when clicking inside the notification
  */
+
   function handleOuterClick(event) {
     event.stopPropagation();
-  }
+  } 
 
 /*
- * Funciones que muestran y ocultan las notificaciones de los umbrales de los KPIs
+ * The following functions show the componente that allows to adjust the values of the KPI thresholds
+  * and the component that shows the current values of the thresholds.
  */
   
   const showCentroNotificacionesHandler = () => {

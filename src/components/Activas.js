@@ -43,7 +43,7 @@ const Value = styled.p`
 const Button = styled.button`
     width: 127px;
     height: 27px;
-    background: #00A2E3;
+    background: rgb(0,150,173);
     color:  white;
     font-size: 12px;
     font-weight: 600;
