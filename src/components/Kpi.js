@@ -1,8 +1,8 @@
-/** 
-* @author Ingrid Garcia Hernandez
-* Component that shows the KPIs on the main screen and assigns the corresponding color according to their value
-* It also allows to adjust the values of the KPIs thresholds and review the value of these thresholds.
-*/
+/**
+ * @author Ingrid Garcia Hernandez
+ * Component that shows the KPIs on the main screen and assigns the corresponding color according to their value
+ * It also allows to adjust the values of the KPIs thresholds and review the value of these thresholds.
+ */
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import "../styles/kpis.css";
@@ -55,10 +55,10 @@ const KpiCard = (props) => {
   const [excesivoValue, setExcesivoValue] = useState(0);
 
   /*
-  * useEffect hook that checks if the values of the KPI thresholds are correct and assigns 
-  * the corresponding color, otherwise no change is made. In addition to checking what type 
-  * of metric the KPI is to assign the correct logic for the color change.
-  */
+   * useEffect hook that checks if the values of the KPI thresholds are correct and assigns
+   * the corresponding color, otherwise no change is made. In addition to checking what type
+   * of metric the KPI is to assign the correct logic for the color change.
+   */
   useEffect(() => {
     if (props.title === "Abandonment rate") {
       if (
@@ -168,19 +168,19 @@ const KpiCard = (props) => {
     }
   }, [props.title, props.value, apropiadoValue, tolerableValue, excesivoValue]);
 
-/*
- * This avoids updating the state when clicking inside the notification
- */
+  /*
+   * This avoids updating the state when clicking inside the notification
+   */
 
   function handleOuterClick(event) {
     event.stopPropagation();
-  } 
+  }
 
-/*
- * The following functions show the componente that allows to adjust the values of the KPI thresholds
-  * and the component that shows the current values of the thresholds.
- */
-  
+  /*
+   * The following functions show the componente that allows to adjust the values of the KPI thresholds
+   * and the component that shows the current values of the thresholds.
+   */
+
   const showCentroNotificacionesHandler = () => {
     setShowModificarValores(!showModificarValores);
   };
@@ -271,7 +271,7 @@ const KpiCard = (props) => {
           showValoresActualesHandler();
         }}
       >
-        Actual values
+        Current values
       </button>
     </Card>
   );
