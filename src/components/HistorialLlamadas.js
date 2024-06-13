@@ -64,7 +64,7 @@ const Historial = ({ llamadas }) => {
     }
   }, [nombreAgente, setAgente]);
 
-  /* Download the agent's information every 10 seconds */
+  /* Download the agent's information every 15 seconds */
   useEffect(() => {
     descargarInfoAgente();
     const interval = setInterval(descargarInfoAgente, 15000);

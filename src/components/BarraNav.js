@@ -12,6 +12,7 @@ import { IconContext } from 'react-icons';
 import '../styles/barraNav.css';
 import { SidebarData } from './SidebarData';
 import logo from "../images/qualitas-logo.png";
+import logoSmall from "../images/qualitaslogosmall.png";
 
 /* Navigation bar component */
 function BarraNav() {
@@ -39,6 +40,9 @@ function BarraNav() {
               );
             })}
           </ul>
+          <div style={{ position: "absolute", bottom: "0"  }} >
+            <img src={logoSmall} alt="logo" className="logo" />
+          </div>
         </div>
         <nav className={verBarra ? "nav-menu activo" : "nav-menu"}>
           <ul className="nav-menu-elementos" >
