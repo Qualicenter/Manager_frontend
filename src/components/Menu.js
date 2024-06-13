@@ -4,9 +4,9 @@
  * @author Ingrid García
  * @author Aldehil Sánchez
  * @author Angel Armando Marquez Curiel
- * 
+ *
  * Component that displays the main menu of the application, it contains the KPIs, the active calls, the queue and the notifications center
-*/
+ */
 
 import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
@@ -53,7 +53,6 @@ const Column = styled.section`
 `;
 
 const Menu = () => {
-
   /*Sets and updates the sentiment analysis*/
   const [sentimientoInfo, setSentimiento] = useState("NEUTRAL");
   const [contactId, setContactId] = useState(null);
@@ -65,24 +64,36 @@ const Menu = () => {
   const [notificacionesAgente, setNotificacionesAgente] = useState([]);
 
   // Function to filter the notifications received by agent
-  const filtrarNotificaciones = useCallback((notificaciones) => {
-    let notificacionesFiltradas = {}
-    notificaciones.map((notificacion) => {
-      if (!notificacionesFiltradas[notificacion.Sender]) {
-      notificacionesFiltradas[notificacion.Sender] = {notificaciones:[notificacion], asistencia:false};
-      } else {
-      notificacionesFiltradas[notificacion.Sender].notificaciones.push(notificacion);
-      }
-      return notificacionesFiltradas;
-    });
-    const usernames = Object.keys(notificacionesFiltradas);
-    for (let i = 0; i < usernames.length; i++) {
-      if (notificacionesFiltradasG[usernames[i]] === undefined) {
-        notificacionesFiltradasG[usernames[i]] = {notificaciones:[], asistencia:false};
-      }
-      if (notificacionesFiltradasG[usernames[i]].notificaciones.length < notificacionesFiltradas[usernames[i]].notificaciones.length) {
-        notificacionesFiltradas[usernames[i]].asistencia = true;
-      }
+  const filtrarNotificaciones = useCallback(
+    (notificaciones) => {
+      let notificacionesFiltradas = {};
+      notificaciones.map((notificacion) => {
+        if (!notificacionesFiltradas[notificacion.Sender]) {
+          notificacionesFiltradas[notificacion.Sender] = {
+            notificaciones: [notificacion],
+            asistencia: false,
+          };
+        } else {
+          notificacionesFiltradas[notificacion.Sender].notificaciones.push(
+            notificacion
+          );
+        }
+        return notificacionesFiltradas;
+      });
+      const usernames = Object.keys(notificacionesFiltradas);
+      for (let i = 0; i < usernames.length; i++) {
+        if (notificacionesFiltradasG[usernames[i]] === undefined) {
+          notificacionesFiltradasG[usernames[i]] = {
+            notificaciones: [],
+            asistencia: false,
+          };
+        }
+        if (
+          notificacionesFiltradasG[usernames[i]].notificaciones.length <
+          notificacionesFiltradas[usernames[i]].notificaciones.length
+        ) {
+          notificacionesFiltradas[usernames[i]].asistencia = true;
+        }
 
         if (notificacionesFiltradasG[usernames[i]].asistencia === true) {
           notificacionesFiltradas[usernames[i]].asistencia = true;
@@ -108,17 +119,17 @@ const Menu = () => {
   const [servicio, setServicio] = useState(0);
   const [ocupacion, setOcupacion] = useState(0);
 
-    const descargarNotificaciones = useCallback(async () => {
-        console.log('descargando notificaciones')
-        const url = `http://localhost:8080/messages/getMessages?Date=${new Date().toString()}`;
-        try {
-        const res = await fetch(url);
-        const data = await res.json();
-        filtrarNotificaciones(data[0].Items); // Filter notifications after downloading them
-        } catch (error) {
-            console.log(error);
-        }
-    }, [filtrarNotificaciones])
+  const descargarNotificaciones = useCallback(async () => {
+    console.log("descargando notificaciones");
+    const url = `http://localhost:8080/messages/getMessages?Date=${new Date().toString()}`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      filtrarNotificaciones(data[0].Items); // Filter notifications after downloading them
+    } catch (error) {
+      console.log(error);
+    }
+  }, [filtrarNotificaciones]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -353,18 +364,38 @@ const Menu = () => {
 
   return (
     <Wrapper>
-       {/*If the transcription button is clicked, a little window with the transcription will appear*/}
-       {showVentanaTranscripcion && <ListaTranscripcion contactId={contactId} setSentimiento={setSentimiento} cancelar={showVentanaHandler} />}
-        {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificacionesAgente} funcShowTranscript={showVentanaHandler} />}
-    <Column className='side'>
-        <TitleComponent text='Active Calls' />
-        <div className='cards-wrapper'>
+      {/*If the transcription button is clicked, a little window with the transcription will appear*/}
+      {showVentanaTranscripcion && (
+        <ListaTranscripcion
+          contactId={contactId}
+          setSentimiento={setSentimiento}
+          cancelar={showVentanaHandler}
+        />
+      )}
+      {showCentroNotificaciones && (
+        <CentroNotif
+          cancelar={showCentroNotificacionesHandler}
+          notificaciones={notificacionesAgente}
+          funcShowTranscript={showVentanaHandler}
+        />
+      )}
+      <Column className="side">
+        <TitleComponent text="Active Calls" />
+        <div className="cards-wrapper">
           {/*Displays all the active calls in the screen*/}
-          <LlamadaActivaCard sentimientoInfo={sentimientoInfo} setContactId={setContactId} funcVentanaTranscripcion={showVentanaHandler} notificaciones={notificacionesFiltradasG} setNotificaciones={setNotificacionesFiltradas} setNotificacionesAgente={setNotificacionesAgente} showCentroNotificacionesHandler={showCentroNotificacionesHandler}/>
+          <LlamadaActivaCard
+            sentimientoInfo={sentimientoInfo}
+            setContactId={setContactId}
+            funcVentanaTranscripcion={showVentanaHandler}
+            notificaciones={notificacionesFiltradasG}
+            setNotificaciones={setNotificacionesFiltradas}
+            setNotificacionesAgente={setNotificacionesAgente}
+            showCentroNotificacionesHandler={showCentroNotificacionesHandler}
+          />
         </div>
       </Column>
       <Column className="center">
-        <TitleComponent text="Línea de Espera" />
+        <TitleComponent text="Call Queue" />
         <QueueVisualizer />
       </Column>
       <Column className="side">
