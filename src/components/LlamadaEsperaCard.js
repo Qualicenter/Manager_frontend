@@ -15,67 +15,78 @@ const Card = styled.div`
     margin-bottom: 20px;
 `;
 
-const Attribute = styled.h3`
+const Attribute = styled.div`
     font-size: 16px;
     font-weight: 600;
     display: flex;
     gap: 5px;
 `;
 
+const ClientName = styled.span`
+    font-weight: normal;
+`;
+
 const Value = styled.p`
     font-size: 16px;
     font-weight: 400;
+    color: ${props => props.timerColor || "black"};
 `;
 
-// Component to visualize an individual call in queue with the client name and the time
 const LlamadaEsperaCard = (props) => {
     const [elapsedTime, setElapsedTime] = useState('');
+    const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
-    // Effect hook to calculate elapsed time
     useEffect(() => {
         const calculateElapsedTime = () => {
-            // Assuming queueStartTime is available in props
             const queueStartTime = props.timestamp;
-
-            // If queueStartTime is not null or undefined
             if (queueStartTime) {
-                // Transform the queueStartTime string
                 const formattedQueueStartTime = queueStartTime.replace('T', ' ') + ' UTC';
-
-                // Create Date objects
                 const localQueueStartTime = new Date(formattedQueueStartTime);
                 const now = new Date();
-                now.setSeconds(now.getSeconds() + 3); // Add 3 seconds to account for the delay
+                now.setSeconds(now.getSeconds() + 6); // Adding 3 seconds to account for delay
                 
-                // Calculate the time difference in milliseconds
                 const timeDifference = now - localQueueStartTime;
+                const secondsElapsed = Math.floor(timeDifference / 1000);
 
-                // Convert timeDifference to hours, minutes, and seconds
+                // Update elapsed time state
+                setElapsedSeconds(secondsElapsed);
+
                 const hours = Math.floor(timeDifference / (1000 * 60 * 60));
                 const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-                // Update the elapsed time state
                 setElapsedTime(`${hours}h ${minutes}m ${seconds}s`);
             } else {
-                setElapsedTime(''); // Reset elapsedTime if queueStartTime is null
+                setElapsedTime('');
+                setElapsedSeconds(0);
             }
         };
 
-        // Calculate elapsed time initially
         calculateElapsedTime();
 
-        // Update elapsed time every second
         const timerInterval = setInterval(calculateElapsedTime, 1000);
 
-        // Cleanup interval on component unmount
         return () => clearInterval(timerInterval);
     }, [props.timestamp]);
 
+    // Determine timer color based on elapsed seconds
+    let timerColor = "black";
+    if (elapsedSeconds <= 20) {
+        timerColor = "green";
+    } else if (elapsedSeconds > 20 && elapsedSeconds <= 30) {
+        timerColor = "orange";
+    } else {
+        timerColor = "red";
+    }
+
     return (
         <Card>
-            <Attribute>Client Name: <Value>{props.clientName}</Value></Attribute>
-            <Attribute>Waiting time: <Value style={{color: "red"}}>{elapsedTime}</Value></Attribute>
+            <Attribute>
+                Client Name: <ClientName>{props.clientName}</ClientName>
+            </Attribute>
+            <Attribute>
+                Waiting time: <Value timerColor={timerColor}>{elapsedTime}</Value>
+            </Attribute>
         </Card>
     );
 };

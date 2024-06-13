@@ -81,7 +81,7 @@ const QueueVisualizer = () => {
     // Generate timestamps for fake contacts once when the component mounts
     const generateTimestamp = (multiplier) => {
       const initialTimestamp = Date.now();
-      const timestamp = new Date(initialTimestamp + multiplier * -60000).toISOString();
+      const timestamp = new Date(initialTimestamp + multiplier * -5000).toISOString();
       return timestamp;
     };
 
