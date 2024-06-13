@@ -377,7 +377,7 @@ en caso de no haberlos, agrega estos datos a la base de datos, con la informaci√
        {showVentanaTranscripcion && <ListaTranscripcion contactId={contactId} setSentimiento={setSentimiento} cancelar={showVentanaHandler} />}
         {showCentroNotificaciones && <CentroNotif cancelar={showCentroNotificacionesHandler} notificaciones={notificacionesAgente} funcShowTranscript={showVentanaHandler} />}
     <Column className='side'>
-        <TitleComponent text='Llamadas Activas' />
+        <TitleComponent text='Active Calls' />
         <div className='cards-wrapper'>
           {/*Displays all the active calls in the screen*/}
           <LlamadaActivaCard sentimientoInfo={sentimientoInfo} setContactId={setContactId} funcVentanaTranscripcion={showVentanaHandler} notificaciones={notificacionesFiltradasG} setNotificaciones={setNotificacionesFiltradas} setNotificacionesAgente={setNotificacionesAgente} showCentroNotificacionesHandler={showCentroNotificacionesHandler}/>
