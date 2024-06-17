@@ -19,7 +19,7 @@
 }
 
 .historial button{
-    background-color: rgb(0,150,173);
+    background-color: #0096AE;
     color: white;
     border: none;
     border-radius: 5px;
@@ -31,7 +31,7 @@
 
 .filtro {
     position: absolute;
-    transform: translateX(-50%);
+    right: 0;
 }
 
 .titulo {
