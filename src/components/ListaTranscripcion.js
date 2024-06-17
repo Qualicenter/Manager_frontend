@@ -20,7 +20,7 @@ const ListaTranscripcion = (props) => {
   const {setSentimiento} = props;
   const {contactId} = props;
   const [arrTranscripcion, setTranscripcion] = useState([]);
-  const [url] = useState("http://localhost:8080/agente/consultaTranscripcion2");
+  const [url] = useState(`${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/agente/consultaTranscripcion2`);
 
   /*Function to fetch the transcription of the conversation*/
   const descargar = useCallback(async () => {

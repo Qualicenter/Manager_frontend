@@ -18,7 +18,7 @@ const QueueVisualizer = () => {
     // Fetch active calls in queue from backend
     const fetchActiveCallsInQueue = async () => {
       try {
-        const response = await fetch("http://localhost:8080/queuedata/getActiveCallsInQueue");
+        const response = await fetch(`${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/queuedata/getActiveCallsInQueue`);
         if (!response.ok) {
           throw new Error('Failed to fetch');
         }
@@ -47,7 +47,7 @@ const QueueVisualizer = () => {
     // Fetch client name of the active calls in queue from the server
     const fetchClientName = async (contactId) => {
       try {
-        const response = await fetch(`http://localhost:8080/agente/consultaCustomerInfo/${contactId}`);
+        const response = await fetch(`${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/agente/consultaCustomerInfo/${contactId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch');
         }
@@ -62,7 +62,7 @@ const QueueVisualizer = () => {
     // Update disconnected calls in the queue
     const updateDisconnectedCalls = async () => {
       try {
-        await fetch("http://localhost:8080/queuedata/updateDisconnectedCalls", { method: 'PUT' });
+        await fetch(`${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/queuedata/updateDisconnectedCalls`, { method: 'PUT' });
       } catch (err) {
         console.error("Error updating disconnected calls:", err);
       }

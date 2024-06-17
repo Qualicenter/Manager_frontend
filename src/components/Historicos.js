@@ -160,12 +160,6 @@ const Historicos = () => {
     timeLabels
   );
 
-  /*
-   * Variables that store the location and port of the server.
-   */
-  const lugar = "localhost";
-  const puerto = "8080";
-
   /**
    * useEffect hook that allows to update the KPI's historical data according to the period selected by the user.
    */
@@ -177,12 +171,7 @@ const Historicos = () => {
        * so that the same amount of data can be displayed in all the graphs.
        */
       const resAbandono = await fetch(
-        "http://" +
-          lugar +
-          ":" +
-          puerto +
-          "/historico/consultaAbandono/?start=" +
-          value
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/historico/consultaAbandono/?start=${value}`
       );
       const dataAbandono = await resAbandono.json();
 
@@ -205,12 +194,7 @@ const Historicos = () => {
        * Data obtained from the service level
        */
       const resNivel = await fetch(
-        "http://" +
-          lugar +
-          ":" +
-          puerto +
-          "/historico/consultaServicio/?start=" +
-          value
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/historico/consultaServicio/?start=${value}`
       );
       const dataNivel = await resNivel.json();
       const valNivel = dataNivel.map((el) => el[0]);
@@ -220,12 +204,7 @@ const Historicos = () => {
        * Data obtained from the occupancy
        */
       const resOc = await fetch(
-        "http://" +
-          lugar +
-          ":" +
-          puerto +
-          "/historico/consultaOcupacion/?start=" +
-          value
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/historico/consultaOcupacion/?start=${value}`
       );
       const dataOc = await resOc.json();
       const valOc = dataOc.map((el) => el[0]);
@@ -235,12 +214,7 @@ const Historicos = () => {
        * Data obtained from the contact duration
        */
       const resTiempo = await fetch(
-        "http://" +
-          lugar +
-          ":" +
-          puerto +
-          "/historico/consultaTiempo/?start=" +
-          value
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/historico/consultaTiempo/?start=${value}`
       );
       const dataTiempo = await resTiempo.json();
       const valTiempo = dataTiempo.map((el) => el[0]);
@@ -250,12 +224,7 @@ const Historicos = () => {
        * Data obtained from the customer hold time
        */
       const res = await fetch(
-        "http://" +
-          lugar +
-          ":" +
-          puerto +
-          "/historico/consultaEspera/?start=" +
-          value
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/historico/consultaEspera/?start=${value}`
       );
       const data = await res.json();
       const valVel = data.map((el) => el[0]);
@@ -278,12 +247,7 @@ const Historicos = () => {
       setTimeLabels(generarTiempo(value));
 
       const resAbandono = await fetch(
-        "http://" +
-          lugar +
-          ":" +
-          puerto +
-          "/historico/abandonoMn/?cantidad=" +
-          value
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/historico/abandonoMn/?cantidad=${value}`
       );
       const dataAbandono = await resAbandono.json();
       const valAbandono = dataAbandono.map((el) => el[0]);
@@ -292,48 +256,28 @@ const Historicos = () => {
       setInfoAbandono(valAbandono.reverse());
 
       const resNivel = await fetch(
-        "http://" +
-          lugar +
-          ":" +
-          puerto +
-          "/historico/servicioMn/?cantidad=" +
-          value
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/historico/servicioMn/?cantidad=${value}`
       );
       const dataNivel = await resNivel.json();
       const valNivel = dataNivel.map((el) => el[0]);
       setInfoNivel(valNivel.reverse());
 
       const resOc = await fetch(
-        "http://" +
-          lugar +
-          ":" +
-          puerto +
-          "/historico/ocupacionMn/?cantidad=" +
-          value
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/historico/ocupacionMn/?cantidad=${value}`
       );
       const dataOc = await resOc.json();
       const valOc = dataOc.map((el) => el[0]);
       setInfoOc(valOc.reverse());
 
       const resTiempo = await fetch(
-        "http://" +
-          lugar +
-          ":" +
-          puerto +
-          "/historico/tiempoMn/?cantidad=" +
-          value
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/historico/tiempoMn/?cantidad=${value}`
       );
       const dataTiempo = await resTiempo.json();
       const valTiempo = dataTiempo.map((el) => el[0]);
       setInfoTiempo(valTiempo.reverse());
 
       const res = await fetch(
-        "http://" +
-          lugar +
-          ":" +
-          puerto +
-          "/historico/esperaMn/?cantidad=" +
-          value
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/historico/esperaMn/?cantidad=${value}`
       );
       const data = await res.json();
       const valVel = data.map((el) => el[0]);

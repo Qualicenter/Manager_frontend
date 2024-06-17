@@ -121,7 +121,7 @@ const Menu = () => {
 
   const descargarNotificaciones = useCallback(async () => {
     console.log("descargando notificaciones");
-    const url = `http://localhost:8080/messages/getMessages?Date=${new Date().toString()}`;
+    const url = `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/messages/getMessages?Date=${new Date().toString()}`;
     try {
       const res = await fetch(url);
       const data = await res.json();
@@ -139,10 +139,6 @@ const Menu = () => {
     return () => clearInterval(intervalId);
   }, [descargarNotificaciones]);
 
-  /* Variables to specify the location and port of the server */
-  const lugar = "localhost";
-  const puerto = "8080";
-
   /**
    * Function that processes and sends the KPIs to the database, first it gets the KPIs from Amazon Connect,
    * then it shows them on the screen, and finally it sends them to the database in Dynamo DB.
@@ -151,7 +147,7 @@ const Menu = () => {
    */
   const procesarYEnviarKPIs = async () => {
     try {
-      const res = await fetch("http://" + lugar + ":" + puerto + "/kpis/dia");
+      const res = await fetch(`${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/kpis/dia`);
       const data = await res.json();
 
       const kpis = [];
@@ -233,7 +229,7 @@ const Menu = () => {
        */
 
       const pet = await fetch(
-        "http://" + lugar + ":" + puerto + "/kpis/crearMinKPI",
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/kpis/crearMinKPI`,
         options
       );
       if (!pet.ok) {
@@ -258,7 +254,7 @@ const Menu = () => {
   const revisarDia = async () => {
     try {
       const res = await fetch(
-        "http://" + lugar + ":" + puerto + "/historico/consultaDia"
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/historico/consultaDia`
       );
       const data = await res.json();
 
@@ -316,7 +312,7 @@ const Menu = () => {
           },
         };
         const pet = await fetch(
-          "http://" + lugar + ":" + puerto + "/kpis/multiplesKPIS",
+          `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/kpis/multiplesKPIS`,
           options
         );
         if (!pet.ok) {

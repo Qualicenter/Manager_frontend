@@ -26,7 +26,7 @@ const Datos = ({ info }) => {
     }
     try {
       const response = await fetch(
-        `http://localhost:8080/agente/infoAgente/${nombreAgente}`
+        `${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/agente/infoAgente/${nombreAgente}`
       );
       if (!response.ok) {
         throw new Error("No se pudo conectar con el servidor");

@@ -17,9 +17,6 @@ function Encuesta() {
   const [mostrarPregunta, setMostrarPregunta] = useState(true);
   const [puntajesAcumulados, setPuntajesAcumulados] = useState([]);
 
-  const lugar = "localhost";
-  const puerto = "8080";
-
   /**Function to handle scoring based on answers*/
   function handlePuntuacion(isVerdad, isPart, isFalso) {
     if (isVerdad) {
@@ -80,7 +77,7 @@ function Encuesta() {
         };
 
         try {
-          const enviarC = await fetch("http://" + lugar + ":" + puerto + "/EncuestaModel/postEncuesta", enviar);
+          const enviarC = await fetch(`${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/EncuestaModel/postEncuesta`, enviar);
           if (!enviarC.ok) {
             const text = await enviarC.text();
             console.log("Error en la respuesta del servidor", enviarC.status, enviarC.statusText, text);

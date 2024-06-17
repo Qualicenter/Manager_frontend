@@ -18,7 +18,7 @@ const HistorialTranscripcion = ( { contactId }) => {
   /* Function to download the transcription of a call */
   const descargar = useCallback(async () => {
     try {
-      const response = await fetch(`http://localhost:8080/agente/consultaTranscripcion2/${contactId}`);
+      const response = await fetch(`${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/agente/consultaTranscripcion2/${contactId}`);
       const data = await response.json();
       const arrNuevo = data[0].Segments.map((segment) => {
         const transcripcion = {

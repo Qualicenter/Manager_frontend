@@ -124,7 +124,7 @@ const LlamadaActivaCard = (props) => {
   const {sentimientoInfo} = props;
   const [arrLlamadasActivas, setArrLlamadasActivas] = useState([]);
   const {setContactId} = props;
-  const [url] = useState("http://localhost:8080/agente/consultaContacts");
+  const [url] = useState(`${process.env.REACT_APP_FETCH_URL ? process.env.REACT_APP_FETCH_URL : 'http://localhost:8080'}/agente/consultaContacts`);
   const arrLlamadasPrev = useRef();
   const notificaciones = props.notificaciones;
 
